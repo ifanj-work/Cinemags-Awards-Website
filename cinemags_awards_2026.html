@@ -121,7 +121,7 @@
     }
   </style>
 </head>
-<body class="relative min-h-screen">
+<body class="relative min-h-screen pb-20">
 
   <!-- HEADER NAVIGATION WITH INFINITY RED CLOTH CANVAS BACKGROUND -->
   <header class="sticky top-0 z-40 w-full border-b border-white/10 overflow-hidden backdrop-blur-md bg-neutral-950/80">
@@ -340,20 +340,20 @@
     </div>
   </section>
 
-  <!-- STICKY BOTTOM VOTING SUMMARY BAR FOR MOBILE & DESKTOP -->
-  <div id="sticky-vote-bar" class="fixed bottom-0 left-0 right-0 z-30 bg-neutral-950/95 border-t border-amber-500/40 backdrop-blur-lg p-4 shadow-2xl transition-transform duration-300 translate-y-full">
+  <!-- ACCESSIBLE STICKY BOTTOM VOTING SUMMARY BAR -->
+  <div id="sticky-vote-bar" class="fixed bottom-0 left-0 right-0 z-30 bg-neutral-950/95 border-t border-amber-500/40 backdrop-blur-lg p-3 sm:p-4 shadow-2xl transition-all">
     <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
       <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold">
+        <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold text-xs sm:text-sm border border-amber-500/30">
           <span id="sticky-count">0</span>
         </div>
         <div>
-          <div class="text-xs font-bold text-white sm:text-sm">Suara Terpilih</div>
-          <div class="text-[10px] sm:text-xs text-gray-400" id="sticky-desc">Pilihlah setidaknya 1 kategori</div>
+          <div class="text-xs font-bold text-white sm:text-sm">Ringkasan Voting Suara</div>
+          <div class="text-[10px] sm:text-xs text-gray-400" id="sticky-desc">Pilihlah nominee favoritmu pada kategori di atas</div>
         </div>
       </div>
 
-      <button onclick="openReviewModal()" class="btn-crimson px-6 py-2.5 text-xs sm:text-sm flex items-center gap-2 shadow-lg">
+      <button id="sticky-submit-btn" onclick="openReviewModal()" class="btn-crimson px-5 py-2 sm:px-6 sm:py-2.5 text-xs sm:text-sm flex items-center gap-2 shadow-lg">
         <span class="material-symbols-outlined text-base">rate_review</span> Tinjau & Kirim Vote
       </button>
     </div>
@@ -661,12 +661,13 @@
       document.getElementById("voted-count-badge").innerText = `${count}/8 Kategori`;
       document.getElementById("sticky-count").innerText = count;
       
-      const stickyBar = document.getElementById("sticky-vote-bar");
+      const stickyBtn = document.getElementById("sticky-submit-btn");
       if (count > 0) {
-        stickyBar.classList.remove("translate-y-full");
         document.getElementById("sticky-desc").innerText = `${count} dari 8 kategori telah Anda pilih`;
+        stickyBtn.removeAttribute("disabled");
+        stickyBtn.classList.remove("opacity-50", "cursor-not-allowed");
       } else {
-        stickyBar.classList.add("translate-y-full");
+        document.getElementById("sticky-desc").innerText = `Pilihlah nominee favoritmu pada kategori di atas`;
       }
 
       renderPills();
