@@ -1,7 +1,5 @@
 # Cinemags Awards 2026 - Official Event & Voting Platform
 
-![Cinemags Awards 2026 Banner](assets/banner.png)
-
 Official web platform and interactive public voting application for **Cinemags Awards 2026**, an annual appreciation event initiated by Cinemags to give recognition to the Indonesian film industry.
 
 Slogan: *"Tonton Terus Film Indonesia"*  
