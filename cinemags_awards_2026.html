@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cinemags Awards 2026 - Tonton Terus Film Indonesia</title>
+  
+  <!-- SEO & Social Meta Tags -->
+  <meta name="description" content="Situs resmi pemungutan suara Cinemags Awards 2026. Berikan apresiasi dan dukung film serta insan perfilman terbaik Indonesia.">
+  <meta property="og:title" content="Cinemags Awards 2026 - Voting Resmi Perfilman Indonesia">
+  <meta property="og:description" content="Mari dukung film Indonesia favoritmu di Cinemags Awards 2026. Vote sekarang tanpa ribet signup!">
+  
+  <!-- Fonts: Federo (Display Serif) & DM Sans (UI Body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Federo&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+  
+  <!-- Google Material Symbols (Outlined) Icons -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+
+  <!-- Tailwind CSS v4 & DaisyUI v5 CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@5/daisyui.css" rel="stylesheet" type="text/css" />
+
+  <!-- GSAP Animation Platform -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <style>
+    :root {
+      --font-federo: 'Federo', Georgia, serif;
+      --font-dmsans: 'DM Sans', sans-serif;
+      --color-canvas: #0d0d0d;
+      --color-elevated: #212121;
+      --color-gold: #d29e2f;
+      --color-gold-dark: #7d5912;
+      --color-crimson: #bf2121;
+      --color-crimson-hover: #dc3737;
+      --color-on-gold: #08090c;
+    }
+
+    body {
+      font-family: var(--font-dmsans);
+      background-color: var(--color-canvas);
+      color: #ededed;
+      overflow-x: hidden;
+    }
+
+    .font-federo {
+      font-family: var(--font-federo);
+    }
+
+    .text-gold-gradient {
+      background: linear-gradient(135deg, #7d5912 0%, #d29e2f 50%, #7d5912 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .bg-gold-gradient {
+      background: linear-gradient(135deg, #7d5912 0%, #d29e2f 50%, #7d5912 100%);
+    }
+
+    .btn-gold {
+      background: linear-gradient(135deg, #7d5912 0%, #d29e2f 50%, #7d5912 100%);
+      color: #08090c; /* 9.1:1 WCAG AAA Contrast */
+      font-weight: 700;
+      border-radius: 5px;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .btn-gold:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 14px rgba(210, 158, 47, 0.45);
+    }
+
+    .btn-crimson {
+      background-color: #bf2121;
+      color: #ffffff;
+      font-weight: 700;
+      border-radius: 5px;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .btn-crimson:hover {
+      background-color: #dc3737;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 14px rgba(191, 33, 33, 0.45);
+    }
+
+    .glass-card {
+      background: rgba(33, 33, 33, 0.85);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+    }
+
+    .glass-card-selected {
+      background: rgba(210, 158, 47, 0.12);
+      backdrop-filter: blur(14px);
+      border: 1px solid #d29e2f;
+      box-shadow: 0 0 20px rgba(210, 158, 47, 0.35);
+      border-radius: 10px;
+    }
+
+    .glass-modal {
+      background: rgba(24, 24, 24, 0.95);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(210, 158, 47, 0.4);
+      border-radius: 16px;
+    }
+
+    /* Red ambient glow behind hero */
+    .hero-red-ambient {
+      background: radial-gradient(circle, rgba(191, 33, 33, 0.35) 0%, rgba(13, 13, 13, 0) 70%);
+    }
+
+    /* Focus visible accessibility outline */
+    :focus-visible {
+      outline: 2px solid #d29e2f;
+      outline-offset: 3px;
+    }
+  </style>
+</head>
+<body class="relative min-h-screen">
+
+  <!-- HEADER NAVIGATION WITH INFINITY RED CLOTH CANVAS BACKGROUND -->
+  <header class="sticky top-0 z-40 w-full border-b border-white/10 overflow-hidden backdrop-blur-md bg-neutral-950/80">
+    <!-- Canvas for Red Cloth & Particle Loop -->
+    <canvas id="header-cloth-canvas" class="absolute inset-0 w-full h-full pointer-events-none z-0 opacity-60"></canvas>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
+      <!-- Brand Logo -->
+      <a href="#" class="flex items-center gap-3">
+        <img src="assets/Logo.png" alt="Cinemags Awards Logo" class="h-10 sm:h-12 w-auto object-contain">
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-gray-300">
+        <a href="#about" class="hover:text-amber-400 transition-colors flex items-center gap-1">
+          <span class="material-symbols-outlined text-sm">info</span> Tentang Event
+        </a>
+        <a href="#how-to-vote" class="hover:text-amber-400 transition-colors flex items-center gap-1">
+          <span class="material-symbols-outlined text-sm">help_outline</span> Cara Vote
+        </a>
+        <a href="#categories" class="hover:text-amber-400 transition-colors flex items-center gap-1">
+          <span class="material-symbols-outlined text-sm">how_to_vote</span> Kategori Vote
+        </a>
+        <a href="#terms" class="hover:text-amber-400 transition-colors flex items-center gap-1">
+          <span class="material-symbols-outlined text-sm">gavel</span> Syarat & Ketentuan
+        </a>
+      </nav>
+
+      <!-- Header CTA Button -->
+      <a href="#categories" class="btn-gold px-5 py-2.5 text-xs sm:text-sm flex items-center gap-2 shadow-lg">
+        <span class="material-symbols-outlined text-base">how_to_vote</span> Vote Sekarang
+      </a>
+    </div>
+  </header>
+
+  <!-- HERO SECTION WITH RED AMBIENT LOOP & GSAP TROPHY -->
+  <section class="relative min-h-[90vh] flex items-center justify-center pt-8 pb-16 px-4 overflow-hidden">
+    <!-- Red Looping Ambient Glow -->
+    <div class="hero-red-ambient absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] sm:w-[900px] h-[600px] sm:h-[900px] rounded-full pointer-events-none z-0"></div>
+
+    <div class="relative z-10 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+      
+      <!-- Left Column: Title, Subtitle, & Countdown -->
+      <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+        
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-bold uppercase tracking-wider">
+          <span class="material-symbols-outlined text-sm">stars</span> Ajang Penghargaan Perfilman Indonesia
+        </div>
+
+        <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold text-white tracking-tight leading-tight">
+          CINEMAGS AWARDS <br>
+          <span class="font-federo text-gold-gradient text-5xl sm:text-7xl lg:text-8xl">2026</span>
+        </h1>
+
+        <p class="text-sm sm:text-base text-gray-300 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+          Wadah apresiasi dan pengakuan tertinggi bagi insentif kreator, aktor, sutradara, dan karya film terbaik Indonesia. Pilihlah nominee favoritmu sekarang tanpa proses registrasi yang rumit!
+        </p>
+
+        <!-- COUNTDOWN TIMER -->
+        <div class="pt-4 space-y-2">
+          <div class="text-xs text-amber-400 font-bold uppercase tracking-widest flex items-center justify-center lg:justify-start gap-1">
+            <span class="material-symbols-outlined text-sm">timer</span> Pemungutan Suara Berakhir Dalam:
+          </div>
+          <div class="grid grid-cols-4 gap-3 max-w-md mx-auto lg:mx-0 text-center font-federo">
+            <div class="p-3 bg-neutral-900/90 rounded-xl border border-white/10">
+              <span id="cd-days" class="text-2xl sm:text-4xl font-bold text-amber-400 block">45</span>
+              <span class="text-[10px] text-gray-400 uppercase font-sans">Hari</span>
+            </div>
+            <div class="p-3 bg-neutral-900/90 rounded-xl border border-white/10">
+              <span id="cd-hours" class="text-2xl sm:text-4xl font-bold text-amber-400 block">18</span>
+              <span class="text-[10px] text-gray-400 uppercase font-sans">Jam</span>
+            </div>
+            <div class="p-3 bg-neutral-900/90 rounded-xl border border-white/10">
+              <span id="cd-minutes" class="text-2xl sm:text-4xl font-bold text-amber-400 block">32</span>
+              <span class="text-[10px] text-gray-400 uppercase font-sans">Menit</span>
+            </div>
+            <div class="p-3 bg-neutral-900/90 rounded-xl border border-white/10">
+              <span id="cd-seconds" class="text-2xl sm:text-4xl font-bold text-amber-400 block">09</span>
+              <span class="text-[10px] text-gray-400 uppercase font-sans">Detik</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hero CTAs -->
+        <div class="pt-4 flex flex-wrap items-center justify-center lg:justify-start gap-4">
+          <a href="#categories" class="btn-gold px-8 py-3.5 text-sm sm:text-base flex items-center gap-2 shadow-xl">
+            <span class="material-symbols-outlined text-lg">emoji_events</span> Mulai Pilih Nominee
+          </a>
+          <a href="#about" class="btn-crimson px-6 py-3.5 text-sm sm:text-base flex items-center gap-2 shadow-xl">
+            <span class="material-symbols-outlined text-lg">play_circle</span> Pelajari Lebih Lanjut
+          </a>
+        </div>
+
+      </div>
+
+      <!-- Right Column: GSAP Animated Trophy Asset -->
+      <div class="lg:col-span-5 flex justify-center relative">
+        <div class="relative w-64 sm:w-80 lg:w-96">
+          <img id="hero-trophy" src="assets/Trophy.png" alt="Cinemags Awards Trophy" class="w-full h-auto object-contain filter drop-shadow-[0_20px_30px_rgba(210,158,47,0.4)]">
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ABOUT SECTION -->
+  <section id="about" class="py-16 px-4 bg-neutral-950/60 border-t border-b border-white/10">
+    <div class="max-w-7xl mx-auto space-y-8">
+      <div class="text-center max-w-3xl mx-auto space-y-3">
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white flex items-center justify-center gap-2">
+          <span class="material-symbols-outlined text-amber-400 text-3xl">local_movies</span>
+          Tentang Cinemags Awards 2026
+        </h2>
+        <p class="text-sm text-gray-300 leading-relaxed">
+          Cinemags Awards 2026 mengusung tema <strong>"Tonton Terus Film Indonesia"</strong>. Ajang penghargaan ini merayakan karya film nasional pilihan publik dan juri yang dirilis antara 1 Januari 2025 hingga 30 Juni 2026.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="glass-card p-6 space-y-3 border-t-2 border-t-amber-400">
+          <div class="w-10 h-10 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center">
+            <span class="material-symbols-outlined">diversity_3</span>
+          </div>
+          <h3 class="text-lg font-bold text-white">Voting Publik Murni</h3>
+          <p class="text-xs text-gray-400 leading-relaxed">Pemenang kategori favorit ditentukan 100% oleh suara penonton film Indonesia tanpa rekayasa.</p>
+        </div>
+
+        <div class="glass-card p-6 space-y-3 border-t-2 border-t-red-400">
+          <div class="w-10 h-10 rounded-lg bg-red-500/20 text-red-400 flex items-center justify-center">
+            <span class="material-symbols-outlined">bolt</span>
+          </div>
+          <h3 class="text-lg font-bold text-white">Tanpa Registrasi Rumit</h3>
+          <p class="text-xs text-gray-400 leading-relaxed">Cukup isi Nama & Email saat pengiriman vote akhir. Tidak perlu mengingat password atau konfirmasi SMS.</p>
+        </div>
+
+        <div class="glass-card p-6 space-y-3 border-t-2 border-t-amber-400">
+          <div class="w-10 h-10 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center">
+            <span class="material-symbols-outlined">confirmation_number</span>
+          </div>
+          <h3 class="text-lg font-bold text-white">Pass Tiket Digital</h3>
+          <p class="text-xs text-gray-400 leading-relaxed">Dapatkan tiket apresiasi digital bertanda unik setelah memilih yang dapat dibagikan ke media sosial.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW TO VOTE SECTION -->
+  <section id="how-to-vote" class="py-16 px-4">
+    <div class="max-w-7xl mx-auto space-y-10">
+      <div class="text-center max-w-2xl mx-auto space-y-2">
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white flex items-center justify-center gap-2">
+          <span class="material-symbols-outlined text-amber-400 text-3xl">route</span>
+          4 Langkah Mudah Memberikan Suara
+        </h2>
+        <p class="text-xs sm:text-sm text-gray-400">Ikuti panduan ringkas berikut untuk memilih karya film favoritmu.</p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="glass-card p-5 space-y-3 relative">
+          <span class="absolute top-4 right-4 text-3xl font-federo font-bold text-amber-500/20">01</span>
+          <span class="material-symbols-outlined text-amber-400 text-2xl">category</span>
+          <h4 class="text-base font-bold text-white">1. Pilih Kategori</h4>
+          <p class="text-xs text-gray-400">Gunakan tab filter kategori di bawah untuk menjelajahi 8 kategori penghargaan.</p>
+        </div>
+
+        <div class="glass-card p-5 space-y-3 relative">
+          <span class="absolute top-4 right-4 text-3xl font-federo font-bold text-amber-500/20">02</span>
+          <span class="material-symbols-outlined text-amber-400 text-2xl">touch_app</span>
+          <h4 class="text-base font-bold text-white">2. Pilih Nominee</h4>
+          <p class="text-xs text-gray-400">Klik kartu nominee atau tonton trailer resmi terlebih dahulu di modal detail.</p>
+        </div>
+
+        <div class="glass-card p-5 space-y-3 relative">
+          <span class="absolute top-4 right-4 text-3xl font-federo font-bold text-amber-500/20">03</span>
+          <span class="material-symbols-outlined text-amber-400 text-2xl">badge</span>
+          <h4 class="text-base font-bold text-white">3. Tinjau & Isi Data</h4>
+          <p class="text-xs text-gray-400">Buka drawer ringkasan, isi Nama dan Email Anda untuk memverifikasi suara.</p>
+        </div>
+
+        <div class="glass-card p-5 space-y-3 relative">
+          <span class="absolute top-4 right-4 text-3xl font-federo font-bold text-amber-500/20">04</span>
+          <span class="material-symbols-outlined text-amber-400 text-2xl">share</span>
+          <h4 class="text-base font-bold text-white">4. Bagikan Tiket</h4>
+          <p class="text-xs text-gray-400">Unduh Digital Voter Pass dan bagikan dukunganmu ke WhatsApp / Twitter.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VOTING CATEGORIES & NOMINEES SECTION -->
+  <section id="categories" class="py-16 px-4 bg-neutral-950/80 border-t border-white/10">
+    <div class="max-w-7xl mx-auto space-y-8">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+        <div>
+          <span class="text-xs text-amber-400 font-bold uppercase tracking-wider block mb-1">Interactive Voting Wizard</span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-white flex items-center gap-2">
+            <span class="material-symbols-outlined text-amber-400">how_to_vote</span> Kategori Nominee 2026
+          </h2>
+        </div>
+        <div class="text-xs text-gray-400">
+          Progres Voting: <span id="voted-count-badge" class="font-bold text-amber-400">0/8 Kategori</span> Terpilih
+        </div>
+      </div>
+
+      <!-- Category Filter Pills (Horizontal Scrollable) -->
+      <div class="flex items-center gap-2 overflow-x-auto pb-3 no-scrollbar" id="category-pills">
+        <!-- Dynamically rendered by JavaScript -->
+      </div>
+
+      <!-- Nominees Grid -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6" id="nominees-grid">
+        <!-- Dynamically rendered by JavaScript -->
+      </div>
+
+    </div>
+  </section>
+
+  <!-- STICKY BOTTOM VOTING SUMMARY BAR FOR MOBILE & DESKTOP -->
+  <div id="sticky-vote-bar" class="fixed bottom-0 left-0 right-0 z-30 bg-neutral-950/95 border-t border-amber-500/40 backdrop-blur-lg p-4 shadow-2xl transition-transform duration-300 translate-y-full">
+    <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold">
+          <span id="sticky-count">0</span>
+        </div>
+        <div>
+          <div class="text-xs font-bold text-white sm:text-sm">Suara Terpilih</div>
+          <div class="text-[10px] sm:text-xs text-gray-400" id="sticky-desc">Pilihlah setidaknya 1 kategori</div>
+        </div>
+      </div>
+
+      <button onclick="openReviewModal()" class="btn-crimson px-6 py-2.5 text-xs sm:text-sm flex items-center gap-2 shadow-lg">
+        <span class="material-symbols-outlined text-base">rate_review</span> Tinjau & Kirim Vote
+      </button>
+    </div>
+  </div>
+
+  <!-- TERMS & CONDITIONS ACCORDION SECTION -->
+  <section id="terms" class="py-16 px-4 border-t border-white/10">
+    <div class="max-w-4xl mx-auto space-y-6">
+      <div class="text-center space-y-2">
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-white flex items-center justify-center gap-2">
+          <span class="material-symbols-outlined text-amber-400">gavel</span> Syarat & Ketentuan Pemungutan Suara
+        </h2>
+        <p class="text-xs text-gray-400">Harap membaca aturan berikut sebelum mengirimkan suara Anda.</p>
+      </div>
+
+      <div class="space-y-3 text-xs sm:text-sm">
+        <div class="collapse collapse-arrow glass-card border border-white/10">
+          <input type="radio" name="terms-accordion" checked="checked" /> 
+          <div class="collapse-title font-bold text-white flex items-center gap-2">
+            <span class="material-symbols-outlined text-amber-400 text-base">schedule</span> Siklus Voting 24 Jam
+          </div>
+          <div class="collapse-content text-gray-300 leading-relaxed text-xs">
+            <p>Setiap 1 alamat Email unik hanya dapat memberikan 1 kali suara per hari (siklus 24 jam). Percobaan voting ganda dari email yang sama pada hari yang sama akan ditolak secara otomatis oleh sistem.</p>
+          </div>
+        </div>
+
+        <div class="collapse collapse-arrow glass-card border border-white/10">
+          <input type="radio" name="terms-accordion" /> 
+          <div class="collapse-title font-bold text-white flex items-center gap-2">
+            <span class="material-symbols-outlined text-amber-400 text-base">privacy_tip</span> Kerahasiaan Data & Privasi
+          </div>
+          <div class="collapse-content text-gray-300 leading-relaxed text-xs">
+            <p>Nama dan Email Anda hanya digunakan untuk verifikasi autentisitas suara dan pengiriman Digital Voter Pass. Cinemags tidak akan pernah menjual atau membagikan data Anda ke pihak ketiga.</p>
+          </div>
+        </div>
+
+        <div class="collapse collapse-arrow glass-card border border-white/10">
+          <input type="radio" name="terms-accordion" /> 
+          <div class="collapse-title font-bold text-white flex items-center gap-2">
+            <span class="material-symbols-outlined text-amber-400 text-base">verified</span> Keputusan Panitia & Juri
+          </div>
+          <div class="collapse-content text-gray-300 leading-relaxed text-xs">
+            <p>Hasil akhir voting publik akan diaudit oleh tim independen Cinemags Awards 2026. Keputusan panitia bersifat mutlak dan tidak dapat diganggu gugat.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER SECTION WITH BRAND LOGO -->
+  <footer class="bg-neutral-950 border-t border-white/10 py-12 px-4 text-xs text-gray-400">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+      
+      <div class="flex flex-col items-center md:items-start gap-2">
+        <img src="assets/Logo.png" alt="Cinemags Awards Logo Footer" class="h-10 w-auto object-contain">
+        <p class="text-[11px] text-gray-500">© 2026 Cinemags Awards. Hak Cipta Dilindungi Undang-Undang.</p>
+      </div>
+
+      <div class="flex items-center gap-6 font-semibold">
+        <a href="#about" class="hover:text-amber-400 transition-colors">Tentang</a>
+        <a href="#categories" class="hover:text-amber-400 transition-colors">Nominee</a>
+        <a href="#terms" class="hover:text-amber-400 transition-colors">Ketentuan</a>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <a href="#" class="w-8 h-8 rounded-full bg-neutral-900 border border-white/10 flex items-center justify-center hover:border-amber-400 transition-colors">
+          <span class="material-symbols-outlined text-sm text-gray-300">share</span>
+        </a>
+        <a href="#" class="w-8 h-8 rounded-full bg-neutral-900 border border-white/10 flex items-center justify-center hover:border-amber-400 transition-colors">
+          <span class="material-symbols-outlined text-sm text-gray-300">mail</span>
+        </a>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- MODAL 1: DETAILED NOMINEE WITH EMBEDDED YOUTUBE TRAILER -->
+  <dialog id="modal-nominee-detail" class="modal modal-bottom sm:modal-middle">
+    <div class="modal-box glass-modal max-w-2xl p-6 text-left space-y-4 relative">
+      <form method="dialog">
+        <button class="btn btn-sm btn-circle btn-ghost absolute right-3 top-3 text-gray-400 hover:text-white">✕</button>
+      </form>
+      
+      <div class="space-y-3">
+        <span class="badge badge-warning text-[10px] font-bold" id="detail-category">Kategori</span>
+        <h3 class="text-xl sm:text-2xl font-bold text-white" id="detail-title">Judul Film</h3>
+      </div>
+
+      <!-- Embedded YouTube Video Trailer Player -->
+      <div class="relative w-full aspect-video rounded-xl overflow-hidden bg-neutral-900 border border-white/10">
+        <iframe id="detail-trailer-iframe" class="w-full h-full" src="" title="Official Trailer" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+
+      <div class="space-y-2 text-xs text-gray-300">
+        <div class="flex flex-wrap gap-2 text-[11px]" id="detail-tags"></div>
+        <p id="detail-synopsis" class="leading-relaxed text-gray-300"></p>
+      </div>
+
+      <div class="pt-3 border-t border-white/10 flex items-center justify-between gap-4">
+        <form method="dialog">
+          <button class="btn btn-sm border-white/20 text-gray-300">Tutup</button>
+        </form>
+        <button id="detail-vote-btn" onclick="" class="btn-gold px-5 py-2 text-xs flex items-center gap-1">
+          <span class="material-symbols-outlined text-sm">how_to_vote</span> Vote Nominee Ini
+        </button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- MODAL 2: REVIEW VOTES & GUEST FORM DRAWER -->
+  <dialog id="modal-review" class="modal modal-bottom sm:modal-middle">
+    <div class="modal-box glass-modal max-w-xl p-6 text-left space-y-5">
+      <form method="dialog">
+        <button class="btn btn-sm btn-circle btn-ghost absolute right-3 top-3 text-gray-400 hover:text-white">✕</button>
+      </form>
+
+      <div class="space-y-1 border-b border-white/10 pb-3">
+        <h3 class="text-xl font-bold text-white flex items-center gap-2">
+          <span class="material-symbols-outlined text-amber-400">rate_review</span> Ringkasan Suara Anda
+        </h3>
+        <p class="text-xs text-gray-400">Periksa kembali pilihan nominee Anda sebelum mengirimkan data.</p>
+      </div>
+
+      <!-- Chosen Nominees List -->
+      <div class="space-y-2 max-h-48 overflow-y-auto pr-1" id="review-list">
+        <!-- Rendered by JS -->
+      </div>
+
+      <!-- Guest Voter Form (No Signup / Password) -->
+      <form id="guest-vote-form" onsubmit="handleFormSubmit(event)" class="space-y-3 pt-2">
+        <div class="space-y-1">
+          <label class="text-xs font-bold text-gray-200 block">Nama Lengkap Pemilih</label>
+          <input type="text" id="voter-name" required placeholder="Contoh: Budi Santoso" class="w-full px-3 py-2 text-xs bg-neutral-900 border border-white/20 rounded-md text-white focus:border-amber-400 outline-none">
+        </div>
+
+        <div class="space-y-1">
+          <label class="text-xs font-bold text-gray-200 block">Alamat Email (1 Vote / 24 Jam)</label>
+          <input type="email" id="voter-email" required placeholder="Contoh: budi@gmail.com" class="w-full px-3 py-2 text-xs bg-neutral-900 border border-white/20 rounded-md text-white focus:border-amber-400 outline-none">
+        </div>
+
+        <div class="flex items-start gap-2 pt-1">
+          <input type="checkbox" id="terms-check" required class="mt-0.5 checkbox checkbox-xs checkbox-warning">
+          <label for="terms-check" class="text-[11px] text-gray-400 leading-tight">Saya menyetujui syarat & ketentuan voting Cinemags Awards 2026.</label>
+        </div>
+
+        <div class="pt-2 flex items-center justify-between gap-3">
+          <form method="dialog">
+            <button type="button" onclick="document.getElementById('modal-review').close()" class="btn btn-sm border-white/20 text-gray-300">Kembali</button>
+          </form>
+          <button type="submit" class="btn-crimson px-6 py-2 text-xs flex items-center gap-2">
+            <span class="material-symbols-outlined text-sm">send</span> Kirim Suara Sekarang
+          </button>
+        </div>
+      </form>
+
+    </div>
+  </dialog>
+
+  <!-- MODAL 3: DIGITAL VOTER PASS RECEIPT MODAL -->
+  <dialog id="modal-success" class="modal modal-bottom sm:modal-middle">
+    <div class="modal-box glass-modal max-w-md p-6 text-center space-y-4">
+      <div class="w-14 h-14 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 flex items-center justify-center mx-auto text-2xl">
+        <span class="material-symbols-outlined text-3xl">verified</span>
+      </div>
+
+      <div class="space-y-1">
+        <h3 class="text-xl font-bold text-white">Suara Berhasil Terkirim!</h3>
+        <p class="text-xs text-gray-400">Terima kasih atas partisipasi Anda mendukung film Indonesia.</p>
+      </div>
+
+      <!-- Ticket Receipt Card -->
+      <div class="p-4 bg-neutral-900 rounded-xl border border-amber-500/40 space-y-3 text-left">
+        <div class="flex items-center justify-between border-b border-white/10 pb-2">
+          <span class="text-[10px] text-amber-400 font-bold uppercase">CINEMAGS DIGITAL VOTER PASS</span>
+          <span class="text-[10px] text-gray-400 font-code" id="ticket-id">PASS-8921</span>
+        </div>
+        <div class="text-xs space-y-1">
+          <div class="text-white font-bold" id="ticket-name">Nama Pemilih</div>
+          <div class="text-gray-400 text-[11px]" id="ticket-email">email@domain.com</div>
+          <div class="text-amber-300 text-[11px] font-semibold pt-1" id="ticket-count">8 Suara Kategori Terverifikasi</div>
+        </div>
+      </div>
+
+      <!-- Social Share Buttons -->
+      <div class="pt-2 space-y-2">
+        <div class="text-xs font-bold text-gray-300">Bagikan Dukungan Anda:</div>
+        <div class="flex items-center justify-center gap-3">
+          <button onclick="shareWhatsApp()" class="btn btn-sm bg-emerald-600 hover:bg-emerald-500 text-white text-xs border-none flex items-center gap-1">
+            <span class="material-symbols-outlined text-sm">share</span> WhatsApp
+          </button>
+          <button onclick="shareTwitter()" class="btn btn-sm bg-sky-600 hover:bg-sky-500 text-white text-xs border-none flex items-center gap-1">
+            <span class="material-symbols-outlined text-sm">share</span> X / Twitter
+          </button>
+        </div>
+      </div>
+
+      <div class="pt-2">
+        <button onclick="document.getElementById('modal-success').close()" class="btn btn-sm btn-wide border-white/20 text-gray-300">Selesai</button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- JAVASCRIPT DATA & LOGIC -->
+  <script>
+    // ----------------------------------------------------
+    // 1. VOTING DATA (8 Categories & Nominees)
+    // ----------------------------------------------------
+    const categoriesData = [
+      { id: "cat-1", title: "Film Terbaik" },
+      { id: "cat-2", title: "Sutradara Terbaik" },
+      { id: "cat-3", title: "Aktor Utama Terbaik" },
+      { id: "cat-4", title: "Aktris Utama Terbaik" },
+      { id: "cat-5", title: "Aktor Pendukung Terbaik" },
+      { id: "cat-6", title: "Aktris Pendukung Terbaik" },
+      { id: "cat-7", title: "Skenario Asli Terbaik" },
+      { id: "cat-8", title: "Sinematografi Terbaik" }
+    ];
+
+    const nomineesData = [
+      { id: "nom-1", catId: "cat-1", name: "Jumbo", film: "Jumbo", poster: "assets/poster_jumbo.jpg", studio: "Visinema Pictures", trailerUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", synopsis: "Kisah petualangan ajaib seorang anak bernama Don yang berani melawan perundungan dan menemukan kekuatan persahabatan sejati.", genre: "Animasi / Keluarga", director: "Ryan Adriandhy" },
+      { id: "nom-2", catId: "cat-1", name: "Bukit Duri", film: "Bukit Duri", poster: "assets/poster_bukit_duri.jpg", studio: "Studio Antariksa", trailerUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", synopsis: "Drama sosial menyentuh tentang perjuangan warga pinggiran Jakarta mempertahankan rumah dan kenangan hidup mereka.", genre: "Drama Sosial", director: "Ifa Isfansyah" },
+      { id: "nom-3", catId: "cat-1", name: "Perayaan Mati Rasa", film: "Perayaan Mati Rasa", poster: "assets/poster_perayaan.jpg", studio: "Sinemaku Pictures", trailerUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", synopsis: "Kisah tentang dua bersaudara yang berjuang menyembunyikan kenyataan getir hidup dari orang tua mereka yang mencintai mereka.", genre: "Drama / Remaja", director: "Umay Shahab" },
+      { id: "nom-4", catId: "cat-2", name: "Ryan Adriandhy", film: "Jumbo", poster: "assets/poster_jumbo.jpg", studio: "Visinema Pictures", trailerUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", synopsis: "Sutradara Ryan Adriandhy membawakan kualitas animasi kelas dunia dengan sentuhan cerita lokal yang hangat.", genre: "Sutradara Animasi", director: "Ryan Adriandhy" },
+      { id: "nom-5", catId: "cat-2", name: "Umay Shahab", film: "Perayaan Mati Rasa", poster: "assets/poster_perayaan.jpg", studio: "Sinemaku Pictures", trailerUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", synopsis: "Pengarahan adegan emosional yang intens membuktikan kematangan Umay dalam menggarap drama keluarga modern.", genre: "Sutradara Drama", director: "Umay Shahab" },
+      { id: "nom-6", catId: "cat-3", name: "Iqbaal Ramadhan", film: "Perayaan Mati Rasa", poster: "assets/poster_perayaan.jpg", studio: "Sinemaku Pictures", trailerUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", synopsis: "Penampilan emosional Iqbaal memerankan karakter anak sulung yang memikul beban ekspetasi keluarga.", genre: "Aktor Utama", director: "Umay Shahab" },
+      { id: "nom-7", catId: "cat-4", name: "Prilly Latuconsina", film: "Perayaan Mati Rasa", poster: "assets/poster_perayaan.jpg", studio: "Sinemaku Pictures", trailerUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", synopsis: "Akting mendalam Prilly menyentuh hati penonton sebagai sosok perempuan yang berani menghadapi trauma emosional.", genre: "Aktris Utama", director: "Umay Shahab" },
+      { id: "nom-8", catId: "cat-5", name: "Dwi Sasono", film: "Bukit Duri", poster: "assets/poster_bukit_duri.jpg", studio: "Studio Antariksa", trailerUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", synopsis: "Peran pendukung yang berkarakter kuat memberikan bobot emosional yang tinggi dalam setiap kemunculannya.", genre: "Aktor Pendukung", director: "Ifa Isfansyah" }
+    ];
+
+    let currentCategory = "cat-1";
+    let userVotes = {}; // { catId: nomineeId }
+
+    // ----------------------------------------------------
+    // 2. RENDER CATEGORY PILLS & NOMINEES
+    // ----------------------------------------------------
+    function renderPills() {
+      const container = document.getElementById("category-pills");
+      container.innerHTML = categoriesData.map(cat => {
+        const isActive = cat.id === currentCategory;
+        const isVoted = userVotes[cat.id] !== undefined;
+        return `
+          <button onclick="switchCategory('${cat.id}')" class="px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-all flex items-center gap-1.5 ${
+            isActive ? 'bg-amber-500 text-neutral-950 shadow-lg shadow-amber-500/20' : 'bg-neutral-900 text-gray-300 border border-white/10 hover:border-amber-400'
+          }">
+            ${isVoted ? '<span class="material-symbols-outlined text-sm text-emerald-400">check_circle</span>' : ''}
+            ${cat.title}
+          </button>
+        `;
+      }).join("");
+    }
+
+    function renderNominees() {
+      const container = document.getElementById("nominees-grid");
+      const filtered = nomineesData.filter(n => n.catId === currentCategory);
+
+      container.innerHTML = filtered.map(nom => {
+        const isSelected = userVotes[nom.catId] === nom.id;
+        return `
+          <div class="nominee-card ${isSelected ? 'glass-card-selected' : 'glass-card'} p-3 space-y-3 relative group transition-all">
+            ${isSelected ? '<span class="absolute top-2 right-2 badge badge-warning font-bold text-[10px] flex items-center gap-0.5"><span class="material-symbols-outlined text-xs">check</span> Terpilih</span>' : ''}
+            
+            <div class="relative aspect-[3/4] rounded-lg overflow-hidden bg-neutral-900 cursor-pointer" onclick="openNomineeModal('${nom.id}')">
+              <img src="${nom.poster}" alt="${nom.film}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-2">
+                <span class="text-[10px] text-amber-300 font-semibold flex items-center gap-1"><span class="material-symbols-outlined text-xs">play_circle</span> Trailer</span>
+              </div>
+            </div>
+
+            <div class="space-y-1">
+              <h4 class="text-xs sm:text-sm font-bold text-white line-clamp-1">${nom.name}</h4>
+              <p class="text-[10px] text-gray-400">${nom.film} • ${nom.studio}</p>
+            </div>
+
+            <div class="pt-1 flex items-center gap-2">
+              <button onclick="toggleVote('${nom.catId}', '${nom.id}')" class="w-full ${isSelected ? 'btn-crimson' : 'btn-gold'} py-2 text-xs flex items-center justify-center gap-1">
+                <span class="material-symbols-outlined text-sm">${isSelected ? 'check' : 'how_to_vote'}</span>
+                ${isSelected ? 'Batal Vote' : 'Vote Nominee'}
+              </button>
+            </div>
+          </div>
+        `;
+      }).join("");
+
+      // Trigger GSAP entrance animation for cards
+      gsap.from(".nominee-card", { opacity: 0, y: 20, duration: 0.4, stagger: 0.05 });
+    }
+
+    function switchCategory(catId) {
+      currentCategory = catId;
+      renderPills();
+      renderNominees();
+    }
+
+    function toggleVote(catId, nomId) {
+      if (userVotes[catId] === nomId) {
+        delete userVotes[catId];
+      } else {
+        userVotes[catId] = nomId;
+      }
+      updateState();
+    }
+
+    function updateState() {
+      const count = Object.keys(userVotes).length;
+      document.getElementById("voted-count-badge").innerText = `${count}/8 Kategori`;
+      document.getElementById("sticky-count").innerText = count;
+      
+      const stickyBar = document.getElementById("sticky-vote-bar");
+      if (count > 0) {
+        stickyBar.classList.remove("translate-y-full");
+        document.getElementById("sticky-desc").innerText = `${count} dari 8 kategori telah Anda pilih`;
+      } else {
+        stickyBar.classList.add("translate-y-full");
+      }
+
+      renderPills();
+      renderNominees();
+    }
+
+    // ----------------------------------------------------
+    // 3. NOMINEE TRAILER MODAL
+    // ----------------------------------------------------
+    function openNomineeModal(nomId) {
+      const nom = nomineesData.find(n => n.id === nomId);
+      const cat = categoriesData.find(c => c.id === nom.catId);
+      
+      document.getElementById("detail-category").innerText = cat.title;
+      document.getElementById("detail-title").innerText = nom.name;
+      document.getElementById("detail-synopsis").innerText = nom.synopsis;
+      document.getElementById("detail-tags").innerHTML = `<span class="badge badge-neutral">${nom.genre}</span> <span class="badge badge-neutral">${nom.studio}</span>`;
+      document.getElementById("detail-trailer-iframe").src = nom.trailerUrl;
+      
+      const voteBtn = document.getElementById("detail-vote-btn");
+      voteBtn.onclick = function() {
+        toggleVote(nom.catId, nom.id);
+        document.getElementById("modal-nominee-detail").close();
+      };
+
+      document.getElementById("modal-nominee-detail").showModal();
+    }
+
+    // Reset iframe on modal close
+    document.getElementById("modal-nominee-detail").addEventListener("close", function() {
+      document.getElementById("detail-trailer-iframe").src = "";
+    });
+
+    // ----------------------------------------------------
+    // 4. REVIEW MODAL & GUEST FORM
+    // ----------------------------------------------------
+    function openReviewModal() {
+      const listContainer = document.getElementById("review-list");
+      const votedCatIds = Object.keys(userVotes);
+
+      if (votedCatIds.length === 0) {
+        alert("Pilihlah setidaknya 1 nominee sebelum meninjau vote Anda.");
+        return;
+      }
+
+      listContainer.innerHTML = votedCatIds.map(catId => {
+        const cat = categoriesData.find(c => c.id === catId);
+        const nom = nomineesData.find(n => n.id === userVotes[catId]);
+        return `
+          <div class="p-3 bg-neutral-900 rounded-lg flex items-center justify-between border border-white/10 text-xs">
+            <div>
+              <div class="text-[10px] text-amber-400 font-bold">${cat.title}</div>
+              <div class="text-white font-bold">${nom.name}</div>
+              <div class="text-gray-400 text-[10px]">${nom.film}</div>
+            </div>
+            <button onclick="switchCategory('${catId}'); document.getElementById('modal-review').close();" class="text-xs text-amber-400 underline hover:text-white">Ubah</button>
+          </div>
+        `;
+      }).join("");
+
+      document.getElementById("modal-review").showModal();
+    }
+
+    function handleFormSubmit(event) {
+      event.preventDefault();
+      const name = document.getElementById("voter-name").value;
+      const email = document.getElementById("voter-email").value;
+
+      document.getElementById("ticket-name").innerText = name;
+      document.getElementById("ticket-email").innerText = email;
+      document.getElementById("ticket-count").innerText = `${Object.keys(userVotes).length} Suara Kategori Terverifikasi`;
+      document.getElementById("ticket-id").innerText = `PASS-${Math.floor(1000 + Math.random() * 9000)}`;
+
+      document.getElementById("modal-review").close();
+      document.getElementById("modal-success").showModal();
+      
+      // Reset user votes state
+      userVotes = {};
+      updateState();
+    }
+
+    function shareWhatsApp() {
+      const text = encodeURIComponent("Saya baru saja memberikan suara di Cinemags Awards 2026! Mari dukung film Indonesia favoritmu sekarang!");
+      window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
+    }
+
+    function shareTwitter() {
+      const text = encodeURIComponent("Saya baru saja memberikan suara di Cinemags Awards 2026! Mari dukung film Indonesia favoritmu!");
+      window.open(`https://twitter.com/intent/tweet?text=${text}`, '_blank');
+    }
+
+    // ----------------------------------------------------
+    // 5. GSAP ANIMATIONS & CANVAS RED CLOTH INFINITY LOOP
+    // ----------------------------------------------------
+    window.addEventListener("DOMContentLoaded", () => {
+      renderPills();
+      renderNominees();
+
+      // GSAP Floating Trophy Animation
+      gsap.to("#hero-trophy", {
+        y: -15,
+        rotation: 2,
+        duration: 3,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut"
+      });
+
+      // GSAP Ambient Red Pulse Animation
+      gsap.to(".hero-red-ambient", {
+        opacity: 0.8,
+        scale: 1.15,
+        duration: 4,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut"
+      });
+
+      // Canvas Infinity Loop for Red Silk Cloth & Subtle Particles
+      initHeaderCanvas();
+    });
+
+    function initHeaderCanvas() {
+      const canvas = document.getElementById("header-cloth-canvas");
+      const ctx = canvas.getContext("2d");
+      let width, height;
+      let step = 0;
+      const particles = [];
+
+      function resize() {
+        width = canvas.width = canvas.offsetWidth;
+        height = canvas.height = canvas.offsetHeight;
+      }
+      window.addEventListener("resize", resize);
+      resize();
+
+      // Init particles
+      for (let i = 0; i < 45; i++) {
+        particles.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          radius: Math.random() * 2 + 0.8,
+          alpha: Math.random() * 0.6 + 0.2,
+          speedX: Math.random() * 1.5 + 0.5,
+          speedY: Math.random() * 0.4 - 0.2
+        });
+      }
+
+      function animate() {
+        ctx.clearRect(0, 0, width, height);
+        step += 0.02;
+
+        // Draw Looping Red Silk Cloth Wave
+        ctx.beginPath();
+        ctx.moveTo(0, height / 2);
+
+        for (let x = 0; x < width; x += 10) {
+          const y = Math.sin(x * 0.008 + step) * 14 + Math.cos(x * 0.004 + step * 0.5) * 8 + (height / 2);
+          ctx.lineTo(x, y);
+        }
+
+        ctx.lineTo(width, height);
+        ctx.lineTo(0, height);
+        ctx.closePath();
+
+        const gradient = ctx.createLinearGradient(0, 0, width, 0);
+        gradient.addColorStop(0, "rgba(191, 33, 33, 0.4)");
+        gradient.addColorStop(0.5, "rgba(220, 55, 55, 0.6)");
+        gradient.addColorStop(1, "rgba(191, 33, 33, 0.4)");
+        
+        ctx.fillStyle = gradient;
+        ctx.fill();
+
+        // Render Particle Trail
+        particles.forEach(p => {
+          p.x += p.speedX;
+          p.y += p.speedY;
+
+          if (p.x > width) p.x = 0;
+          if (p.y < 0 || p.y > height) p.y = height / 2;
+
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(241, 196, 15, ${p.alpha})`; // Golden glowing trail
+          ctx.fill();
+        });
+
+        requestAnimationFrame(animate);
+      }
+
+      animate();
+    }
+  </script>
+</body>
+</html>
