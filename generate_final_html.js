@@ -180,10 +180,11 @@ const html = `<!DOCTYPE html>
 
   <!-- HERO SECTION WITH GOLD FEDERO HEADING -->
   <section class="relative min-h-[85vh] flex items-center justify-center px-4 py-12 overflow-hidden">
-    <canvas id="hero-cloth-canvas" class="absolute inset-0 w-full h-full pointer-events-none opacity-75"></canvas>
+    <div id="hero-spotlight" class="absolute inset-0 bg-[radial-gradient(circle_at_50%_40%,rgba(210,158,47,0.22)_0%,rgba(191,33,33,0.1)_40%,transparent_70%)] pointer-events-none"></div>
+    <canvas id="hero-cloth-canvas" class="absolute inset-0 w-full h-full pointer-events-none opacity-85 z-0"></canvas>
     
     <div class="relative z-10 max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-      <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+      <div id="hero-content" class="lg:col-span-7 space-y-6 text-center lg:text-left">
         <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-semibold">
           <span class="material-symbols-outlined text-sm">movie</span>
           <span>#RayakanFilmIndonesia</span>
@@ -993,19 +994,133 @@ const html = `<!DOCTYPE html>
       setInterval(update, 1000);
     }
 
+    // INTERACTIVE GALA GOLDEN DUST & BOKEH CANVAS ANIMATION
+    function initHeroCanvasAnimation() {
+      const canvas = document.getElementById('hero-cloth-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      let width = canvas.width = canvas.parentElement.offsetWidth;
+      let height = canvas.height = canvas.parentElement.offsetHeight;
+
+      window.addEventListener('resize', () => {
+        if (!canvas.parentElement) return;
+        width = canvas.width = canvas.parentElement.offsetWidth;
+        height = canvas.height = canvas.parentElement.offsetHeight;
+      });
+
+      let mouseX = width / 2;
+      let mouseY = height / 2;
+
+      document.addEventListener('mousemove', (e) => {
+        const rect = canvas.getBoundingClientRect();
+        if (e.clientY >= rect.top && e.clientY <= rect.bottom) {
+          mouseX += (e.clientX - rect.left - mouseX) * 0.05;
+          mouseY += (e.clientY - rect.top - mouseY) * 0.05;
+        }
+      });
+
+      const particleCount = 75;
+      const particles = [];
+      const colors = ['#d29e2f', '#7d5912', '#f5d688', '#ffffff', '#bf2121'];
+
+      for (let i = 0; i < particleCount; i++) {
+        particles.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          radius: Math.random() * 3.5 + 0.5,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          alpha: Math.random() * 0.7 + 0.2,
+          speedY: Math.random() * 0.6 + 0.2,
+          speedX: (Math.random() - 0.5) * 0.4,
+          pulse: Math.random() * Math.PI * 2,
+          pulseSpeed: Math.random() * 0.03 + 0.01,
+          depth: Math.random() * 0.5 + 0.5
+        });
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, width, height);
+
+        // Draw ambient radial gradient background glow
+        const gradient = ctx.createRadialGradient(width / 2, height / 2, 50, width / 2, height / 2, width * 0.6);
+        gradient.addColorStop(0, 'rgba(210, 158, 47, 0.14)');
+        gradient.addColorStop(0.5, 'rgba(125, 89, 18, 0.06)');
+        gradient.addColorStop(1, 'rgba(13, 13, 13, 0)');
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, width, height);
+
+        // Draw animated golden dust particles
+        particles.forEach(p => {
+          p.y -= p.speedY;
+          p.x += p.speedX;
+          p.pulse += p.pulseSpeed;
+
+          if (p.y < -10) p.y = height + 10;
+          if (p.x < -10) p.x = width + 10;
+          if (p.x > width + 10) p.x = -10;
+
+          const currentAlpha = Math.max(0.15, p.alpha + Math.sin(p.pulse) * 0.35);
+          const shiftX = (mouseX - width / 2) * 0.025 * p.depth;
+          const shiftY = (mouseY - height / 2) * 0.025 * p.depth;
+
+          ctx.beginPath();
+          ctx.arc(p.x + shiftX, p.y + shiftY, p.radius, 0, Math.PI * 2);
+          ctx.fillStyle = p.color;
+          ctx.globalAlpha = currentAlpha;
+          ctx.shadowBlur = p.radius * 3.5;
+          ctx.shadowColor = p.color;
+          ctx.fill();
+        });
+
+        ctx.globalAlpha = 1.0;
+        ctx.shadowBlur = 0;
+        requestAnimationFrame(draw);
+      }
+
+      draw();
+    }
+
+    // GSAP HERO & TROPHY BREATHING ANIMATION
+    function initGsapHeroAnimations() {
+      if (typeof gsap === 'undefined') return;
+
+      // Gentle floating breathing animation for trophy
+      gsap.to('#hero-trophy', {
+        y: -14,
+        rotation: 1.5,
+        duration: 3.5,
+        repeat: -1,
+        yoyo: true,
+        ease: 'sine.inOut'
+      });
+
+      // Ambient pulsing spotlight effect
+      gsap.to('#hero-spotlight', {
+        opacity: 0.85,
+        scale: 1.08,
+        duration: 4,
+        repeat: -1,
+        yoyo: true,
+        ease: 'sine.inOut'
+      });
+
+      // Smooth entrance reveal animation for hero content
+      gsap.from('#hero-content > *', {
+        y: 25,
+        opacity: 0,
+        duration: 1,
+        stagger: 0.12,
+        ease: 'power3.out'
+      });
+    }
+
     // INIT
     window.addEventListener('DOMContentLoaded', () => {
       renderCategoryPills();
       renderNomineesGrid();
       initCountdown();
-
-      // Horizontal scroll for category pills
-      document.getElementById('cat-scroll-left').addEventListener('click', () => {
-        document.getElementById('category-pills-container').scrollBy({ left: -200, behavior: 'smooth' });
-      });
-      document.getElementById('cat-scroll-right').addEventListener('click', () => {
-        document.getElementById('category-pills-container').scrollBy({ left: 200, behavior: 'smooth' });
-      });
+      initHeroCanvasAnimation();
+      initGsapHeroAnimations();
     });
   </script>
 </body>
