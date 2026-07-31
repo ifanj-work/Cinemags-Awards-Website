@@ -62,6 +62,19 @@
       transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
+    .btn-gold-pill {
+      background: linear-gradient(135deg, #7d5912 0%, #d29e2f 50%, #7d5912 100%);
+      color: #08090c;
+      font-weight: 700;
+      border-radius: 9999px !important;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .btn-gold-pill:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 14px rgba(210, 158, 47, 0.45);
+    }
+
     .btn-gold:hover {
       transform: translateY(-2px);
       box-shadow: 0 4px 14px rgba(210, 158, 47, 0.45);
@@ -704,20 +717,20 @@
       return path;
     }
 
-    // RENDER CATEGORY PILLS (CHECKMARK FONT COLOR MATCHING)
+    // RENDER CATEGORY PILLS (CHECKMARK FONT COLOR MATCHING & FULLY ROUNDED)
     function renderCategoryPills() {
       const container = document.getElementById('category-pills-container');
       container.innerHTML = categoriesData.map(cat => {
         const isVoted = userVotes[cat.id] !== undefined;
         const isActive = cat.id === currentCategory;
         const pillClass = isActive 
-          ? 'btn-gold shadow-lg shadow-amber-500/20' 
+          ? 'btn-gold-pill shadow-lg shadow-amber-500/20' 
           : 'bg-[#212121] text-gray-300 border border-white/10 hover:border-amber-400 hover:text-white';
 
         const checkColor = isActive ? 'text-[#08090c]' : 'text-white';
 
         return `
-          <button onclick="switchCategory('${cat.id}')" class="px-4 py-2 text-xs rounded-full shrink-0 flex items-center gap-1.5 transition-all cursor-pointer ${pillClass}">
+          <button onclick="switchCategory('${cat.id}')" style="border-radius: 9999px !important;" class="px-4 py-2 text-xs rounded-full shrink-0 flex items-center gap-1.5 transition-all cursor-pointer ${pillClass}">
             ${isVoted ? `<span class="text-xs font-extrabold ${checkColor}">✓</span>` : ''}
             ${cat.title}
           </button>
