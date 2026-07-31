@@ -319,16 +319,16 @@ const html = `<!DOCTYPE html>
 
       <!-- Category Pill Scrollable Tabs -->
       <div class="relative flex items-center">
-        <button id="cat-scroll-left" class="btn btn-circle btn-xs bg-neutral-900 border-white/20 text-white hover:bg-neutral-800 z-10 mr-2 shrink-0">
-          <span class="material-symbols-outlined text-sm">chevron_left</span>
+        <button id="cat-scroll-left" onclick="navigateCategory(-1)" class="btn btn-circle btn-xs bg-neutral-900 border-white/20 text-white hover:bg-amber-400 hover:text-[#08090c] z-10 mr-2 shrink-0 cursor-pointer transition-colors" title="Kategori Sebelumnya">
+          <span class="material-symbols-outlined text-sm font-bold">chevron_left</span>
         </button>
 
         <div id="category-pills-container" class="flex items-center gap-2 overflow-x-auto no-scrollbar py-2 px-1 w-full scroll-smooth">
           <!-- Dynamically populated category pills -->
         </div>
 
-        <button id="cat-scroll-right" class="btn btn-circle btn-xs bg-neutral-900 border-white/20 text-white hover:bg-neutral-800 z-10 ml-2 shrink-0">
-          <span class="material-symbols-outlined text-sm">chevron_right</span>
+        <button id="cat-scroll-right" onclick="navigateCategory(1)" class="btn btn-circle btn-xs bg-neutral-900 border-white/20 text-white hover:bg-amber-400 hover:text-[#08090c] z-10 ml-2 shrink-0 cursor-pointer transition-colors" title="Kategori Selanjutnya">
+          <span class="material-symbols-outlined text-sm font-bold">chevron_right</span>
         </button>
       </div>
 
@@ -439,26 +439,29 @@ const html = `<!DOCTYPE html>
     </div>
   </div>
 
-  <!-- MODAL 1: NOMINEE DETAIL MODAL -->
+  <!-- MODAL 1: NOMINEE DETAIL MODAL (BIGGER TOP HERO POSTER) -->
   <dialog id="modal-nominee-detail" class="modal modal-bottom sm:modal-middle">
-    <div class="modal-box glass-modal max-w-lg p-6 space-y-4 relative">
+    <div class="modal-box glass-modal max-w-lg p-5 sm:p-6 space-y-4 relative overflow-hidden">
       <form method="dialog">
-        <button class="btn btn-sm btn-circle btn-ghost absolute right-3 top-3 text-gray-400 hover:text-white">✕</button>
+        <button class="btn btn-sm btn-circle btn-ghost absolute right-3 top-3 z-10 text-white bg-black/60 hover:bg-black/80">✕</button>
       </form>
 
-      <div class="flex gap-4 items-start">
-        <img id="detail-poster" src="" alt="" class="w-24 h-32 object-cover rounded-lg border border-white/20 shrink-0">
-        <div class="space-y-1 text-left">
-          <span id="detail-category-badge" class="badge badge-warning badge-sm font-semibold">Kategori</span>
-          <h3 id="detail-name" class="text-lg font-bold text-white leading-tight">Nama Nominee</h3>
-          <p id="detail-film" class="text-xs text-amber-400 font-medium">Nama Film</p>
-          <p id="detail-studio" class="text-[11px] text-gray-400">Production House</p>
-        </div>
+      <!-- Top Hero Image Container -->
+      <div class="relative w-full aspect-[4/3] sm:aspect-[16/9] overflow-hidden rounded-xl bg-neutral-900 border border-white/10 shadow-2xl">
+        <img id="detail-poster" src="" alt="" class="w-full h-full object-cover">
+        <div class="absolute inset-0 bg-gradient-to-t from-neutral-950 via-transparent to-transparent"></div>
+        <span id="detail-category-badge" class="absolute top-3 left-3 badge badge-warning text-[10px] font-bold shadow-md">Kategori</span>
       </div>
 
-      <div class="space-y-2 text-left pt-2 border-t border-white/10 text-xs">
+      <div class="space-y-1 text-left">
+        <h3 id="detail-name" class="text-xl sm:text-2xl font-bold text-white leading-tight font-federo">Nama Nominee</h3>
+        <p id="detail-film" class="text-xs sm:text-sm text-amber-400 font-semibold">Nama Film</p>
+        <p id="detail-studio" class="text-[11px] text-gray-400">Production House</p>
+      </div>
+
+      <div class="space-y-1.5 text-left pt-2 border-t border-white/10 text-xs">
         <div class="font-bold text-gray-300">Deskripsi / Ringkasan:</div>
-        <p id="detail-synopsis" class="text-gray-400 leading-relaxed">Synopsis</p>
+        <p id="detail-synopsis" class="text-gray-400 leading-relaxed max-h-32 overflow-y-auto no-scrollbar">Synopsis</p>
       </div>
 
       <div class="pt-2 flex items-center justify-between">
@@ -470,10 +473,10 @@ const html = `<!DOCTYPE html>
     </div>
   </dialog>
 
-  <!-- MODAL 2: REVIEW VOTES DRAWER -->
-  <dialog id="modal-review" class="modal modal-bottom sm:modal-middle">
-    <div class="modal-box glass-modal max-w-md mx-auto p-6 space-y-4">
-      <div class="flex items-center justify-between border-b border-white/10 pb-3">
+  <!-- MODAL 2: REVIEW VOTES DRAWER (FULLSCREEN MOBILE WITH POSTERS) -->
+  <dialog id="modal-review" class="modal modal-bottom sm:modal-middle p-0 sm:p-4">
+    <div class="modal-box glass-modal w-full max-w-lg min-h-screen sm:min-h-0 sm:max-h-[90vh] rounded-none sm:rounded-2xl p-4 sm:p-6 space-y-4 flex flex-col justify-between overflow-y-auto">
+      <div class="flex items-center justify-between border-b border-white/10 pb-3 shrink-0">
         <h3 class="text-lg font-bold text-white flex items-center gap-2">
           <span class="material-symbols-outlined text-amber-400">fact_check</span>
           Tinjau Pilihan Suara
@@ -481,12 +484,12 @@ const html = `<!DOCTYPE html>
         <button onclick="document.getElementById('modal-review').close()" class="text-gray-400 hover:text-white">✕</button>
       </div>
 
-      <div id="review-votes-list" class="space-y-2 max-h-60 overflow-y-auto no-scrollbar pr-1 text-xs">
-        <!-- Rendered selected categories -->
+      <div id="review-votes-list" class="space-y-2.5 flex-1 overflow-y-auto no-scrollbar pr-1 text-xs my-2">
+        <!-- Rendered selected categories with poster/actor images -->
       </div>
 
       <!-- Guest Email Form -->
-      <form id="vote-form" onsubmit="handleVoteSubmit(event)" class="space-y-3 pt-3 border-t border-white/10 text-xs">
+      <form id="vote-form" onsubmit="handleVoteSubmit(event)" class="space-y-3 pt-3 border-t border-white/10 text-xs shrink-0">
         <div class="space-y-1 text-left">
           <label for="voter-name" class="font-bold text-gray-300">Nama Pemilih (Opsional untuk Pass Tiket):</label>
           <input type="text" id="voter-name" placeholder="Contoh: Budi Santoso" class="w-full bg-neutral-900 border border-white/20 rounded px-3 py-2 text-white focus:border-amber-400">
@@ -525,29 +528,29 @@ const html = `<!DOCTYPE html>
       </div>
 
       <!-- 9:16 Wrapped Style Pass Container -->
-      <div id="wrapped-ticket" class="wrapped-card-9-16 mx-auto p-4 flex flex-col justify-between text-center relative overflow-hidden shadow-2xl">
+      <div id="wrapped-ticket" class="wrapped-card-9-16 mx-auto p-3.5 flex flex-col justify-between text-center relative overflow-hidden shadow-2xl">
         <div class="absolute -top-12 -right-12 w-32 h-32 bg-amber-500/20 rounded-full blur-2xl"></div>
         
-        <div class="flex items-center justify-between text-[10px] text-amber-400 font-bold border-b border-white/10 pb-1.5">
+        <div class="flex items-center justify-between text-[10px] text-amber-400 font-bold border-b border-white/10 pb-1.5 shrink-0">
           <span>CINEMAGS AWARDS 2026</span>
           <span class="text-gray-400" id="ticket-id">PASS-8921</span>
         </div>
 
-        <div class="space-y-1 py-1">
+        <div class="space-y-0.5 py-1 shrink-0">
           <div class="text-[9px] text-gray-400 uppercase tracking-widest font-semibold">DIGITAL VOTER PASS</div>
-          <div class="text-lg font-bold text-white font-federo text-gold-gradient">MY TOP VOTES</div>
+          <div class="text-base font-bold text-white font-federo text-gold-gradient">MY TOP VOTES</div>
           <div class="text-[10px] text-amber-300 font-bold" id="ticket-name">Nama Pemilih</div>
         </div>
 
-        <!-- Top Voted Grid Preview -->
-        <div id="ticket-picks-grid" class="grid grid-cols-2 gap-1.5 text-left bg-neutral-900/90 p-2.5 rounded-lg border border-white/10 text-[9px]">
+        <!-- All 10 Chosen Films and Actors Preview Grid -->
+        <div id="ticket-picks-grid" class="grid grid-cols-2 gap-1.5 text-left bg-neutral-900/90 p-2 rounded-lg border border-white/10 text-[9px] max-h-52 overflow-y-auto no-scrollbar my-1">
           <!-- Rendered dynamically -->
         </div>
 
-        <div class="text-[9px] text-amber-400 font-bold tracking-wide">#RayakanFilmIndonesia</div>
+        <div class="text-[9px] text-amber-400 font-bold tracking-wide shrink-0">#RayakanFilmIndonesia</div>
 
         <!-- Social Action Buttons -->
-        <div class="pt-2 border-t border-white/10 flex items-center justify-center gap-3">
+        <div class="pt-1.5 border-t border-white/10 flex items-center justify-center gap-3 shrink-0">
           <button onclick="downloadPassImage()" title="Simpan Gambar / Download" class="w-8 h-8 rounded-full bg-amber-500 text-[#08090c] flex items-center justify-center hover:scale-110 transition-transform">
             <span class="material-symbols-outlined text-sm font-bold">download</span>
           </button>
@@ -706,7 +709,7 @@ const html = `<!DOCTYPE html>
       return path;
     }
 
-    // RENDER CATEGORY PILLS (STRICT DESIGN.MD BUTTON STATES)
+    // RENDER CATEGORY PILLS (CHECKMARK FONT COLOR MATCHING)
     function renderCategoryPills() {
       const container = document.getElementById('category-pills-container');
       container.innerHTML = categoriesData.map(cat => {
@@ -716,13 +719,30 @@ const html = `<!DOCTYPE html>
           ? 'btn-gold shadow-lg shadow-amber-500/20' 
           : 'bg-[#212121] text-gray-300 border border-white/10 hover:border-amber-400 hover:text-white';
 
+        const checkColor = isActive ? 'text-[#08090c]' : 'text-white';
+
         return \`
           <button onclick="switchCategory('\${cat.id}')" class="px-4 py-2 text-xs rounded-full shrink-0 flex items-center gap-1.5 transition-all cursor-pointer \${pillClass}">
-            \${isVoted ? '<span class="text-xs font-bold text-emerald-400">✓</span>' : ''}
+            \${isVoted ? \`<span class="text-xs font-extrabold \${checkColor}">✓</span>\` : ''}
             \${cat.title}
           </button>
         \`;
       }).join('');
+    }
+
+    // DIRECT CATEGORY NAVIGATION WITH CHEVRONS
+    function navigateCategory(direction) {
+      const currentIndex = categoriesData.findIndex(c => c.id === currentCategory);
+      let newIndex = currentIndex + direction;
+      if (newIndex < 0) newIndex = categoriesData.length - 1;
+      if (newIndex >= categoriesData.length) newIndex = 0;
+      switchCategory(categoriesData[newIndex].id);
+
+      const container = document.getElementById('category-pills-container');
+      const selectedBtn = container.children[newIndex];
+      if (selectedBtn) {
+        selectedBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      }
     }
 
     // RENDER NOMINEES GRID (FIXED TITLE DUPLICATION & IMAGE PATH FALLBACKS)
@@ -784,7 +804,7 @@ const html = `<!DOCTYPE html>
       updateUI();
     }
 
-    // OPEN DETAIL MODAL (TRAILERS STRIPPED)
+    // OPEN DETAIL MODAL (HERO POSTER TOP LAYOUT)
     function openNomineeDetail(nomId) {
       activeModalNomineeId = nomId;
       const nom = nomineesData.find(n => n.id === nomId);
@@ -809,7 +829,7 @@ const html = `<!DOCTYPE html>
       const isSelected = userVotes[nom.catId] === nomId;
       const btn = document.getElementById('detail-vote-btn');
       btn.innerText = isSelected ? 'Batal Vote' : 'Vote Nominee Ini';
-      btn.className = isSelected ? 'btn-crimson px-5 py-2 text-xs' : 'btn-gold px-5 py-2 text-xs';
+      btn.className = isSelected ? 'btn-crimson px-5 py-2 text-xs font-bold' : 'btn-gold px-5 py-2 text-xs font-bold';
 
       document.getElementById('modal-nominee-detail').showModal();
     }
@@ -840,26 +860,39 @@ const html = `<!DOCTYPE html>
       renderNomineesGrid();
     }
 
-    // OPEN REVIEW MODAL
+    // OPEN REVIEW MODAL (FULL CATEGORY LIST WITH POSTER/ACTOR IMAGES)
     function openReviewModal() {
       const list = document.getElementById('review-votes-list');
-      const votedCatIds = Object.keys(userVotes);
 
-      if (votedCatIds.length === 0) return;
-
-      list.innerHTML = votedCatIds.map(catId => {
-        const cat = categoriesData.find(c => c.id === catId);
-        const nomId = userVotes[catId];
+      list.innerHTML = categoriesData.map(cat => {
+        const nomId = userVotes[cat.id];
         const nom = nomineesData.find(n => n.id === nomId);
 
-        return \`
-          <div class="p-3 bg-neutral-900 rounded-lg border border-white/10 flex items-center justify-between">
-            <div class="space-y-0.5 text-left">
-              <span class="text-[10px] text-amber-400 font-bold uppercase">\${cat.title}</span>
-              <div class="text-white font-bold text-xs">\${nom.name}</div>
-              <div class="text-gray-400 text-[11px]">\${nom.film}</div>
+        if (!nom) {
+          return \`
+            <div class="p-2.5 bg-neutral-900/60 rounded-xl border border-white/5 flex items-center justify-between opacity-60">
+              <div class="space-y-0.5 text-left">
+                <span class="text-[10px] text-gray-400 font-bold uppercase">\${cat.title}</span>
+                <div class="text-gray-500 italic text-xs">Belum Ada Pilihan</div>
+              </div>
+              <button onclick="switchCategory('\${cat.id}'); document.getElementById('modal-review').close();" class="text-amber-400 text-xs hover:underline font-semibold">Pilih</button>
             </div>
-            <button onclick="switchCategory('\${catId}'); document.getElementById('modal-review').close();" class="text-amber-400 text-xs hover:underline font-semibold">Ubah</button>
+          \`;
+        }
+
+        const posterSrc = getAssetPath(nom.poster);
+
+        return \`
+          <div class="p-2.5 bg-neutral-900 rounded-xl border border-amber-500/20 flex items-center justify-between gap-3">
+            <div class="flex items-center gap-3 min-w-0">
+              <img src="\${posterSrc}" onerror="if(!this.dataset.retried){this.dataset.retried=true;if(!this.src.includes('../assets/'))this.src='../' + this.getAttribute('src');}" alt="\${nom.name}" class="w-10 h-12 object-cover rounded-lg border border-white/10 shrink-0">
+              <div class="space-y-0.5 text-left min-w-0">
+                <span class="text-[10px] text-amber-400 font-bold uppercase truncate block">\${cat.title}</span>
+                <div class="text-white font-bold text-xs truncate">\${nom.name}</div>
+                <div class="text-gray-400 text-[11px] truncate">\${nom.film}</div>
+              </div>
+            </div>
+            <button onclick="switchCategory('\${cat.id}'); document.getElementById('modal-review').close();" class="text-amber-400 text-xs hover:underline font-semibold shrink-0">Ubah</button>
           </div>
         \`;
       }).join('');
@@ -867,7 +900,7 @@ const html = `<!DOCTYPE html>
       document.getElementById('modal-review').showModal();
     }
 
-    // HANDLE VOTE SUBMIT & GENERATE 9:16 WRAPPED TICKET
+    // HANDLE VOTE SUBMIT & GENERATE 9:16 WRAPPED TICKET (ALL 10 VOTED ITEMS)
     function handleVoteSubmit(e) {
       e.preventDefault();
       const name = document.getElementById('voter-name').value.trim() || 'Cinemates Voter';
@@ -877,20 +910,24 @@ const html = `<!DOCTYPE html>
       document.getElementById('ticket-id').innerText = ticketId;
       document.getElementById('ticket-name').innerText = name;
 
-      // Render top picks in 9:16 wrapped ticket grid
+      // Render ALL chosen films and actors in 9:16 wrapped ticket grid
       const grid = document.getElementById('ticket-picks-grid');
-      const votedCatIds = Object.keys(userVotes);
-
-      grid.innerHTML = votedCatIds.slice(0, 4).map(catId => {
-        const cat = categoriesData.find(c => c.id === catId);
-        const nom = nomineesData.find(n => n.id === userVotes[catId]);
+      
+      grid.innerHTML = categoriesData.map(cat => {
+        const nomId = userVotes[cat.id];
+        if (!nomId) return '';
+        const nom = nomineesData.find(n => n.id === nomId);
+        const posterSrc = getAssetPath(nom.poster);
         return \`
-          <div>
-            <span class="text-gray-400 block text-[7px] uppercase truncate">\${cat.title}</span>
-            <span class="text-white font-bold block truncate text-[9px]">\${nom.name}</span>
+          <div class="flex items-center gap-1.5 p-1 bg-black/40 rounded border border-white/5 min-w-0">
+            <img src="\${posterSrc}" onerror="if(!this.dataset.retried){this.dataset.retried=true;if(!this.src.includes('../assets/'))this.src='../' + this.getAttribute('src');}" alt="\${nom.name}" class="w-6 h-7 object-cover rounded shrink-0">
+            <div class="min-w-0 leading-tight">
+              <span class="text-gray-400 block text-[6.5px] uppercase truncate">\${cat.title}</span>
+              <span class="text-white font-bold block truncate text-[8.5px]">\${nom.name}</span>
+            </div>
           </div>
         \`;
-      }).join('');
+      }).filter(Boolean).join('');
 
       document.getElementById('modal-review').close();
       document.getElementById('modal-success').showModal();
