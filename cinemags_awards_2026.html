@@ -157,7 +157,7 @@
     }
   </style>
 </head>
-<body class="relative min-h-screen pb-20">
+<body class="relative min-h-screen pb-0 sm:pb-4">
 
   <!-- HEADER NAVIGATION -->
   <header class="sticky top-0 z-40 w-full border-b border-white/10 backdrop-blur-md bg-neutral-950/90">
@@ -820,7 +820,10 @@
       document.getElementById('current-category-title').innerText = cat.title;
 
       const votedNomId = userVotes[currentCategory];
-      document.getElementById('current-category-status').innerText = votedNomId ? 'Suara Terpilih' : 'Belum Ada Pilihan';
+      const statusEl = document.getElementById('current-category-status');
+      if (statusEl) {
+        statusEl.innerText = votedNomId ? 'Suara Terpilih' : 'Belum Ada Pilihan';
+      }
 
       const categoryNominees = nomineesData.filter(n => n.catId === currentCategory);
       const grid = document.getElementById('nominees-grid');
