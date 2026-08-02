@@ -1276,7 +1276,7 @@
       function render(t) {
         gl.uniform2f(locs.res, canvas.width, canvas.height);
         gl.uniform1f(locs.time, t * 0.001 * 0.3); // Speed 0.3
-        gl.uniform1f(locs.grain, 0.45); // Soft grain
+        gl.uniform1f(locs.grain, 0.0); // No grain
         gl.uniform3fv(locs.colors, flatColors);
 
         gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
