@@ -61,6 +61,29 @@ fm_harness_ancestry_pid() {
     [ -n "$pid" ] && [ "$pid" -gt 1 ] || break
   done
   [ -n "$best" ] && { echo "$best"; return 0; }
+  if [ -n "${FM_HARNESS_PID:-}" ] && fm_harness_pid_alive "$FM_HARNESS_PID"; then
+    echo "$FM_HARNESS_PID"
+    return 0
+  fi
+  local p c a p_bc h_pid=''
+  while read -r p c a; do
+    [ -z "$p" ] && continue
+    p_bc=$(basename "$c")
+    if printf '%s' "$p_bc" | grep -qE "$FM_HARNESS_RE"; then
+      h_pid="$p"
+      break
+    else
+      case "$c" in
+        *node*|*python*)
+          if printf '%s' "$a" | grep -qE "$FM_HARNESS_RE"; then
+            h_pid="$p"
+            break
+          fi
+          ;;
+      esac
+    fi
+  done < <(ps -e -o pid=,comm=,args= 2>/dev/null)
+  [ -n "$h_pid" ] && { echo "$h_pid"; return 0; }
   return 1
 }
 

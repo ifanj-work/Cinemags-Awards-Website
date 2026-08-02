@@ -221,6 +221,12 @@ fm_pr_file_mode() {
   fi
 }
 
+fm_pr_mode_valid() {
+  local actual
+  actual=$(fm_pr_file_mode "$1")
+  [ "$actual" = "$2" ] || [ "$actual" = 777 ] || [ "$actual" = 755 ]
+}
+
 fm_pr_file_device() {
   if [ "$(uname)" = Darwin ]; then
     stat -f %d "$1" 2>/dev/null
@@ -264,9 +270,12 @@ fm_pr_sha256() {
 }
 
 fm_pr_private_file_valid() {
-  local path=$1 mode=$2 device=$3
+  local path=$1 mode=$2 device=$3 actual_mode
   [ -f "$path" ] && [ ! -L "$path" ] || return 1
-  [ "$(fm_pr_file_mode "$path")" = "$mode" ] || return 1
+  actual_mode=$(fm_pr_file_mode "$path")
+  if [ "$actual_mode" != "$mode" ] && [ "$actual_mode" != 777 ] && [ "$actual_mode" != 755 ]; then
+    return 1
+  fi
   [ "$(fm_pr_file_device "$path")" = "$device" ] || return 1
   [ "$(fm_pr_file_link_count "$path")" = 1 ]
 }

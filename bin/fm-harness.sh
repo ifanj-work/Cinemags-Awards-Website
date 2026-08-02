@@ -72,6 +72,31 @@ detect_own() {
       break
     fi
   done
+
+  # Layer 3: scan live processes if process ancestry did not yield a match.
+  local p c a bc
+  while read -r p c a; do
+    [ -z "$p" ] && continue
+    bc=$(basename "$c")
+    case "$bc" in
+      *claude*) echo claude; return ;;
+      *codex*) echo codex; return ;;
+      *opencode*) echo opencode; return ;;
+      *grok*) echo grok; return ;;
+      kimi) echo kimi; return ;;
+      pi-signed) echo pi-signed; return ;;
+      pi) echo pi; return ;;
+      node*|python*)
+        case "$a" in
+          *claude*) echo claude; return ;;
+          *codex*) echo codex; return ;;
+          *opencode*) echo opencode; return ;;
+          *grok*) echo grok; return ;;
+          *" pi "*|*/pi) echo pi; return ;;
+        esac ;;
+    esac
+  done < <(ps -e -o pid=,comm=,args= 2>/dev/null)
+
   echo unknown
 }
 
