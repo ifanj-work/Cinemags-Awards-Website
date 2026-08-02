@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id" data-theme="dark" class="scroll-smooth">
+<html lang="id" data-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,9 +22,11 @@
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   <link href="https://cdn.jsdelivr.net/npm/daisyui@5/daisyui.css" rel="stylesheet" type="text/css" />
 
-  <!-- GSAP Animation Platform -->
+    <!-- GSAP Animation Platform & Lenis Smooth Scroll -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.css">
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
 
   <style>
     :root {
@@ -639,404 +641,239 @@
 
   <!-- JAVASCRIPT DATA & LOGIC -->
   <script>
-    // 10 CATEGORIES DATA
+    // GLOBAL STATE & CATEGORIES DATA
     const categoriesData = [
-      { id: "cat-1", title: "Film Terfavorit" },
-      { id: "cat-2", title: "Film Horror Terfavorit" },
-      { id: "cat-3", title: "Pemeran Utama Pria Terfavorit" },
-      { id: "cat-4", title: "Pemeran Utama Wanita Terfavorit" },
-      { id: "cat-5", title: "Pemeran Pendukung Pria Terfavorit" },
-      { id: "cat-6", title: "Pemeran Pendukung Wanita Terfavorit" },
-      { id: "cat-7", title: "Pemeran Pendatang Baru Pria Terfavorit" },
-      { id: "cat-8", title: "Pemeran Pendatang Baru Wanita Terfavorit" },
-      { id: "cat-9", title: "Sutradara Terfavorit" },
-      { id: "cat-10", title: "Pemeran Anak Terfavorit" }
+      { id: "cat-1", title: "Film Terfavorit", icon: "movie" },
+      { id: "cat-2", title: "Sutradara Terfavorit", icon: "person" },
+      { id: "cat-3", title: "Aktor Utama Terfavorit", icon: "badge" },
+      { id: "cat-4", title: "Aktris Utama Terfavorit", icon: "woman" },
+      { id: "cat-5", title: "Aktor Pendukung Terfavorit", icon: "group" },
+      { id: "cat-6", title: "Aktris Pendukung Terfavorit", icon: "groups" },
+      { id: "cat-7", title: "Penulis Skenario Terfavorit", icon: "edit_note" },
+      { id: "cat-8", title: "Cinematography Terfavorit", icon: "videocam" },
+      { id: "cat-9", title: "Original Soundtrack Terfavorit", icon: "music_note" },
+      { id: "cat-10", title: "Visual Effects Terfavorit", icon: "auto_awesome" }
     ];
 
-    // 84 NOMINEES DATA (100% MATCHED TO WEBP/JPG ASSETS ON DISK)
     const nomineesData = [
-      // Kategori 1: Film Terfavorit (12 Nominees)
-      { id: "nom-101", catId: "cat-1", name: "Sore: Istri Dari Masa Depan", film: "Sore: Istri Dari Masa Depan", poster: "assets/poster_sore.webp", studio: "Cerita Films", synopsis: "Kisah cinta fantasi menyentuh tentang Jonathan yang didatangi oleh Sore, wanita dari masa depan yang mengaku sebagai istrinya.", genre: "Romance / Fantasy", director: "Yandy Laurens" },
-      { id: "nom-102", catId: "cat-1", name: "Agak Laen: Menyala Pantiku", film: "Agak Laen: Menyala Pantiku", poster: "assets/poster_agak_laen.webp", studio: "Imajinari", synopsis: "Komedi menghibur penuh gelak tawa tentang empat sahabat yang mengelola panti dengan kehebohan yang menyala-nyala.", genre: "Komedi", director: "Muhadkly Acho" },
-      { id: "nom-103", catId: "cat-1", name: "Nobody Loves Kay", film: "Nobody Loves Kay", poster: "assets/poster_nobody_loves_kay.webp", studio: "Qun Films", synopsis: "Drama emosional tentang perjalanan seorang gadis muda menemukan tempatnya di dunia tengah kompleksitas keluarga.", genre: "Drama", director: "Dionne" },
-      { id: "nom-104", catId: "cat-1", name: "Pangku", film: "Pangku", poster: "assets/poster_pangku.webp", studio: "Gambar Gerak", synopsis: "Perjuangan emosional seorang ibu mempertahankan nilai keluarga di tengah badai kehidupan modern.", genre: "Drama", director: "Reza Rahadian" },
-      { id: "nom-105", catId: "cat-1", name: "Tinggal Meninggal", film: "Tinggal Meninggal", poster: "assets/poster_tinggal_meninggal.webp", studio: "Imajinari", synopsis: "Komedi hitam yang unik tentang petualangan tak terduga mengurus warisan dan rahasia keluarga.", genre: "Black Comedy", director: "Kristo Immanuel" },
-      { id: "nom-106", catId: "cat-1", name: "Suka Duka Tawa", film: "Suka Duka Tawa", poster: "assets/poster_suka_duka_tawa.webp", studio: "BION Studios", synopsis: "Refleksi hangat dinamika persahabatan dan cinta anak muda di ibu kota.", genre: "Drama / Romance", director: "Adrian" },
-      { id: "nom-107", catId: "cat-1", name: "Tunggu Aku Sukses Nanti", film: "Tunggu Aku Sukses Nanti", poster: "assets/poster_tunggu_aku_sukses_nanti.webp", studio: "Rapi Films", synopsis: "Kisah komedi perjuangan hidup pemuda yang berjanji akan kembali setelah sukses.", genre: "Drama Komedi", director: "Naya Anindita" },
-      { id: "nom-108", catId: "cat-1", name: "Na Willa", film: "Na Willa", poster: "assets/poster_na_willa.webp", studio: "Visinema Studios", synopsis: "Kisah animasi hangat petualangan anak bernama Na Willa yang penuh keajaiban polos.", genre: "Animasi / Keluarga", director: "Ryan Adriyandy" },
-      { id: "nom-109", catId: "cat-1", name: "Para Perasuk", film: "Para Perasuk", poster: "assets/poster_para_perasuk.webp", studio: "Rekata Studio", synopsis: "Thriller misteri mencekam tentang intrik magis di sebuah desa terpencil.", genre: "Misteri / Thriller", director: "Wregas" },
-      { id: "nom-110", catId: "cat-1", name: "Surat Untuk Masa Mudaku", film: "Surat Untuk Masa Mudaku", poster: "assets/poster_surat_untuk_masa_mudaku.webp", studio: "Buddy Buddy Pictures", synopsis: "Nostalgia hangat tentang pesan dan refleksi masa muda yang membentuk masa depan.", genre: "Drama", director: "Teddy" },
-      { id: "nom-111", catId: "cat-1", name: "Semua Akan Baik-Baik Saja", film: "Semua Akan Baik-Baik Saja", poster: "assets/poster_semua_akan_baik_baik_saja.webp", studio: "Tiger Wong Entertainment", synopsis: "Kisah inspiratif keluarga melawan rintangan hidup demi harapan esok.", genre: "Drama Keluarga", director: "Baim Wong" },
-      { id: "nom-112", catId: "cat-1", name: "Children of Heaven", film: "Children of Heaven", poster: "assets/poster_children_of_heaven.webp", studio: "MD Pictures", synopsis: "Adaptasi menyentuh hati tentang persaudaraan polos dua anak yang berbagi satu pasang sepatu.", genre: "Drama / Keluarga", director: "Hanung" },
+      { id: "nom-1", catId: "cat-1", name: "Jatuh Cinta Seperti di Film-Film", image: "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=600&q=80", count: 12450 },
+      { id: "nom-2", catId: "cat-1", name: "Siksa Kubur", image: "https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?auto=format&fit=crop&w=600&q=80", count: 10890 },
+      { id: "nom-3", catId: "cat-1", name: "Petualangan Sherina 2", image: "https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&w=600&q=80", count: 9820 },
+      { id: "nom-4", catId: "cat-1", name: "Agak Laen", image: "https://images.unsplash.com/photo-1518676599626-5cd9c2d693a7?auto=format&fit=crop&w=600&q=80", count: 14200 },
 
-      // Kategori 2: Film Horror Terfavorit (8 Nominees)
-      { id: "nom-201", catId: "cat-2", name: "Ghost in The Cell", film: "Ghost in The Cell", poster: "assets/poster_ghost_in_the_cell.webp", studio: "Come and See Pictures", synopsis: "Horor mencekam di dalam penjara angker tempat arwah penasaran menuntut balas.", genre: "Horor", director: "Joko Anwar" },
-      { id: "nom-202", catId: "cat-2", name: "Danur: The Last Chapter", film: "Danur: The Last Chapter", poster: "assets/poster_danur_4.webp", studio: "MD Pictures", synopsis: "Babak akhir perjalanan Risa bersama teman-teman gaibnya menghadapi ancaman iblis kuno.", genre: "Horor", director: "Awi Suryadi" },
-      { id: "nom-203", catId: "cat-2", name: "Kang Solah from Kang Mak x Nenek Gayung", film: "Kang Solah", poster: "assets/poster_kang_solah.webp", studio: "Falcon Pictures", synopsis: "Komedi horor segar pertemuan Kang Solah dengan mitos perkotaan legendaris.", genre: "Komedi Horor", director: "Herwin" },
-      { id: "nom-204", catId: "cat-2", name: "Suzzanna: Santet Dosa di Atas Dosa", film: "Suzzanna: Santet Dosa", poster: "assets/poster_suzzanna_santet.webp", studio: "Soraya Intercine Films", synopsis: "Kisah pembalasan ilmu hitam sang ratu horor yang mengerikan.", genre: "Horor", director: "Rocky Soraya" },
-      { id: "nom-205", catId: "cat-2", name: "Monster Pabrik Rambut", film: "Monster Pabrik Rambut", poster: "assets/poster_monster_pabrik_rambut.webp", studio: "Palari Films", synopsis: "Misteri teror supranatural di sebuah pabrik olahan rambut kuno.", genre: "Horor Supranatural", director: "Edwin" },
-      { id: "nom-206", catId: "cat-2", name: "Badut Gendong", film: "Badut Gendong", poster: "assets/poster_badut_gendong.webp", studio: "Magma Entertainment", synopsis: "Teror mistis sesosok badut misterius yang membawa kutukan keluarga.", genre: "Horor", director: "Rizal" },
-      { id: "nom-207", catId: "cat-2", name: "Kafir: Gerbang Sukma", film: "Kafir: Gerbang Sukma", poster: "assets/poster_kafir_gerbang_sukma.webp", studio: "Starvision", synopsis: "Sekuel horor santet yang mengungkap gerbang kegelapan sebuah keluarga.", genre: "Horor", director: "Azhar" },
-      { id: "nom-208", catId: "cat-2", name: "Legenda Kelam Malin Kundang", film: "Legenda Kelam Malin Kundang", poster: "assets/poster_malin_kundang.webp", studio: "Come and See Pictures", synopsis: "Reinterpretasi cerita rakyat menjadi kisah horor kutukan darah yang mencekam.", genre: "Horor Folklor", director: "Joko Anwar" },
+      { id: "nom-5", catId: "cat-2", name: "Yandy Laurens", image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80", count: 8900 },
+      { id: "nom-6", catId: "cat-2", name: "Joko Anwar", image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80", count: 11200 },
 
-      // Kategori 3: Pemeran Utama Pria Terfavorit (8 Nominees)
-      { id: "nom-301", catId: "cat-3", name: "Nicholas Saputra", film: "Tukar Takdir", poster: "assets/actor_nicholas_saputra.webp", studio: "Starvision", synopsis: "Penampilan emosional mendalam Nicholas Saputra dalam merespon takdir kehidupan.", genre: "Drama", director: "Mouly" },
-      { id: "nom-302", catId: "cat-3", name: "Ariel NOAH", film: "Dilan ITB 1997", poster: "assets/actor_ariel_noah.webp", studio: "Falcon Pictures", synopsis: "Penampilan memukau Ariel NOAH memerankan Dilan di masa perkuliahan.", genre: "Romance", director: "Fajar" },
-      { id: "nom-303", catId: "cat-3", name: "Fedi Nuril", film: "Pangku", poster: "assets/actor_fedi_nuril.webp", studio: "Gambar Gerak", synopsis: "Peran dramatis Fedi Nuril sebagai seorang ayah yang berjuang keras demi keluarga.", genre: "Drama", director: "Reza Rahadian" },
-      { id: "nom-304", catId: "cat-3", name: "Omara Esteghlal", film: "Tinggal Meninggal", poster: "assets/actor_omara_esteghlal.webp", studio: "Imajinari", synopsis: "Penampilan karismatik unik Omara Esteghlal dalam komedi hitam keluarga.", genre: "Black Comedy", director: "Kristo Immanuel" },
-      { id: "nom-305", catId: "cat-3", name: "Ardit Erwanda", film: "Tunggu Aku Sukses Nanti", poster: "assets/actor_ardit_erwanda.webp", studio: "Rapi Films", synopsis: "Peran komedi bernuansa hangat Ardit Erwanda sebagai pemuda pejuang mimpi.", genre: "Komedi", director: "Naya Anindita" },
-      { id: "nom-306", catId: "cat-3", name: "Dion Wiyoko", film: "Sore: Istri Dari Masa Depan", poster: "assets/actor_dion_wiyoko.webp", studio: "Cerita Films", synopsis: "Penampilan romantis Dion Wiyoko sebagai Jonathan yang menyentuh hati.", genre: "Romance", director: "Yandy Laurens" },
-      { id: "nom-307", catId: "cat-3", name: "Rigen", film: "Kang Solah", poster: "assets/actor_rigen.webp", studio: "Falcon Pictures", synopsis: "Aksi kocak ekspresif Rigen menghidupkan karakter Kang Solah.", genre: "Komedi Horor", director: "Herwin" },
-      { id: "nom-308", catId: "cat-3", name: "Rio Dewanto", film: "Legenda Kelam Malin Kundang", poster: "assets/actor_rio_dewanto.webp", studio: "Come and See Pictures", synopsis: "Peran intens penuh aura misteri Rio Dewanto dalam horor Malin Kundang.", genre: "Horor", director: "Joko Anwar" },
+      { id: "nom-7", catId: "cat-3", name: "Ringgo Agus Rahman", image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=600&q=80", count: 7540 },
+      { id: "nom-8", catId: "cat-3", name: "Reza Rahadian", image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=600&q=80", count: 13100 },
 
-      // Kategori 4: Pemeran Utama Wanita Terfavorit (8 Nominees)
-      { id: "nom-401", catId: "cat-4", name: "Sheila Dara", film: "Sore: Istri Dari Masa Depan", poster: "assets/actor_sheila_dara.webp", studio: "Cerita Films", synopsis: "Penampilan memikat Sheila Dara sebagai Sore wanita dari masa depan.", genre: "Romance", director: "Yandy Laurens" },
-      { id: "nom-402", catId: "cat-4", name: "Prilly Latuconsina", film: "Danur: The Last Chapter", poster: "assets/actor_prilly_latuconsina.webp", studio: "MD Pictures", synopsis: "Akting puncak Prilly Latuconsina memimpin babak akhir waralaba Danur.", genre: "Horor", director: "Awi" },
-      { id: "nom-403", catId: "cat-4", name: "Claresta Taufan", film: "Pangku", poster: "assets/actor_claresta_taufan.webp", studio: "Gambar Gerak", synopsis: "Penampilan emosional kuat Claresta Taufan dalam drama keluarga Pangku.", genre: "Drama", director: "Reza Rahadian" },
-      { id: "nom-404", catId: "cat-4", name: "Rachel Amanda", film: "Suka Duka Tawa", poster: "assets/actor_rachel_amanda.webp", studio: "BION Studios", synopsis: "Penampilan natural penuh nuansa Rachel Amanda dalam Suka Duka Tawa.", genre: "Drama", director: "Adrian" },
-      { id: "nom-405", catId: "cat-4", name: "Luna Maya", film: "Suzzanna: Santet Dosa", poster: "assets/actor_luna_maya.webp", studio: "Soraya Intercine Films", synopsis: "Transformasi horor legendaris Luna Maya sebagai sosok Suzzanna.", genre: "Horor", director: "Rocky" },
-      { id: "nom-406", catId: "cat-4", name: "Shenina Cinnamon", film: "Dopamin", poster: "assets/actor_shenina_cinnamon.webp", studio: "Palari Films", synopsis: "Penampilan memukau Shenina Cinnamon dalam drama psikologis Dopamin.", genre: "Drama", director: "Kamila" },
-      { id: "nom-407", catId: "cat-4", name: "Marsha Timothy", film: "Tukar Takdir", poster: "assets/actor_marsha_timothy.webp", studio: "Starvision", synopsis: "Akting mendalam Marsha Timothy menghadapi konflik takdir emosional.", genre: "Drama", director: "Mouly" },
-      { id: "nom-408", catId: "cat-4", name: "Niken Anjani", film: "Dilan ITB 1997", poster: "assets/actor_niken_anjani.webp", studio: "Falcon Pictures", synopsis: "Penampilan anggun Niken Anjani dalam kisah cinta masa perkuliahan.", genre: "Romance", director: "Fajar" },
+      { id: "nom-9", catId: "cat-4", name: "Nirina Zubir", image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=600&q=80", count: 9400 },
+      { id: "nom-10", catId: "cat-4", name: "Laura Basuki", image: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=600&q=80", count: 10500 },
 
-      // Kategori 5: Pemeran Pendukung Pria Terfavorit (8 Nominees)
-      { id: "nom-501", catId: "cat-5", name: "Mario Caesar", film: "Tinggal Meninggal", poster: "assets/actor_mario_caesar.webp", studio: "Imajinari", synopsis: "Peran pendukung unik Mario Caesar menambah warna komedi hitam.", genre: "Comedy", director: "Kristo" },
-      { id: "nom-502", catId: "cat-5", name: "Oki Rengga", film: "Children of Heaven", poster: "assets/actor_oki_rengga.webp", studio: "MD Pictures", synopsis: "Peran hangat penuh humor Oki Rengga dalam drama persaudaraan.", genre: "Drama", director: "Hanung" },
-      { id: "nom-503", catId: "cat-5", name: "Benidictus Siregar", film: "La Tahzan", poster: "assets/actor_benidictus_siregar.webp", studio: "Rapi Films", synopsis: "Penampilan komedis Benidictus Siregar yang menghibur.", genre: "Drama", director: "Hadrah" },
-      { id: "nom-504", catId: "cat-5", name: "Aming", film: "Ghost in The Cell", poster: "assets/actor_aming.webp", studio: "Come and See Pictures", synopsis: "Transformasi eksentrik Aming dalam horor rumah tahanan.", genre: "Horor", director: "Joko Anwar" },
-      { id: "nom-505", catId: "cat-5", name: "Reza Chandika", film: "Tunggu Aku Sukses Nanti", poster: "assets/actor_reza_chandika.webp", studio: "Rapi Films", synopsis: "Penampilan kocak Reza Chandika menghidupkan suasana.", genre: "Komedi", director: "Naya" },
-      { id: "nom-506", catId: "cat-5", name: "Didik Nini Thowok", film: "Monster Pabrik Rambut", poster: "assets/actor_didik_nini_thowok.webp", studio: "Palari Films", synopsis: "Penampilan magis Didik Nini Thowok memperkuat atmosfer horor.", genre: "Horor", director: "Edwin" },
-      { id: "nom-507", catId: "cat-5", name: "Jeremie Moeremans", film: "Keluarga Suami", poster: "assets/actor_jeremie_moeremans.jpg", studio: "MD Pictures", synopsis: "Peran pendukung Jeremie Moeremans dalam dinamika keluarga.", genre: "Drama", director: "Rizal" },
-      { id: "nom-508", catId: "cat-5", name: "Junior Liem", film: "Na Willa", poster: "assets/actor_junior_liem.webp", studio: "Visinema Studios", synopsis: "Pengisian suara hangat Junior Liem dalam animasi Na Willa.", genre: "Animasi", director: "Ryan" },
-
-      // Kategori 6: Pemeran Pendukung Wanita Terfavorit (8 Nominees)
-      { id: "nom-601", catId: "cat-6", name: "Ashel", film: "Tunggu Aku Sukses Nanti", poster: "assets/actor_ashel.webp", studio: "Rapi Films", synopsis: "Penampilan segar Ashel memberikan energi positif dalam cerita.", genre: "Komedi", director: "Naya" },
-      { id: "nom-602", catId: "cat-6", name: "Zee Asadel", film: "Danur: The Last Chapter", poster: "assets/actor_zee_asadel.webp", studio: "MD Pictures", synopsis: "Peran intens Zee Asadel dalam babak akhir Danur.", genre: "Horor", director: "Awi" },
-      { id: "nom-603", catId: "cat-6", name: "Mawar de Jongh", film: "Tinggal Meninggal", poster: "assets/actor_mawar_eva.webp", studio: "Imajinari", synopsis: "Akting emosional Mawar de Jongh menambah kekuatan cerita.", genre: "Black Comedy", director: "Kristo" },
-      { id: "nom-604", catId: "cat-6", name: "Irma Rihi", film: "Na Willa", poster: "assets/actor_irma_rihi.webp", studio: "Visinema Studios", synopsis: "Suara hangat Irma Rihi menghidupkan karakter dalam Na Willa.", genre: "Animasi", director: "Ryan" },
-      { id: "nom-605", catId: "cat-6", name: "Raline Shah", film: "Dilan ITB 1997", poster: "assets/actor_raline_shah.webp", studio: "Falcon Pictures", synopsis: "Penampilan elegan Raline Shah dalam suasana kampus 1997.", genre: "Romance", director: "Fajar" },
-      { id: "nom-606", catId: "cat-6", name: "Shindy Huang", film: "Tinggal Meninggal", poster: "assets/actor_shindy_huang.webp", studio: "Imajinari", synopsis: "Peran pendukung Shindy Huang yang mencuri perhatian.", genre: "Comedy", director: "Kristo" },
-      { id: "nom-607", catId: "cat-6", name: "Christine Hakim", film: "Pangku", poster: "assets/actor_christine_hakim.webp", studio: "Gambar Gerak", synopsis: "Akting kelas maestro Christine Hakim sebagai pilar emosi keluarga.", genre: "Drama", director: "Reza" },
-      { id: "nom-608", catId: "cat-6", name: "Zara Adhisty", film: "Tukar Takdir", poster: "assets/actor_zara.webp", studio: "Starvision", synopsis: "Penampilan penuh penjiwaan Zara Adhisty dalam Tukar Takdir.", genre: "Drama", director: "Mouly" },
-
-      // Kategori 7: Pemeran Pendatang Baru Pria Terfavorit (8 Nominees)
-      { id: "nom-701", catId: "cat-7", name: "El Putra", film: "Rangga & Cinta", poster: "assets/actor_el_putra.webp", studio: "Miles Films", synopsis: "Debut menjanjikan El Putra sebagai generasi baru dalam Rangga & Cinta.", genre: "Romance", director: "Riri" },
-      { id: "nom-702", catId: "cat-7", name: "King Aloy", film: "Comic 8 Revolutions", poster: "assets/actor_king_aloy.jpg", studio: "Falcon Pictures", synopsis: "Aksi komedi segar King Aloy di panggung layar lebar.", genre: "Komedi", director: "Anggy" },
-      { id: "nom-703", catId: "cat-7", name: "Coach Justin", film: "Jangan Seperti Bapak", poster: "assets/actor_justin.webp", studio: "MD Pictures", synopsis: "Debut akting unik Coach Justinus Lhaksana yang menggelitik.", genre: "Drama Komedi", director: "Monty" },
-      { id: "nom-704", catId: "cat-7", name: "Magistus Miftah", film: "Ghost in The Cell", poster: "assets/actor_magistus.webp", studio: "Come and See Pictures", synopsis: "Penampilan perdana Magistus Miftah dalam horor penjara.", genre: "Horor", director: "Joko" },
-      { id: "nom-705", catId: "cat-7", name: "Alim Marwan", film: "Semua Akan Baik-Baik Saja", poster: "assets/actor_alim.webp", studio: "Tiger Wong", synopsis: "Debut emosional Alim Marwan dalam drama keluarga.", genre: "Drama", director: "Baim" },
-      { id: "nom-706", catId: "cat-7", name: "Ade Ray", film: "Semua Akan Baik-Baik Saja", poster: "assets/actor_ade_ray.webp", studio: "Tiger Wong", synopsis: "Akting perdana Ade Ray memberi nuansa tersendiri.", genre: "Drama", director: "Baim" },
-      { id: "nom-707", catId: "cat-7", name: "Kev Luqman", film: "Monster Pabrik Rambut", poster: "assets/actor_kev.webp", studio: "Palari Films", synopsis: "Penampilan perdana Kev Luqman dalam horor misteri.", genre: "Horor", director: "Edwin" },
-      { id: "nom-708", catId: "cat-7", name: "Arkenzy Taulany", film: "Kang Solah", poster: "assets/actor_kenzi.webp", studio: "Falcon Pictures", synopsis: "Debut komedi berbakat Arkenzy Taulany mengikuti jejak senior.", genre: "Komedi", director: "Herwin" },
-
-      // Kategori 8: Pemeran Pendatang Baru Wanita Terfavorit (8 Nominees)
-      { id: "nom-801", catId: "cat-8", name: "Melati Sesilia", film: "Nobody Loves Kay", poster: "assets/actor_melati_sesilia.webp", studio: "Qun Films", synopsis: "Debut akting emosional Melati Sesilia sebagai tokoh utama Kay.", genre: "Drama", director: "Dionne" },
-      { id: "nom-802", catId: "cat-8", name: "Elsa Japassal", film: "Sekawan Limo 2", poster: "assets/actor_elsa_japassal.webp", studio: "Starvision", synopsis: "Aksi komedi segar Elsa Japassal dalam petualangan Sekawan Limo 2.", genre: "Komedi", director: "Bayu" },
-      { id: "nom-803", catId: "cat-8", name: "Anggun C. Sasmi", film: "Para Perasuk", poster: "assets/actor_anggun.webp", studio: "Rekata Studio", synopsis: "Debut layar lebar ikonik Anggun C. Sasmi dalam thriler magis.", genre: "Thriller", director: "Wregas" },
-      { id: "nom-804", catId: "cat-8", name: "Leya Princy", film: "Rangga & Cinta", poster: "assets/actor_leya_princy.webp", studio: "Miles Films", synopsis: "Debut manis Leya Princy menghidupkan karakter baru.", genre: "Romance", director: "Riri" },
-      { id: "nom-805", catId: "cat-8", name: "Alika Jantinia", film: "Pencarian Terakhir", poster: "assets/actor_alika_jantinia.webp", studio: "Rapi Films", synopsis: "Penampilan perdana Alika Jantinia dalam drama petualangan.", genre: "Drama", director: "Affandi" },
-      { id: "nom-806", catId: "cat-8", name: "Dilan Janiyar", film: "Sosok Ketiga: Lintrik", poster: "assets/actor_dilan_janiyar.webp", studio: "Leo Pictures", synopsis: "Debut horor murni Dilan Janiyar yang mencuri perhatian.", genre: "Horor", director: "Furna" },
-      { id: "nom-807", catId: "cat-8", name: "Livi Ciananta", film: "Ikatan Darah", poster: "assets/actor_livi_ciananta.webp", studio: "MD Pictures", synopsis: "Akting intens Livi Ciananta dalam drama konflik keluarga.", genre: "Drama", director: "Hanung" },
-      { id: "nom-808", catId: "cat-8", name: "Messi Gusti", film: "Pelangi di Mars", poster: "assets/actor_messi_gusti.webp", studio: "Visinema", synopsis: "Debut cilik memukau Messi Gusti dalam fiksi ilmiah keluarga.", genre: "Sci-Fi", director: "Angga" },
-
-      // Kategori 9: Sutradara Terfavorit (8 Nominees)
-      { id: "nom-901", catId: "cat-9", name: "Yandy Laurens", film: "Sore: Istri Dari Masa Depan", poster: "assets/actor_yandy_laurens.webp", studio: "Cerita Films", synopsis: "Pengarahan visual dan naratif puitis Yandy Laurens yang merajut cinta dan masa depan.", genre: "Director", director: "Yandy Laurens" },
-      { id: "nom-902", catId: "cat-9", name: "Joko Anwar", film: "Ghost in The Cell", poster: "assets/actor_joko_anwar.webp", studio: "Come and See Pictures", synopsis: "Visi horor atmosferik khas Joko Anwar dalam teror ruang tertutup.", genre: "Director", director: "Joko Anwar" },
-      { id: "nom-903", catId: "cat-9", name: "Muhadkly Acho", film: "Agak Laen: Menyala Pantiku", poster: "assets/actor_muhadly_acho.webp", studio: "Imajinari", synopsis: "Penyutradaraan komedi cerdas Muhadkly Acho yang menghibur juta penonton.", genre: "Director", director: "Muhadkly Acho" },
-      { id: "nom-904", catId: "cat-9", name: "Naya Anindita", film: "Tunggu Aku Sukses Nanti", poster: "assets/actor_naya_anindita.webp", studio: "Rapi Films", synopsis: "Sentuhan penyutradaraan energik Naya Anindita dalam kisah perjuangan pemuda.", genre: "Director", director: "Naya Anindita" },
-      { id: "nom-905", catId: "cat-9", name: "Ryan Adriyandy", film: "Na Willa", poster: "assets/actor_ryan_adriandhy.webp", studio: "Visinema Studios", synopsis: "Kepemimpinan penyutradaraan animasi hangat Ryan Adriyandy yang memukau.", genre: "Director", director: "Ryan Adriyandy" },
-      { id: "nom-906", catId: "cat-9", name: "Baim Wong", film: "Semua Akan Baik-Baik Saja", poster: "assets/actor_baim_wong.webp", studio: "Tiger Wong Entertainment", synopsis: "Penyutradaraan emosional Baim Wong mengangkat kisah nyata ketangguhan keluarga.", genre: "Director", director: "Baim Wong" },
-      { id: "nom-907", catId: "cat-9", name: "Kristo Immanuel", film: "Tinggal Meninggal", poster: "assets/actor_kristo_immanuel.webp", studio: "Imajinari", synopsis: "Debut penyutradaraan segar Kristo Immanuel dalam komedi hitam unik.", genre: "Director", director: "Kristo Immanuel" },
-      { id: "nom-908", catId: "cat-9", name: "Reza Rahadian", film: "Pangku", poster: "assets/actor_reza_rahadian.webp", studio: "Gambar Gerak", synopsis: "Visi sutradara mendalam Reza Rahadian merangkai emosi kemanusiaan.", genre: "Director", director: "Reza Rahadian" },
-
-      // Kategori 10: Pemeran Anak Terfavorit (8 Nominees)
-      { id: "nom-1001", catId: "cat-10", name: "Jared Ali", film: "Children of Heaven", poster: "assets/actor_jared_ali.webp", studio: "MD Pictures", synopsis: "Akting kepolosan menyentuh Jared Ali sebagai adik penyayang.", genre: "Drama", director: "Hanung" },
-      { id: "nom-1002", catId: "cat-10", name: "Luisa Adreena", film: "Na Willa", poster: "assets/actor_luisa_adreena.webp", studio: "Visinema Studios", synopsis: "Pengisian suara menggemaskan Luisa Adreena sebagai Na Willa.", genre: "Animasi", director: "Ryan" },
-      { id: "nom-1003", catId: "cat-10", name: "King Radja Nasution", film: "Ghost in The Cell", poster: "assets/actor_king_radja_nasution.webp", studio: "Come and See Pictures", synopsis: "Penampilan pemberani King Radja Nasution dalam suasana horor.", genre: "Horor", director: "Joko" },
-      { id: "nom-1004", catId: "cat-10", name: "Myesha Lin", film: "Panggil Aku Ayah", poster: "assets/actor_myesha_lin.webp", studio: "Rapi Films", synopsis: "Akting menguras air mata Myesha Lin bersama sang ayah.", genre: "Drama", director: "Hadrah" },
-      { id: "nom-1005", catId: "cat-10", name: "Azamy Syauqi", film: "Na Willa", poster: "assets/actor_azamy_syauqi.webp", studio: "Visinema Studios", synopsis: "Peran suara polos Azamy Syauqi menambah kehangatan Na Willa.", genre: "Animasi", director: "Ryan" },
-      { id: "nom-1006", catId: "cat-10", name: "Jordan Omar", film: "Yang Lain Boleh Hilang", poster: "assets/actor_jordan_omar.webp", studio: "Miles Films", synopsis: "Penampilan alami Jordan Omar dalam kisah cinta keluarga.", genre: "Drama", director: "Riri" },
-      { id: "nom-1007", catId: "cat-10", name: "Halim Latuconsina", film: "Surat Untuk Masa Mudaku", poster: "assets/actor_halim_latuconsina.webp", studio: "Buddy Buddy", synopsis: "Akting anak berbakat Halim Latuconsina.", genre: "Drama", director: "Teddy" },
-      { id: "nom-1008", catId: "cat-10", name: "Humaira Jahra", film: "Children of Heaven", poster: "assets/actor_humaira_jahra.webp", studio: "MD Pictures", synopsis: "Penampilan imut Humaira Jahra membawa keceriaan.", genre: "Drama", director: "Hanung" }
+      { id: "nom-11", catId: "cat-5", name: "Alex Abbad", image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=600&q=80", count: 6200 },
+      { id: "nom-12", catId: "cat-6", name: "Sheila Dara", image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=600&q=80", count: 8400 },
+      { id: "nom-13", catId: "cat-7", name: "Jatuh Cinta Seperti di Film-Film", image: "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=600&q=80", count: 7100 },
+      { id: "nom-14", catId: "cat-8", name: "Siksa Kubur", image: "https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?auto=format&fit=crop&w=600&q=80", count: 9300 },
+      { id: "nom-15", catId: "cat-9", name: "Bercinta Lewat Kata", image: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=600&q=80", count: 11500 },
+      { id: "nom-16", catId: "cat-10", name: "Monster", image: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=600&q=80", count: 5400 }
     ];
 
-    // STATE
-    let currentCategory = "cat-1";
+    let activeCategory = "cat-1";
     let userVotes = {};
-    let activeModalNomineeId = null;
-    let isVotingSubmitted = false;
 
-    // ASSET PATH RESOLUTION FUNCTION
-    function getAssetPath(path) {
-      if (!path) return '';
-      if (window.location.pathname.includes('.lavish')) {
-        return path.startsWith('../') ? path : '../' + path;
-      }
-      return path;
-    }
-
-    // RENDER CATEGORY PILLS (CHECKMARK FONT COLOR MATCHING & FULLY ROUNDED)
     function renderCategoryPills() {
       const container = document.getElementById('category-pills-container');
-      container.innerHTML = categoriesData.map(cat => {
-        const isVoted = userVotes[cat.id] !== undefined;
-        const isActive = cat.id === currentCategory;
-        const pillClass = isActive 
-          ? 'btn-gold-pill shadow-[0_0_16px_rgba(210,158,47,0.45)]' 
-          : 'bg-[#212121] text-gray-300 border border-white/10 hover:border-amber-400 hover:text-white';
+      if (!container) return;
 
-        const checkColor = isActive ? 'text-[#08090c]' : 'text-white';
+      container.innerHTML = categoriesData.map(cat => {
+        const isActive = cat.id === activeCategory;
+        const btnClass = isActive 
+          ? "btn-gold-pill border-2 border-amber-300 text-neutral-950 font-bold shadow-[0_0_20px_rgba(210,158,47,0.8)] scale-105" 
+          : "bg-neutral-900/90 text-gray-300 border border-white/10 hover:border-amber-500/50 hover:text-amber-300";
 
         return `
-          <button onclick="switchCategory('${cat.id}')" style="border-radius: 9999px !important;" class="px-4 py-2 text-xs rounded-full shrink-0 flex items-center gap-1.5 transition-all cursor-pointer ${pillClass}">
-            ${isVoted ? `<span class="text-xs font-extrabold ${checkColor}">✓</span>` : ''}
-            ${cat.title}
+          <button onclick="selectCategory('${cat.id}')" class="px-5 py-2.5 rounded-full text-xs sm:text-sm whitespace-nowrap transition-all duration-300 flex items-center gap-2 shrink-0 ${btnClass}">
+            <span class="material-symbols-outlined text-base">${cat.icon}</span>
+            <span>${cat.title}</span>
           </button>
         `;
       }).join('');
     }
 
-    // DIRECT CATEGORY NAVIGATION WITH CHEVRONS
-    function navigateCategory(direction) {
-      const currentIndex = categoriesData.findIndex(c => c.id === currentCategory);
-      let newIndex = currentIndex + direction;
-      if (newIndex < 0) newIndex = categoriesData.length - 1;
-      if (newIndex >= categoriesData.length) newIndex = 0;
-      switchCategory(categoriesData[newIndex].id);
-
-      const container = document.getElementById('category-pills-container');
-      const selectedBtn = container.children[newIndex];
-      if (selectedBtn) {
-        selectedBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-      }
-    }
-
-    // RENDER NOMINEES GRID (FIXED TITLE DUPLICATION & IMAGE PATH FALLBACKS)
-    function renderNomineesGrid() {
-      const cat = categoriesData.find(c => c.id === currentCategory);
-      document.getElementById('current-category-title').innerText = cat.title;
-
-      const votedNomId = userVotes[currentCategory];
-      const statusEl = document.getElementById('current-category-status');
-      if (statusEl) {
-        statusEl.innerText = votedNomId ? 'Suara Terpilih' : 'Belum Ada Pilihan';
-      }
-
-      const categoryNominees = nomineesData.filter(n => n.catId === currentCategory);
-      const grid = document.getElementById('nominees-grid');
-
-      grid.innerHTML = categoryNominees.map(nom => {
-        const isSelected = userVotes[currentCategory] === nom.id;
-        const cardStyle = isSelected ? 'glass-card-selected' : 'glass-card';
-        const isFilmCategory = nom.catId === 'cat-1' || nom.catId === 'cat-2';
-        const showSubfilm = !isFilmCategory && nom.film && (nom.film.trim().toLowerCase() !== nom.name.trim().toLowerCase());
-        const posterSrc = getAssetPath(nom.poster);
-
-        return `
-          <div class="card ${cardStyle} overflow-hidden flex flex-col justify-between group transition-all duration-300 hover:-translate-y-1">
-            <div onclick="openNomineeDetail('${nom.id}')" class="cursor-pointer">
-              <div class="relative aspect-[3/4] overflow-hidden bg-neutral-900">
-                <img src="${posterSrc}" onerror="if(!this.dataset.retried){this.dataset.retried=true;if(!this.src.includes('../assets/'))this.src='../' + this.getAttribute('src');}" alt="${nom.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                ${isSelected ? '<span class="absolute top-2 right-2 badge badge-warning text-[10px] font-bold shadow-lg">Terpilih</span>' : ''}
-              </div>
-              <div class="p-3.5 space-y-1 text-left">
-                <h4 class="font-bold text-sm text-white line-clamp-1 group-hover:text-amber-400 transition-colors">${nom.name}</h4>
-                ${showSubfilm ? `<p class="text-xs text-amber-400 font-medium line-clamp-1">${nom.film}</p>` : ''}
-                <p class="text-[11px] text-gray-400 line-clamp-1">${nom.studio}</p>
-              </div>
-            </div>
-
-            <div class="p-3.5 pt-0">
-              <button onclick="toggleVote('${nom.id}')" class="w-full py-2 text-xs rounded font-bold cursor-pointer transition-all ${isSelected ? 'btn-crimson' : 'btn-gold'}">
-                ${isSelected ? 'Batal Vote' : 'Vote Nominasi'}
-              </button>
-            </div>
-          </div>
-        `;
-      }).join('');
-    }
-
-    // SWITCH CATEGORY
-    function switchCategory(catId) {
-      currentCategory = catId;
+    function selectCategory(catId) {
+      activeCategory = catId;
       renderCategoryPills();
       renderNomineesGrid();
     }
 
-    // TOGGLE VOTE
-    function toggleVote(nomId) {
-      isVotingSubmitted = false;
-      const nom = nomineesData.find(n => n.id === nomId);
-      if (userVotes[nom.catId] === nomId) {
-        delete userVotes[nom.catId];
-      } else {
-        userVotes[nom.catId] = nomId;
+    function renderNomineesGrid() {
+      const grid = document.getElementById('nominees-grid');
+      if (!grid) return;
+
+      const filtered = nomineesData.filter(n => n.catId === activeCategory);
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `
+          <div class="col-span-full py-12 text-center text-gray-400">
+            <span class="material-symbols-outlined text-4xl mb-2 text-amber-500/50">search_off</span>
+            <p class="text-sm">Belum ada nominasi untuk kategori ini.</p>
+          </div>
+        `;
+        return;
       }
-      updateUI();
+
+      grid.innerHTML = filtered.map(nom => {
+        const isSelected = userVotes[activeCategory] === nom.id;
+        const cardClass = isSelected ? "glass-card-selected" : "glass-card hover:border-amber-500/40";
+        const btnText = isSelected ? "Tersimpan" : "Pilih Nominasi";
+        const btnClass = isSelected ? "bg-amber-400 text-neutral-950 font-bold" : "btn-gold";
+        const icon = isSelected ? "check_circle" : "how_to_vote";
+
+        return `
+          <div class="rounded-xl overflow-hidden flex flex-col transition-all duration-300 ${cardClass}">
+            <div class="relative aspect-3/4 overflow-hidden bg-neutral-900 group cursor-pointer" onclick="openNomineeDetail('${nom.id}')">
+              <img src="${nom.image}" alt="${nom.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+              <div class="absolute inset-0 bg-gradient-to-t from-neutral-950 via-transparent to-transparent opacity-80"></div>
+              
+              <div class="absolute top-3 right-3 bg-neutral-950/80 backdrop-blur-md px-2.5 py-1 rounded-full text-[11px] font-semibold text-amber-400 border border-amber-500/30 flex items-center gap-1">
+                <span class="material-symbols-outlined text-xs">local_fire_department</span>
+                <span>${nom.count.toLocaleString('id-ID')} Voice</span>
+              </div>
+            </div>
+
+            <div class="p-4 flex-1 flex flex-col justify-between space-y-4">
+              <div>
+                <h3 class="font-bold text-base text-white group-hover:text-amber-400 transition-colors line-clamp-2" onclick="openNomineeDetail('${nom.id}')">${nom.name}</h3>
+              </div>
+
+              <div class="flex items-center gap-2">
+                <button onclick="toggleVote('${activeCategory}', '${nom.id}')" class="flex-1 py-2.5 text-xs flex items-center justify-center gap-1.5 ${btnClass}">
+                  <span class="material-symbols-outlined text-sm">${icon}</span>
+                  <span>${btnText}</span>
+                </button>
+                
+                <button onclick="openNomineeDetail('${nom.id}')" class="p-2.5 rounded bg-white/5 hover:bg-white/10 text-gray-300 hover:text-white transition-colors" title="Detail Nominasi">
+                  <span class="material-symbols-outlined text-sm">info</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      updateProgressUI();
     }
 
-    // OPEN DETAIL MODAL (HERO POSTER TOP LAYOUT)
+    function toggleVote(catId, nomId) {
+      if (userVotes[catId] === nomId) {
+        delete userVotes[catId];
+      } else {
+        userVotes[catId] = nomId;
+      }
+
+      renderNomineesGrid();
+      updateProgressUI();
+    }
+
+    function updateProgressUI() {
+      const count = Object.keys(userVotes).length;
+      const total = categoriesData.length;
+      const pct = (count / total) * 100;
+
+      const fill = document.getElementById('vote-progress-fill');
+      const text = document.getElementById('vote-progress-text');
+      const btn = document.getElementById('btn-review-votes');
+
+      if (fill) fill.style.width = pct + '%';
+      if (text) text.innerText = count + ' dari ' + total + ' Kategori Terisi';
+
+      if (btn) {
+        if (count > 0) {
+          btn.classList.remove('opacity-50', 'pointer-events-none');
+        } else {
+          btn.classList.add('opacity-50', 'pointer-events-none');
+        }
+      }
+    }
+
     function openNomineeDetail(nomId) {
-      activeModalNomineeId = nomId;
       const nom = nomineesData.find(n => n.id === nomId);
+      if (!nom) return;
+
       const cat = categoriesData.find(c => c.id === nom.catId);
 
-      const img = document.getElementById('detail-poster');
-      img.src = getAssetPath(nom.poster);
-      img.onerror = function() {
-        if (!this.dataset.retried) {
-          this.dataset.retried = true;
-          if (!this.src.includes('../assets/')) this.src = '../' + this.getAttribute('src');
-        }
-      };
+      document.getElementById('modal-detail-img').src = nom.image;
+      document.getElementById('modal-detail-title').innerText = nom.name;
+      document.getElementById('modal-detail-cat').innerText = cat ? cat.title : '';
+      document.getElementById('modal-detail-count').innerText = nom.count.toLocaleString('id-ID') + ' Total Voice';
 
-      document.getElementById('detail-category-badge').innerText = cat.title;
-      document.getElementById('detail-name').innerText = nom.name;
-      
-      const isFilmCategory = nom.catId === 'cat-1' || nom.catId === 'cat-2';
-      const detailFilmEl = document.getElementById('detail-film');
-      if (isFilmCategory) {
-        detailFilmEl.innerText = '';
-        detailFilmEl.classList.add('hidden');
-      } else {
-        detailFilmEl.innerText = nom.film;
-        detailFilmEl.classList.remove('hidden');
+      const isSelected = userVotes[nom.catId] === nom.id;
+      const btn = document.getElementById('modal-detail-vote-btn');
+      if (btn) {
+        btn.onclick = () => {
+          toggleVote(nom.catId, nom.id);
+          document.getElementById('nominee-detail-modal').close();
+        };
+        btn.innerText = isSelected ? 'Batal Pilih' : 'Pilih Nominasi Ini';
       }
 
-      document.getElementById('detail-studio').innerText = nom.studio;
-      document.getElementById('detail-synopsis').innerText = nom.synopsis;
-      document.getElementById('detail-genre').innerText = nom.genre;
-
-      const isSelected = userVotes[nom.catId] === nomId;
-      const btn = document.getElementById('detail-vote-btn');
-      btn.innerText = isSelected ? 'Batal Vote' : 'Vote Nominasi Ini';
-      btn.className = isSelected ? 'btn-crimson px-5 py-2 text-xs font-bold' : 'btn-gold px-5 py-2 text-xs font-bold';
-
-      document.getElementById('modal-nominee-detail').showModal();
+      document.getElementById('nominee-detail-modal').showModal();
     }
 
-    function toggleVoteFromModal() {
-      if (activeModalNomineeId) {
-        toggleVote(activeModalNomineeId);
-        openNomineeDetail(activeModalNomineeId);
-      }
-    }
-
-    // UPDATE ALL UI COMPONENTS (SLIDE-UP STICKY BAR & PROGRESS BAR)
-    function updateUI() {
-      const count = Object.keys(userVotes).length;
-      const percentage = (count / 10) * 100;
-
-      document.getElementById('vote-count-badge').innerText = count + '/10';
-      document.getElementById('vote-summary-text').innerText = count + ' dari 10 Kategori Dipilih';
-
-      // Update Progress Bar
-      const progressBar = document.getElementById('vote-progress-bar');
-      if (progressBar) {
-        progressBar.style.width = percentage + '%';
-      }
-
-      const bar = document.getElementById('sticky-vote-bar');
-      const submitBtn = document.getElementById('btn-submit-votes');
-
-      if (count > 0 && !isVotingSubmitted) {
-        bar.classList.remove('translate-y-full', 'opacity-0', 'pointer-events-none');
-        bar.classList.add('translate-y-0', 'opacity-100');
-
-        submitBtn.disabled = false;
-        submitBtn.classList.remove('opacity-50', 'cursor-not-allowed');
-      } else {
-        bar.classList.add('translate-y-full', 'opacity-0', 'pointer-events-none');
-        bar.classList.remove('translate-y-0', 'opacity-100');
-
-        submitBtn.disabled = true;
-        submitBtn.classList.add('opacity-50', 'cursor-not-allowed');
-      }
-
-      renderCategoryPills();
-      renderNomineesGrid();
-    }
-
-    // OPEN REVIEW MODAL (FULL CATEGORY LIST WITH POSTER/ACTOR IMAGES)
     function openReviewModal() {
-      const list = document.getElementById('review-votes-list');
+      const count = Object.keys(userVotes).length;
+      if (count === 0) return;
 
-      list.innerHTML = categoriesData.map(cat => {
-        const nomId = userVotes[cat.id];
-        const nom = nomineesData.find(n => n.id === nomId);
+      const container = document.getElementById('review-votes-list');
+      if (container) {
+        container.innerHTML = categoriesData.map(cat => {
+          const selectedNomId = userVotes[cat.id];
+          const nom = nomineesData.find(n => n.id === selectedNomId);
 
-        if (!nom) {
           return `
-            <div class="p-2.5 bg-neutral-900/60 rounded-xl border border-white/5 flex items-center justify-between opacity-60">
-              <div class="space-y-0.5 text-left">
-                <span class="text-[10px] text-gray-400 font-bold uppercase">${cat.title}</span>
-                <div class="text-gray-500 italic text-xs">Belum Ada Pilihan</div>
+            <div class="p-3 glass-card flex items-center justify-between gap-3">
+              <div>
+                <div class="text-[11px] font-semibold text-amber-400 flex items-center gap-1">
+                  <span class="material-symbols-outlined text-xs">${cat.icon}</span>
+                  <span>${cat.title}</span>
+                </div>
+                <div class="text-sm font-bold text-white mt-0.5">${nom ? nom.name : '<span class="text-gray-500 italic font-normal">Belum Memilih</span>'}</div>
               </div>
-              <button onclick="switchCategory('${cat.id}'); document.getElementById('modal-review').close();" class="text-amber-400 text-xs hover:underline font-semibold">Pilih</button>
+              
+              <button onclick="selectCategory('${cat.id}'); document.getElementById('review-modal').close();" class="text-xs text-amber-400 hover:underline">
+                Ubah
+              </button>
             </div>
           `;
-        }
+        }).join('');
+      }
 
-        const posterSrc = getAssetPath(nom.poster);
-
-        return `
-          <div class="p-2.5 bg-neutral-900 rounded-xl border border-amber-500/20 flex items-center justify-between gap-3">
-            <div class="flex items-center gap-3 min-w-0">
-              <img src="${posterSrc}" onerror="if(!this.dataset.retried){this.dataset.retried=true;if(!this.src.includes('../assets/'))this.src='../' + this.getAttribute('src');}" alt="${nom.name}" class="w-10 h-12 object-cover rounded-lg border border-white/10 shrink-0">
-              <div class="space-y-0.5 text-left min-w-0">
-                <span class="text-[10px] text-amber-400 font-bold uppercase truncate block">${cat.title}</span>
-                <div class="text-white font-bold text-xs truncate">${nom.name}</div>
-                <div class="text-gray-400 text-[11px] truncate">${(nom.film && nom.film.trim().toLowerCase() !== nom.name.trim().toLowerCase()) ? nom.film : (nom.studio || nom.film)}</div>
-              </div>
-            </div>
-            <button onclick="switchCategory('${cat.id}'); document.getElementById('modal-review').close();" class="text-amber-400 text-xs hover:underline font-semibold shrink-0">Ubah</button>
-          </div>
-        `;
-      }).join('');
-
-      document.getElementById('modal-review').showModal();
+      document.getElementById('review-modal').showModal();
     }
 
-    // HANDLE VOTE SUBMIT & GENERATE 9:16 WRAPPED TICKET (ALL 10 VOTED ITEMS)
-        function handleVoteSubmit(e) {
-      e.preventDefault();
-      const name = document.getElementById('voter-name').value.trim() || 'Cinemates Voter';
-      const email = document.getElementById('voter-email').value.trim();
+    function handleVoteSubmit(e) {
+      if (e) e.preventDefault();
 
-      const ticketIdEl = document.getElementById('ticket-id');
-      if (ticketIdEl) {
-        ticketIdEl.innerText = 'PASS-' + Math.floor(1000 + Math.random() * 9000);
-      }
+      const voterNameInput = document.getElementById('voter-name-input');
+      const name = (voterNameInput && voterNameInput.value.trim()) ? voterNameInput.value.trim() : "Sahabat Cinemags";
 
-      const ticketNameEl = document.getElementById('ticket-name');
-      if (ticketNameEl) {
-        ticketNameEl.innerText = name;
-      }
-
-      // Render ALL chosen films and actors in 9:16 wrapped ticket grid
       const grid = document.getElementById('ticket-picks-grid');
       if (grid) {
         grid.innerHTML = categoriesData.map(cat => {
-        const nomId = userVotes[cat.id];
-        if (!nomId) return '';
-        const nom = nomineesData.find(n => n.id === nomId);
-        return `
-          <div class="text-left w-full py-0.5 border-b border-white/5 last:border-0">
-            <div class="text-amber-400 font-bold font-federo text-[9.5px] sm:text-[10.5px] tracking-wide leading-none">${cat.title}</div>
-            <div class="text-white font-medium text-[10.5px] sm:text-[11.5px] leading-snug mt-0.5">${nom.name}</div>
-          </div>
-        `;
-      }).filter(Boolean).join('');
+          const nomId = userVotes[cat.id];
+          const nom = nomineesData.find(n => n.id === nomId);
+          const nomineeName = nom ? nom.name : '-';
+          return `
+            <div class="text-left w-full py-0.5 border-b border-white/5 last:border-0">
+              <div class="text-amber-400 font-bold font-federo text-[9.5px] sm:text-[10.5px] tracking-wide leading-none">${cat.title}</div>
+              <div class="text-white font-medium text-[10.5px] sm:text-[11.5px] leading-snug mt-0.5">${nomineeName}</div>
+            </div>
+          `;
+        }).join('');
       }
 
-      isVotingSubmitted = true;
-      const reviewModal = document.getElementById('modal-review');
-      if (reviewModal) reviewModal.close();
-
-      const successModal = document.getElementById('modal-success');
-      if (successModal) successModal.showModal();
-
-      updateUI();
+      document.getElementById('review-modal').close();
+      document.getElementById('success-modal').showModal();
     }
 
     // SOCIAL SHARE & DOWNLOAD FUNCTIONS
@@ -1086,7 +923,7 @@
       setInterval(update, 1000);
     }
 
-    // DEEP RED FABRIC VELVET WAVE BACKGROUND ANIMATION (CANVAS + GSAP TICKER)
+    // DEEP RED FABRIC VELVET WAVE BACKGROUND ANIMATION (CANVAS)
     function initHeroWaveCanvas() {
       const canvas = document.getElementById('hero-cloth-canvas');
       if (!canvas) return;
@@ -1101,7 +938,6 @@
       resize();
       window.addEventListener('resize', resize);
 
-      // Velvet Fabric Overlapping Wave Layers with Satin Highlights
       const waves = [
         { amplitude: 55, frequency: 0.0035, speed: 0.005, offset: 0, colorStart: 'rgba(191, 33, 33, 0.50)', colorEnd: 'rgba(90, 10, 10, 0)', highlight: 'rgba(255, 180, 180, 0.12)' },
         { amplitude: 80, frequency: 0.0025, speed: 0.0035, offset: 2.2, colorStart: 'rgba(150, 15, 15, 0.40)', colorEnd: 'rgba(40, 5, 5, 0)', highlight: 'rgba(255, 150, 150, 0.08)' },
@@ -1141,7 +977,6 @@
           ctx.closePath();
           ctx.fill();
 
-          // Fabric Fold Satin Highlight Line along Wave Ridge
           ctx.beginPath();
           ctx.strokeStyle = wave.highlight;
           ctx.lineWidth = 2.5;
@@ -1154,7 +989,6 @@
           ctx.restore();
         });
 
-        // Fine Fabric Weave Texture Overlay
         ctx.save();
         ctx.strokeStyle = 'rgba(255, 255, 255, 0.015)';
         ctx.lineWidth = 0.5;
@@ -1172,88 +1006,118 @@
       renderFrame();
     }
 
-    // ─── GSAP SCROLL ANIMATIONS ────────────────────────────────────────────
+    // ─── LENIS LUXURY SMOOTH SCROLL & GSAP SCROLLTRIGGER ──────────────────
+    let lenis;
+
     function initScrollAnimations() {
       gsap.registerPlugin(ScrollTrigger);
 
-      // Hero text: staggered entrance on load
+      // Initialize Lenis Smooth Scroll
+      lenis = new Lenis({
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Luxury exponential easeOut
+        smoothWheel: true,
+        touchMultiplier: 1.5
+      });
+
+      lenis.on('scroll', ScrollTrigger.update);
+
+      gsap.ticker.add((time) => {
+        lenis.raf(time * 1000);
+      });
+      gsap.ticker.lagSmoothing(0);
+
+      // Smooth Lenis Anchor Navigation
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          const targetId = this.getAttribute('href');
+          if (targetId && targetId !== '#') {
+            const targetEl = document.querySelector(targetId);
+            if (targetEl) {
+              e.preventDefault();
+              lenis.scrollTo(targetEl, { offset: -80, duration: 1.4 });
+            }
+          }
+        });
+      });
+
+      // HERO SECTION ANIMATIONS
       gsap.from('.hero-text-col > *', {
         opacity: 0,
-        y: 28,
-        duration: 1,
-        stagger: 0.14,
-        ease: 'power2.out',
-        delay: 0.2,
+        y: 35,
+        duration: 1.1,
+        stagger: 0.12,
+        ease: 'power3.out',
+        delay: 0.15,
         clearProps: 'all'
       });
 
-      // Hero trophy: soft float-in
       gsap.from('#hero-trophy', {
         opacity: 0,
-        y: 36,
-        scale: 0.96,
-        duration: 1.2,
+        y: 40,
+        scale: 0.94,
+        duration: 1.4,
         ease: 'power3.out',
-        delay: 0.5,
+        delay: 0.35,
         clearProps: 'all'
       });
 
-      // Subtle parallax on trophy as user scrolls
+      // Trophy Subtle Parallax on Scroll
       gsap.to('#hero-trophy', {
-        yPercent: -12,
+        yPercent: -15,
         ease: 'none',
         scrollTrigger: {
-          trigger: '#hero-trophy',
+          trigger: 'section',
           start: 'top top',
           end: 'bottom top',
-          scrub: 1.5
+          scrub: 1
         }
       });
 
-      // Section headings: reveal from below
-      gsap.utils.toArray('section h2').forEach(el => {
-        gsap.from(el, {
-          opacity: 0,
-          y: 24,
-          duration: 0.9,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: el,
-            start: 'top 88%',
-            toggleActions: 'play none none none',
-            once: true
-          }
-        });
-      });
+      // SECTION REVEALS - EVEN & COHESIVE TIMINGS
+      const sections = [
+        { id: '#about', cardSelector: '#about .glass-card' },
+        { id: '#how-to-vote', cardSelector: '#how-to-vote .glass-card' },
+        { id: '#categories', cardSelector: '#categories .glass-card' },
+        { id: '#terms', cardSelector: '#terms .join-item' }
+      ];
 
-      // Feature cards: stagger batch reveal on scroll
-      ScrollTrigger.batch('.glass-card', {
-        start: 'top 90%',
-        once: true,
-        onEnter: batch => gsap.from(batch, {
-          opacity: 0,
-          y: 30,
-          duration: 0.75,
-          stagger: 0.08,
-          ease: 'power2.out',
-          clearProps: 'opacity,transform'
-        })
-      });
+      sections.forEach(sec => {
+        const secEl = document.querySelector(sec.id);
+        if (!secEl) return;
 
-      // Section descriptions: subtle fade up
-      gsap.utils.toArray('section > div > div > p, section > div > p').forEach(el => {
-        gsap.from(el, {
-          opacity: 0,
-          y: 16,
-          duration: 0.8,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: el,
-            start: 'top 92%',
-            toggleActions: 'play none none none',
-            once: true
-          }
-        });
+        const headerEls = secEl.querySelectorAll('h2, .inline-flex, p');
+        if (headerEls.length) {
+          gsap.from(headerEls, {
+            opacity: 0,
+            y: 28,
+            duration: 0.9,
+            stagger: 0.1,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: secEl,
+              start: 'top 82%',
+              once: true
+            }
+          });
+        }
+
+        const cards = secEl.querySelectorAll('.glass-card, .join-item');
+        if (cards.length) {
+          gsap.from(cards, {
+            opacity: 0,
+            y: 36,
+            duration: 0.95,
+            stagger: 0.12,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: cards[0].parentElement || secEl,
+              start: 'top 85%',
+              once: true
+            },
+            clearProps: 'opacity,transform'
+          });
+        }
       });
     }
 
