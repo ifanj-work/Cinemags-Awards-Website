@@ -1032,17 +1032,16 @@
       }).filter(Boolean).join('');
       }
 
-      isVotingSubmitted = true;
       const reviewModal = document.getElementById('modal-review');
       if (reviewModal) reviewModal.close();
 
       const successModal = document.getElementById('modal-success');
       if (successModal) successModal.showModal();
 
-      // Reset vote choices state back to default
+      // Reset vote choices, active category, and sticky progress bar back to default state
       userVotes = {};
-      renderNomineesGrid();
-      updateProgressUI();
+      isVotingSubmitted = false;
+      activeCategory = "cat-1";
 
       updateUI();
     }
