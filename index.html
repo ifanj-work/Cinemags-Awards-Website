@@ -1039,6 +1039,11 @@
       const successModal = document.getElementById('modal-success');
       if (successModal) successModal.showModal();
 
+      // Reset vote choices state back to default
+      userVotes = {};
+      renderNomineesGrid();
+      updateProgressUI();
+
       updateUI();
     }
 
