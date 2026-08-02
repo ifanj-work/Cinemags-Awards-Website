@@ -197,7 +197,7 @@
     <canvas id="hero-cloth-canvas" class="absolute inset-0 w-full h-full pointer-events-none opacity-75"></canvas>
     
     <div class="relative z-10 max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-      <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+      <div class="lg:col-span-7 space-y-6 text-center lg:text-left hero-text-col">
         <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-semibold">
           <span class="material-symbols-outlined text-sm">movie</span>
           <span>#RayakanFilmIndonesia</span>
@@ -1172,12 +1172,98 @@
       renderFrame();
     }
 
+    // ─── GSAP SCROLL ANIMATIONS ────────────────────────────────────────────
+    function initScrollAnimations() {
+      gsap.registerPlugin(ScrollTrigger);
+
+      // Hero text: staggered entrance on load
+      gsap.from('.hero-text-col > *', {
+        opacity: 0,
+        y: 28,
+        duration: 1,
+        stagger: 0.14,
+        ease: 'power2.out',
+        delay: 0.2,
+        clearProps: 'all'
+      });
+
+      // Hero trophy: soft float-in
+      gsap.from('#hero-trophy', {
+        opacity: 0,
+        y: 36,
+        scale: 0.96,
+        duration: 1.2,
+        ease: 'power3.out',
+        delay: 0.5,
+        clearProps: 'all'
+      });
+
+      // Subtle parallax on trophy as user scrolls
+      gsap.to('#hero-trophy', {
+        yPercent: -12,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: '#hero-trophy',
+          start: 'top top',
+          end: 'bottom top',
+          scrub: 1.5
+        }
+      });
+
+      // Section headings: reveal from below
+      gsap.utils.toArray('section h2').forEach(el => {
+        gsap.from(el, {
+          opacity: 0,
+          y: 24,
+          duration: 0.9,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: el,
+            start: 'top 88%',
+            toggleActions: 'play none none none',
+            once: true
+          }
+        });
+      });
+
+      // Feature cards: stagger batch reveal on scroll
+      ScrollTrigger.batch('.glass-card', {
+        start: 'top 90%',
+        once: true,
+        onEnter: batch => gsap.from(batch, {
+          opacity: 0,
+          y: 30,
+          duration: 0.75,
+          stagger: 0.08,
+          ease: 'power2.out',
+          clearProps: 'opacity,transform'
+        })
+      });
+
+      // Section descriptions: subtle fade up
+      gsap.utils.toArray('section > div > div > p, section > div > p').forEach(el => {
+        gsap.from(el, {
+          opacity: 0,
+          y: 16,
+          duration: 0.8,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: el,
+            start: 'top 92%',
+            toggleActions: 'play none none none',
+            once: true
+          }
+        });
+      });
+    }
+
     // INIT
     window.addEventListener('DOMContentLoaded', () => {
       renderCategoryPills();
       renderNomineesGrid();
       initCountdown();
       initHeroWaveCanvas();
+      initScrollAnimations();
     });
   </script>
 </body>
