@@ -1165,236 +1165,58 @@
           ctx.stroke();
         }
         ctx.restore();
-    }
-
-    // SOCIAL SHARE & DOWNLOAD FUNCTIONS
-    
-    
-    
-    
-
-    // COUNTDOWN TIMER TO 31 OCT 2026 23:59:00 WIB
-    
-
-        const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        const s = Math.floor((diff % (1000 * 60)) / 1000);
-
-        document.getElementById('cd-days').innerText = String(d).padStart(2, '0');
-        document.getElementById('cd-hours').innerText = String(h).padStart(2, '0');
-        document.getElementById('cd-mins').innerText = String(m).padStart(2, '0');
-        document.getElementById('cd-secs').innerText = String(s).padStart(2, '0');
-      }
-
-      update();
-      setInterval(update, 1000);
-    }
-
-    // DEEP RED FABRIC VELVET WAVE BACKGROUND ANIMATION (CANVAS + GSAP TICKER)
-    
-      resize();
-      window.addEventListener('resize', resize);
-
-      // Velvet Fabric Overlapping Wave Layers with Satin Highlights
-      const waves = [
-        { amplitude: 55, frequency: 0.0035, speed: 0.005, offset: 0, colorStart: 'rgba(191, 33, 33, 0.50)', colorEnd: 'rgba(90, 10, 10, 0)', highlight: 'rgba(255, 180, 180, 0.12)' },
-        { amplitude: 80, frequency: 0.0025, speed: 0.0035, offset: 2.2, colorStart: 'rgba(150, 15, 15, 0.40)', colorEnd: 'rgba(40, 5, 5, 0)', highlight: 'rgba(255, 150, 150, 0.08)' },
-        { amplitude: 45, frequency: 0.005, speed: 0.008, offset: 4.1, colorStart: 'rgba(220, 50, 50, 0.30)', colorEnd: 'rgba(70, 8, 8, 0)', highlight: 'rgba(255, 200, 200, 0.15)' },
-        { amplitude: 95, frequency: 0.0018, speed: 0.0025, offset: 1.3, colorStart: 'rgba(120, 10, 10, 0.45)', colorEnd: 'rgba(13, 13, 13, 0)', highlight: 'rgba(200, 100, 100, 0.06)' }
-      ];
-
-      let step = 0;
-
-      function renderFrame() {
-        ctx.clearRect(0, 0, width, height);
-        step += 1;
-
-        waves.forEach(wave => {
-          ctx.save();
-          ctx.beginPath();
-
-          const grad = ctx.createLinearGradient(0, 0, width, height);
-          grad.addColorStop(0, wave.colorStart);
-          grad.addColorStop(0.7, wave.colorStart);
-          grad.addColorStop(1, wave.colorEnd);
-          ctx.fillStyle = grad;
-
-          ctx.moveTo(0, height);
-
-          const points = [];
-          for (let x = 0; x <= width + 12; x += 10) {
-            const y = Math.sin(x * wave.frequency + step * wave.speed + wave.offset) * wave.amplitude 
-                    + Math.cos(x * wave.frequency * 0.6 + step * wave.speed * 0.8) * (wave.amplitude * 0.45)
-                    + (height * 0.50);
-            points.push({ x, y });
-            ctx.lineTo(x, y);
-          }
-
-          ctx.lineTo(width, height);
-          ctx.lineTo(0, height);
-          ctx.closePath();
-          ctx.fill();
-
-          // Fabric Fold Satin Highlight Line along Wave Ridge
-          ctx.beginPath();
-          ctx.strokeStyle = wave.highlight;
-          ctx.lineWidth = 2.5;
-          points.forEach((p, idx) => {
-            if (idx === 0) ctx.moveTo(p.x, p.y);
-            else ctx.lineTo(p.x, p.y);
-          });
-          ctx.stroke();
-
-          ctx.restore();
-        });
-
-        // Fine Fabric Weave Texture Overlay
-        ctx.save();
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.015)';
-        ctx.lineWidth = 0.5;
-        for (let i = -height; i < width + height; i += 16) {
-          ctx.beginPath();
-          ctx.moveTo(i, 0);
-          ctx.lineTo(i + height, height);
-          ctx.stroke();
-        }
-        ctx.restore();
 
         requestAnimationFrame(renderFrame);
       }
 
       renderFrame();
-    }      });
-
-      // Section headings: reveal from below
-      gsap.utils.toArray('section h2').forEach(el => {
-        gsap.from(el, {
-          opacity: 0,
-          y: 24,
-          duration: 0.9,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: el,
-            start: 'top 88%',
-            toggleActions: 'play none none none',
-            once: true
-          }
-        });
-      });
-
-      // About & How-to-Vote feature cards: stagger batch reveal
-      ScrollTrigger.batch('.glass-card', {
-        start: 'top 90%',
-        once: true,
-        onEnter: batch => gsap.from(batch, {
-          opacity: 0,
-          y: 30,
-          duration: 0.75,
-          stagger: 0.08,
-          ease: 'power2.out',
-          clearProps: 'opacity,transform'
-        })
-      });
-
-      // Category section subtitle / description
-      gsap.utils.toArray('section p').forEach(el => {
-        gsap.from(el, {
-          opacity: 0,
-          y: 16,
-          duration: 0.8,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: el,
-            start: 'top 92%',
-            toggleActions: 'play none none none',
-            once: true
-          }
-        });
-      });
     }
 
-    // ─── GSAP SCROLL ANIMATIONS ────────────────────────────────────────────
+    // ─── GSAP HARMONIOUS SCROLL ANIMATIONS ───────────────────────────
     function initScrollAnimations() {
       gsap.registerPlugin(ScrollTrigger);
 
-      // Hero text: staggered entrance on load
-      gsap.from('.hero-text-col > *', {
-        opacity: 0,
-        y: 28,
-        duration: 1,
-        stagger: 0.14,
-        ease: 'power2.out',
-        delay: 0.2,
-        clearProps: 'all'
-      });
+      // 1. HERO ENTRANCE TIMELINE (HARMONIOUS ON-LOAD ENTRANCE)
+      const heroTl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
-      // Hero trophy: soft float-in
-      gsap.from('#hero-trophy', {
+      heroTl.from('.hero-text-col > *', {
         opacity: 0,
-        y: 36,
+        y: 20,
+        duration: 0.9,
+        stagger: 0.08,
+        delay: 0.1,
+        clearProps: 'opacity,transform'
+      })
+      .from('#hero-trophy', {
+        opacity: 0,
+        y: 25,
         scale: 0.96,
-        duration: 1.2,
-        ease: 'power3.out',
-        delay: 0.5,
-        clearProps: 'all'
-      });
+        duration: 1.1,
+        clearProps: 'opacity,transform'
+      }, '-=0.6');
 
-      // Subtle parallax on trophy as user scrolls
-      gsap.to('#hero-trophy', {
-        yPercent: -12,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: '#hero-trophy',
-          start: 'top top',
-          end: 'bottom top',
-          scrub: 1.5
-        }
-      });
+      // 2. UNIFIED SECTION REVEALS (SYNCHRONIZED TOP-TO-BOTTOM FLOW)
+      const sectionSelectors = ['#about', '#how-to-vote', '#categories', '#terms'];
 
-      // Section headings: reveal from below
-      gsap.utils.toArray('section h2').forEach(el => {
-        gsap.from(el, {
+      sectionSelectors.forEach(selector => {
+        const sec = document.querySelector(selector);
+        if (!sec) return;
+
+        const targets = sec.querySelectorAll('h2, section > div > div > p, .glass-card, .join-item');
+        if (!targets.length) return;
+
+        gsap.from(targets, {
           opacity: 0,
-          y: 24,
-          duration: 0.9,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: el,
-            start: 'top 88%',
-            toggleActions: 'play none none none',
-            once: true
-          }
-        });
-      });
-
-      // Feature cards: stagger batch reveal on scroll
-      ScrollTrigger.batch('.glass-card', {
-        start: 'top 90%',
-        once: true,
-        onEnter: batch => gsap.from(batch, {
-          opacity: 0,
-          y: 30,
-          duration: 0.75,
-          stagger: 0.08,
-          ease: 'power2.out',
-          clearProps: 'opacity,transform'
-        })
-      });
-
-      // Section descriptions: subtle fade up
-      gsap.utils.toArray('section > div > div > p, section > div > p').forEach(el => {
-        gsap.from(el, {
-          opacity: 0,
-          y: 16,
+          y: 22,
           duration: 0.8,
+          stagger: 0.06,
           ease: 'power2.out',
           scrollTrigger: {
-            trigger: el,
-            start: 'top 92%',
-            toggleActions: 'play none none none',
+            trigger: sec,
+            start: 'top 82%',
             once: true
-          }
+          },
+          clearProps: 'opacity,transform'
         });
       });
     }

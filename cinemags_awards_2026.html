@@ -1172,87 +1172,51 @@
       renderFrame();
     }
 
-    // ─── GSAP SCROLL ANIMATIONS ────────────────────────────────────────────
+    // ─── GSAP HARMONIOUS SCROLL ANIMATIONS ───────────────────────────
     function initScrollAnimations() {
       gsap.registerPlugin(ScrollTrigger);
 
-      // Hero text: staggered entrance on load
-      gsap.from('.hero-text-col > *', {
-        opacity: 0,
-        y: 28,
-        duration: 1,
-        stagger: 0.14,
-        ease: 'power2.out',
-        delay: 0.2,
-        clearProps: 'all'
-      });
+      // 1. HERO ENTRANCE TIMELINE (HARMONIOUS ON-LOAD ENTRANCE)
+      const heroTl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
-      // Hero trophy: soft float-in
-      gsap.from('#hero-trophy', {
+      heroTl.from('.hero-text-col > *', {
         opacity: 0,
-        y: 36,
+        y: 20,
+        duration: 0.9,
+        stagger: 0.08,
+        delay: 0.1,
+        clearProps: 'opacity,transform'
+      })
+      .from('#hero-trophy', {
+        opacity: 0,
+        y: 25,
         scale: 0.96,
-        duration: 1.2,
-        ease: 'power3.out',
-        delay: 0.5,
-        clearProps: 'all'
-      });
+        duration: 1.1,
+        clearProps: 'opacity,transform'
+      }, '-=0.6');
 
-      // Subtle parallax on trophy as user scrolls
-      gsap.to('#hero-trophy', {
-        yPercent: -12,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: '#hero-trophy',
-          start: 'top top',
-          end: 'bottom top',
-          scrub: 1.5
-        }
-      });
+      // 2. UNIFIED SECTION REVEALS (SYNCHRONIZED TOP-TO-BOTTOM FLOW)
+      const sectionSelectors = ['#about', '#how-to-vote', '#categories', '#terms'];
 
-      // Section headings: reveal from below
-      gsap.utils.toArray('section h2').forEach(el => {
-        gsap.from(el, {
+      sectionSelectors.forEach(selector => {
+        const sec = document.querySelector(selector);
+        if (!sec) return;
+
+        const targets = sec.querySelectorAll('h2, section > div > div > p, .glass-card, .join-item');
+        if (!targets.length) return;
+
+        gsap.from(targets, {
           opacity: 0,
-          y: 24,
-          duration: 0.9,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: el,
-            start: 'top 88%',
-            toggleActions: 'play none none none',
-            once: true
-          }
-        });
-      });
-
-      // Feature cards: stagger batch reveal on scroll
-      ScrollTrigger.batch('.glass-card', {
-        start: 'top 90%',
-        once: true,
-        onEnter: batch => gsap.from(batch, {
-          opacity: 0,
-          y: 30,
-          duration: 0.75,
-          stagger: 0.08,
-          ease: 'power2.out',
-          clearProps: 'opacity,transform'
-        })
-      });
-
-      // Section descriptions: subtle fade up
-      gsap.utils.toArray('section > div > div > p, section > div > p').forEach(el => {
-        gsap.from(el, {
-          opacity: 0,
-          y: 16,
+          y: 22,
           duration: 0.8,
+          stagger: 0.06,
           ease: 'power2.out',
           scrollTrigger: {
-            trigger: el,
-            start: 'top 92%',
-            toggleActions: 'play none none none',
+            trigger: sec,
+            start: 'top 82%',
             once: true
-          }
+          },
+          clearProps: 'opacity,transform'
         });
       });
     }
