@@ -549,8 +549,7 @@ const html = `<!DOCTYPE html>
     </div>
   </dialog>
 
-  <!-- MODAL 3: SPOTIFY-WRAPPED STYLE 9:16 DIGITAL VOTER PASS RECEIPT -->
-  <dialog id="modal-success" class="modal modal-bottom sm:modal-middle">
+  <dialog id="modal-success" class="modal modal-bottom sm:modal-middle" onclick="if(event.target===this) this.close()">
     <div class="modal-box glass-modal w-full max-h-screen sm:max-w-md sm:max-h-[85vh] mx-auto p-4 sm:p-6 text-center space-y-4 overflow-y-auto">
       <div class="w-12 h-12 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 flex items-center justify-center mx-auto text-2xl">
         <span class="material-symbols-outlined text-2xl">verified</span>
@@ -607,6 +606,9 @@ const html = `<!DOCTYPE html>
         <button onclick="document.getElementById('modal-success').close()" class="btn btn-sm btn-wide border-white/20 text-gray-300">Selesai</button>
       </div>
     </div>
+    <form method="dialog" class="modal-backdrop">
+      <button>close</button>
+    </form>
   </dialog>
 
   <!-- JAVASCRIPT DATA & LOGIC -->
