@@ -30,6 +30,7 @@ const html = `<!DOCTYPE html>
   <!-- GSAP Animation Platform -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
   <style>
     :root {
@@ -125,7 +126,9 @@ const html = `<!DOCTYPE html>
       aspect-ratio: 9 / 16;
       width: 100%;
       max-width: 320px;
-      background: linear-gradient(180deg, #181818 0%, #0d0d0d 100%);
+      background:
+        linear-gradient(rgba(5, 5, 5, 0.18), rgba(5, 5, 5, 0.28)),
+        url("assets/ticket-bg.webp") center / cover no-repeat;
       border: 1px solid rgba(210, 158, 47, 0.4);
       border-radius: 16px;
     }
@@ -451,7 +454,6 @@ const html = `<!DOCTYPE html>
       </div>
 
       <button id="btn-submit-votes" onclick="openReviewModal()" class="btn-crimson px-6 py-2.5 text-xs sm:text-sm flex items-center gap-2 opacity-50 cursor-not-allowed" disabled>
-        <span class="material-symbols-outlined text-base">how_to_vote</span>
         Kirim Vote
       </button>
     </div>
@@ -523,9 +525,11 @@ const html = `<!DOCTYPE html>
           <label for="terms-check" class="text-[11px] text-gray-400">Saya menyetujui syarat & ketentuan voting Cinemags Awards 2026 dan sudah follow @cinemagsnews.</label>
         </div>
 
+        <p id="review-completeness-status" class="text-left text-[11px] leading-snug text-amber-300" role="status" aria-live="polite"></p>
+
         <div class="pt-2 flex items-center justify-between gap-3">
           <button type="button" onclick="document.getElementById('modal-review').close()" class="btn btn-sm border-white/20 text-gray-300">Kembali</button>
-          <button type="submit" class="btn-crimson px-6 py-2 text-xs flex items-center gap-2">
+          <button id="review-submit-votes" type="submit" class="btn-crimson px-6 py-2 text-xs flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed" disabled>
             Kirim Suara Sekarang
           </button>
         </div>
@@ -546,7 +550,7 @@ const html = `<!DOCTYPE html>
       </div>
 
       <!-- 9:16 Wrapped Style Pass Container -->
-      <div id="wrapped-ticket" class="wrapped-card-9-16 mx-auto p-3.5 flex flex-col justify-between text-center relative overflow-hidden shadow-2xl">
+      <div id="wrapped-ticket" class="wrapped-card-9-16 mx-auto px-[24px] py-3.5 flex flex-col justify-between text-center relative overflow-hidden shadow-2xl">
         <div class="absolute -top-12 -right-12 w-32 h-32 bg-amber-500/20 rounded-full blur-2xl"></div>
         
         <div class="flex items-center justify-between text-[10px] text-amber-400 font-bold border-b border-white/10 pb-1.5 shrink-0">
@@ -565,11 +569,14 @@ const html = `<!DOCTYPE html>
           <!-- Rendered dynamically -->
         </div>
 
-        <div class="text-[9px] text-amber-400 font-bold tracking-wide shrink-0">#RayakanFilmIndonesia</div>
+        <div class="shrink-0 flex flex-col items-center gap-0.5 leading-tight">
+          <div class="text-[9px] text-amber-400 font-bold tracking-wide">#RayakanFilmIndonesia</div>
+          <div class="text-[8px] text-white font-medium tracking-wide">awards-2026.cinemags.org</div>
+        </div>
 
         <!-- Social Action Buttons -->
         <div class="pt-1.5 border-t border-white/10 flex items-center justify-center gap-3 shrink-0">
-          <button onclick="downloadPassImage()" title="Simpan Gambar / Download" class="w-8 h-8 rounded-full bg-amber-500 text-[#08090c] flex items-center justify-center hover:scale-110 transition-transform">
+          <button id="download-ticket-button" type="button" onclick="downloadPassImage()" title="Simpan Gambar / Download" class="w-8 h-8 rounded-full bg-amber-500 text-[#08090c] flex items-center justify-center hover:scale-110 transition-transform">
             <span class="material-symbols-outlined text-sm font-bold">download</span>
           </button>
           <button onclick="shareInstagram()" title="Instagram Story" class="w-8 h-8 rounded-full bg-pink-600 text-white flex items-center justify-center hover:scale-110 transition-transform">
@@ -809,6 +816,29 @@ const html = `<!DOCTYPE html>
       currentCategory = catId;
       renderCategoryPills();
       renderNomineesGrid();
+      updateReviewValidationUI();
+    }
+
+    function getVoteValidation() {
+      const missingCategories = categoriesData.filter((cat) => {
+        const selectedId = userVotes[cat.id];
+        return !nomineesData.some((nominee) => nominee.id === selectedId && nominee.catId === cat.id);
+      });
+      return { isComplete: missingCategories.length === 0, missingCategories };
+    }
+
+    function updateReviewValidationUI() {
+      const { isComplete, missingCategories } = getVoteValidation();
+      const submitButton = document.getElementById('review-submit-votes');
+      const status = document.getElementById('review-completeness-status');
+      if (submitButton) submitButton.disabled = !isComplete;
+      if (status) {
+        status.classList.toggle('text-emerald-400', isComplete);
+        status.classList.toggle('text-amber-300', !isComplete);
+        status.textContent = isComplete
+          ? 'Semua kategori sudah dipilih. Suara siap dikirim.'
+          : 'Masih ' + missingCategories.length + ' kategori yang belum dipilih.';
+      }
     }
 
     // TOGGLE VOTE
@@ -931,12 +961,29 @@ const html = `<!DOCTYPE html>
         \`;
       }).join('');
 
+      updateReviewValidationUI();
       document.getElementById('modal-review').showModal();
     }
 
     // HANDLE VOTE SUBMIT & GENERATE 9:16 WRAPPED TICKET (ALL 10 VOTED ITEMS)
     function handleVoteSubmit(e) {
       e.preventDefault();
+      const validation = getVoteValidation();
+      if (!validation.isComplete) {
+        updateReviewValidationUI();
+        const firstMissing = validation.missingCategories[0];
+        const reviewModal = document.getElementById('modal-review');
+        if (reviewModal) reviewModal.close();
+        if (firstMissing) {
+          switchCategory(firstMissing.id);
+          requestAnimationFrame(() => {
+            const firstChoice = document.querySelector('#nominees-grid button');
+            if (firstChoice) firstChoice.focus();
+            document.getElementById('nominees-grid')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          });
+        }
+        return;
+      }
       const name = document.getElementById('voter-name').value.trim() || 'Cinemates Voter';
       const email = document.getElementById('voter-email').value.trim();
       const ticketId = 'PASS-' + Math.floor(1000 + Math.random() * 9000);
@@ -968,8 +1015,66 @@ const html = `<!DOCTYPE html>
     }
 
     // SOCIAL SHARE & DOWNLOAD FUNCTIONS
-    function downloadPassImage() {
-      alert('Voter Pass 9:16 berhasil diunduh! Silakan bagikan ke Story & Social Media kamu.');
+    async function downloadPassImage() {
+      const ticket = document.getElementById('wrapped-ticket');
+      const button = document.getElementById('download-ticket-button');
+      if (!ticket || typeof window.html2canvas !== 'function') {
+        alert('Fitur download belum siap. Periksa koneksi internet lalu coba lagi.');
+        return;
+      }
+      if (button) { button.disabled = true; button.title = 'Menyiapkan tiket...'; }
+      try {
+        if (document.fonts && document.fonts.ready) await document.fonts.ready;
+        const images = Array.from(ticket.querySelectorAll('img'));
+        await Promise.all(images.map((img) => {
+          if (img.complete) return Promise.resolve();
+          return new Promise((resolve) => {
+            const finish = () => { clearTimeout(timeout); resolve(); };
+            const timeout = setTimeout(finish, 15000);
+            img.addEventListener('load', finish, { once: true });
+            img.addEventListener('error', finish, { once: true });
+          });
+        }));
+        const capturedCanvas = await window.html2canvas(ticket, {
+          backgroundColor: '#080808',
+          scale: Math.min(3, Math.max(2, window.devicePixelRatio || 1)),
+          useCORS: true,
+          allowTaint: false,
+          logging: false,
+          imageTimeout: 15000,
+          scrollX: 0,
+          scrollY: -window.scrollY
+        });
+        const outputCanvas = document.createElement('canvas');
+        outputCanvas.width = 1080;
+        outputCanvas.height = 1920;
+        const outputContext = outputCanvas.getContext('2d');
+        if (!outputContext) throw new Error('Canvas is not supported');
+        outputContext.imageSmoothingEnabled = true;
+        outputContext.imageSmoothingQuality = 'high';
+        outputContext.drawImage(capturedCanvas, 0, 0, 1080, 1920);
+        const blob = await new Promise((resolve, reject) => {
+          outputCanvas.toBlob((value) => value ? resolve(value) : reject(new Error('PNG export failed')), 'image/png', 1);
+        });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        const ticketId = document.getElementById('ticket-id');
+        const safeId = ticketId ? ticketId.textContent.trim().replace(/[^a-z0-9_-]+/gi, '-') : 'voter-pass';
+        link.href = url;
+        link.download = 'cinemags-awards-2026-' + safeId + '.png';
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+        if (button) button.title = 'Tiket berhasil diunduh';
+      } catch (error) {
+        console.error('Ticket download failed:', error);
+        if (button) button.title = 'Download gagal — coba lagi';
+        alert('Tiket belum berhasil diunduh. Pastikan semua gambar sudah termuat, lalu coba lagi.');
+      } finally {
+        if (button) button.disabled = false;
+        setTimeout(() => { if (button) button.title = 'Simpan Gambar / Download'; }, 2500);
+      }
     }
     function shareInstagram() {
       alert('Membuka Instagram Story untuk membagikan Voter Pass kamu...');
