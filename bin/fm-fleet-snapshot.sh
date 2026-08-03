@@ -1091,10 +1091,10 @@ secondmate_current_json() {  # <parent-tasks-json>
               parent_task:$t} ])
     | sort_by(.id)
     | {registry:$registry,records:.}') || return 1
-  total_registered=$(printf '%s' "$union" | jq '[.records[] | select(.registered)] | length')
-  total=$(printf '%s' "$union" | jq '.records | length')
+  total_registered=$(printf '%s' "$union" | jq '[.records[] | select(.registered)] | length' | tr -d '\r')
+  total=$(printf '%s' "$union" | jq '.records | length' | tr -d '\r')
   rows=$(printf '%s' "$union" | jq -c --argjson cap "$FM_SNAPSHOT_SECONDMATES" '(if $cap == 0 then .records else .records[:$cap] end)[]')
-  shown=$(printf '%s\n' "$rows" | grep -c . || true)
+  shown=$(printf '%s\n' "$rows" | grep -c . | tr -d '\r' || true)
   truncated=$((total - shown))
 
   while IFS= read -r row; do
