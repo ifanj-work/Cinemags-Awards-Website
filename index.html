@@ -876,7 +876,7 @@
           </div>
 
           <!-- All 10 Chosen Films and Actors Full Grid (No Internal Scroll) -->
-          <div id="ticket-picks-grid" class="flex flex-col gap-1 text-left py-1 text-[10px] my-1 w-full shrink-0">
+          <div id="ticket-picks-grid" class="flex flex-col gap-1 text-center py-1 text-[10px] my-1 w-full shrink-0">
             <!-- Rendered dynamically -->
           </div>
 
@@ -1489,7 +1489,7 @@
           if (!nomId) return '';
           const nom = nomineesData.find(n => n.id === nomId);
           return `
-            <div class="text-left w-full py-0.5 border-b border-white/5 last:border-0">
+            <div class="text-center w-full py-0.5 border-b border-white/5 last:border-0">
               <div class="text-amber-400 font-bold font-federo text-[9.5px] sm:text-[10.5px] tracking-wide leading-none">${cat.title}</div>
               <div class="text-white font-medium text-[10.5px] sm:text-[11.5px] leading-snug mt-0.5">${nom.name}</div>
             </div>
@@ -1664,18 +1664,18 @@
       const listTop = 330;
       const listBottom = 1625;
       const rowHeight = (listBottom - listTop) / selectedRows.length;
-      outputContext.textAlign = 'left';
+      outputContext.textAlign = 'center';
       outputContext.textBaseline = 'alphabetic';
 
       selectedRows.forEach((row, index) => {
         const rowY = listTop + (index * rowHeight);
         outputContext.fillStyle = '#f4c95d';
         outputContext.font = '700 23px Federo, Georgia, serif';
-        outputContext.fillText(row.category.toUpperCase(), 105, rowY + 34, 870);
+        outputContext.fillText(row.category.toUpperCase(), 540, rowY + 34, 870);
 
         outputContext.fillStyle = '#ffffff';
         outputContext.font = '600 31px "DM Sans", Arial, sans-serif';
-        outputContext.fillText(row.nominee, 105, rowY + 76, 870);
+        outputContext.fillText(row.nominee, 540, rowY + 76, 870);
 
         outputContext.strokeStyle = 'rgba(255,255,255,0.12)';
         outputContext.lineWidth = 1;
