@@ -256,6 +256,14 @@
     }
 
     @media (max-width: 639px) {
+      #ticket-picks-grid {
+        width: calc(100% - 40px);
+        margin-left: 20px;
+        margin-right: 20px;
+        margin-top: -5px;
+        margin-bottom: -5px;
+      }
+
       .category-nav-notification {
         bottom: calc(4.75rem + env(safe-area-inset-bottom));
       }
@@ -881,11 +889,20 @@
 
       <!-- Action Buttons Container (Docked at Bottom) -->
       <div class="shrink-0 pt-3 pb-1 border-t border-white/10 flex flex-col items-center gap-2 w-full max-w-[320px] mx-auto bg-transparent z-10">
-        <button id="download-ticket-button" type="button" onclick="downloadPassImage()" class="btn btn-sm w-full bg-amber-500 hover:bg-amber-400 text-[#08090c] font-bold border-none flex items-center justify-center gap-2 shadow-lg transition-transform active:scale-95 py-2.5">
+        <div class="grid w-full grid-cols-[44px_44px_minmax(0,1fr)] gap-2">
+          <button id="instagram-ticket-button" type="button" onclick="sharePassImage('instagram')" class="flex h-11 w-11 items-center justify-center rounded-lg border border-white/15 bg-neutral-900 text-white transition-colors hover:border-amber-400/60 hover:text-amber-400 disabled:opacity-50" aria-label="Bagikan ke Instagram" title="Bagikan ke Instagram">
+            <svg class="h-[19px] w-[19px] fill-current" viewBox="0 0 24 24" aria-hidden="true"><path d="M7.75 2h8.5A5.76 5.76 0 0 1 22 7.75v8.5A5.76 5.76 0 0 1 16.25 22h-8.5A5.76 5.76 0 0 1 2 16.25v-8.5A5.76 5.76 0 0 1 7.75 2Zm-.2 2A3.55 3.55 0 0 0 4 7.55v8.9A3.55 3.55 0 0 0 7.55 20h8.9A3.55 3.55 0 0 0 20 16.45v-8.9A3.55 3.55 0 0 0 16.45 4h-8.9Zm9.7 1.5a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z"/></svg>
+          </button>
+          <button id="share-ticket-button" type="button" onclick="sharePassImage('share')" class="flex h-11 w-11 items-center justify-center rounded-lg border border-white/15 bg-neutral-900 text-white transition-colors hover:border-amber-400/60 hover:text-amber-400 disabled:opacity-50" aria-label="Bagikan voter pass" title="Bagikan voter pass">
+            <span class="material-symbols-outlined text-xl" aria-hidden="true">share</span>
+          </button>
+          <button id="download-ticket-button" type="button" onclick="downloadPassImage()" class="btn h-11 min-h-11 bg-amber-500 hover:bg-amber-400 text-[#08090c] font-bold border-none flex items-center justify-center gap-2 shadow-lg transition-transform active:scale-95 px-3">
           <span class="material-symbols-outlined text-lg font-bold">download</span>
-          <span>Download Tiket</span>
-        </button>
-        <button onclick="document.getElementById('modal-success').close()" class="text-xs sm:text-sm font-medium text-gray-400 hover:text-white transition-colors cursor-pointer py-1 border-none bg-transparent hover:underline">
+          <span>Download</span>
+          </button>
+        </div>
+        <p id="ticket-share-status" class="hidden text-[10px] leading-snug text-amber-300" role="status" aria-live="polite"></p>
+        <button onclick="document.getElementById('modal-success').close()" class="text-xs sm:text-sm font-medium text-red-500 hover:text-red-400 transition-colors cursor-pointer py-1 border-none bg-transparent hover:underline">
           Selesai
         </button>
       </div>
@@ -1009,7 +1026,7 @@
 
       // Kategori 10: Pemeran Anak Terfavorit (8 Nominees)
       { id: "nom-1001", catId: "cat-10", name: "Jared Ali", film: "Children of Heaven", poster: "assets/actor_jared_ali.webp", studio: "MD Pictures", synopsis: "Memerankan karakter Ali, anak laki-laki yang berupaya membantu adiknya dengan bersikap kooperatif dalam penggunaan sepatu sekolah.", genre: "Drama", director: "Hanung" },
-      { id: "nom-1002", catId: "cat-10", name: "Luisa Adreena", film: "Na Willa", poster: "assets/actor_luisa_adreena.webp", studio: "Visinema Studios", synopsis: "Memerankan karakter Na Willa, anak perempuan berusia enam tahun di Surabaya era 1960-an yang mengeksplorasi kehidupan sekitarnya.", genre: "Animasi", director: "Ryan" },
+      { id: "nom-1002", catId: "cat-10", name: "Luisa Adreena", film: "Na Willa", poster: "assets/actor_luisa_adreena.webp", studio: "Visinema Studios", synopsis: "Na Willa adalah anak perempuan yang polos, ceria, dan penuh imajinasi. Ia melihat dunia dengan rasa ingin tahu yang besar, lalu belajar menghadapi perubahan dan tumbuh menjadi lebih dewasa melalui pengalaman sehari-harinya.", genre: "Animasi", director: "Ryan" },
       { id: "nom-1003", catId: "cat-10", name: "King Radja Nasution", film: "Ghost in The Cell", poster: "assets/actor_king_radja_nasution.webp", studio: "Come and See Pictures", synopsis: "Memerankan karakter Radja, anak yang berada di lingkungan penjara dan menyampaikan hal-hal yang diamatinya.", genre: "Horor", director: "Joko" },
       { id: "nom-1004", catId: "cat-10", name: "Myesha Lin", film: "Panggil Aku Ayah", poster: "assets/actor_myesha_lin.webp", studio: "Rapi Films", synopsis: "Memerankan karakter Lin, anak perempuan yang menjadi fokus pengasuhan dan perhatian utama ayahnya.", genre: "Drama", director: "Hadrah" },
       { id: "nom-1005", catId: "cat-10", name: "Azamy Syauqi", film: "Na Willa", poster: "assets/actor_azamy_syauqi.webp", studio: "Visinema Studios", synopsis: "Memerankan karakter Dul, teman seumur Na Willa yang sering bermain bersama di lingkungan perumahan.", genre: "Animasi", director: "Ryan" },
@@ -1025,6 +1042,8 @@
     let isVotingSubmitted = false;
     let isCategorySectionActive = false;
     let categoryNavNotificationTimer = null;
+    let cachedPassImageFile = null;
+    let passImageFilePromise = null;
 
     // ASSET PATH RESOLUTION FUNCTION
     function getAssetPath(path) {
@@ -1058,8 +1077,12 @@
 
     function centerActiveCategoryPill() {
       requestAnimationFrame(() => {
+        const pillContainer = document.getElementById('category-pills-container');
         const activePill = document.querySelector('#category-pills-container [aria-current="true"]');
-        activePill?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        if (!pillContainer || !activePill) return;
+
+        const centeredScrollLeft = activePill.offsetLeft - ((pillContainer.clientWidth - activePill.offsetWidth) / 2);
+        pillContainer.scrollTo({ left: Math.max(0, centeredScrollLeft), behavior: 'smooth' });
       });
     }
 
@@ -1080,6 +1103,12 @@
 
     function handleAdaptiveNext() {
       const currentIndex = categoriesData.findIndex(c => c.id === currentCategory);
+      const validation = getVoteValidation();
+      if (validation.isComplete) {
+        openReviewModal();
+        return;
+      }
+
       if (currentIndex < categoriesData.length - 1) {
         navigateAdaptiveCategory(1);
         return;
@@ -1192,7 +1221,9 @@
 
       switchCategory(categoriesData[selectedIndex + 1].id);
       requestAnimationFrame(() => {
-        document.getElementById('category-navigation-anchor')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        requestAnimationFrame(() => {
+          document.getElementById('category-navigation-anchor')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
       });
     }
 
@@ -1272,6 +1303,7 @@
       const current = categoriesData[currentIndex];
       const count = Object.keys(userVotes).length;
       const isLastCategory = currentIndex === categoriesData.length - 1;
+      const isVotingComplete = getVoteValidation().isComplete;
       const currentSelection = userVotes[currentCategory];
       const hasCurrentSelection = nomineesData.some(nominee => nominee.id === currentSelection && nominee.catId === currentCategory);
 
@@ -1295,7 +1327,7 @@
       }
 
       if (nextButton && nextLabel && nextIcon) {
-        if (!isLastCategory) {
+        if (!isLastCategory && !isVotingComplete) {
           nextButton.classList.remove('hidden');
           nextLabel.textContent = 'Next';
           nextIcon.textContent = 'chevron_right';
@@ -1305,7 +1337,7 @@
           nextButton.classList.remove('hidden');
           nextLabel.textContent = 'Review';
           nextIcon.classList.add('hidden');
-          nextButton.setAttribute('aria-label', hasCurrentSelection ? 'Tinjau semua pilihan' : 'Pilih nominasi sebelum meninjau pilihan');
+          nextButton.setAttribute('aria-label', isVotingComplete || hasCurrentSelection ? 'Tinjau semua pilihan' : 'Pilih nominasi sebelum meninjau pilihan');
         }
       }
     }
@@ -1431,6 +1463,8 @@
       }
       const name = document.getElementById('voter-name').value.trim() || 'Cinemates Voter';
       const email = document.getElementById('voter-email').value.trim();
+      cachedPassImageFile = null;
+      passImageFilePromise = null;
 
       const ticketIdEl = document.getElementById('ticket-id');
       if (ticketIdEl) {
@@ -1492,6 +1526,7 @@
                 const successModal = document.getElementById('modal-success');
                 if (successModal) {
                   successModal.showModal();
+                  requestAnimationFrame(() => createPassImageFile().catch(() => {}));
                   gsap.fromTo('#modal-success .modal-box',
                     { scale: 0.9, opacity: 0, y: 20 },
                     { scale: 1, opacity: 1, y: 0, duration: 0.4, ease: 'back.out(1.4)' }
@@ -1510,12 +1545,18 @@
           setTimeout(() => {
             completionModal.close();
             const successModal = document.getElementById('modal-success');
-            if (successModal) successModal.showModal();
+            if (successModal) {
+              successModal.showModal();
+              requestAnimationFrame(() => createPassImageFile().catch(() => {}));
+            }
           }, 1200);
         }
       } else {
         const successModal = document.getElementById('modal-success');
-        if (successModal) successModal.showModal();
+        if (successModal) {
+          successModal.showModal();
+          requestAnimationFrame(() => createPassImageFile().catch(() => {}));
+        }
       }
 
       // Reset vote choices, active category, and sticky progress bar back to default state
@@ -1527,79 +1568,213 @@
     }
 
     // SOCIAL SHARE & DOWNLOAD FUNCTIONS
-    async function downloadPassImage() {
-      const ticket = document.getElementById('wrapped-ticket');
-      const button = document.getElementById('download-ticket-button');
-      const label = button ? button.querySelector('span:last-child') : null;
-      const originalLabel = label ? label.textContent : 'Download Tiket';
+    async function createPassImageFile() {
+      if (cachedPassImageFile) return cachedPassImageFile;
+      if (passImageFilePromise) return passImageFilePromise;
 
-      if (!ticket || typeof window.html2canvas !== 'function') {
-        alert('Fitur download belum siap. Periksa koneksi internet lalu coba lagi.');
-        return;
+      passImageFilePromise = renderPassImageFile();
+      try {
+        cachedPassImageFile = await passImageFilePromise;
+        return cachedPassImageFile;
+      } finally {
+        passImageFilePromise = null;
+      }
+    }
+
+    async function renderPassImageFile() {
+      const ticket = document.getElementById('wrapped-ticket');
+      if (!ticket) throw new Error('Ticket content is not ready');
+
+      if (document.fonts && document.fonts.ready) await document.fonts.ready;
+
+      const outputCanvas = document.createElement('canvas');
+      outputCanvas.width = 1080;
+      outputCanvas.height = 1920;
+      const outputContext = outputCanvas.getContext('2d');
+      if (!outputContext) throw new Error('Canvas is not supported');
+      outputContext.imageSmoothingEnabled = true;
+      outputContext.imageSmoothingQuality = 'high';
+      outputContext.fillStyle = '#080808';
+      outputContext.fillRect(0, 0, outputCanvas.width, outputCanvas.height);
+
+      const loadCanvasImage = (path) => new Promise((resolve) => {
+        const image = new Image();
+        image.onload = () => resolve(image);
+        image.onerror = () => resolve(null);
+        image.src = new URL(path, document.baseURI).href;
+      });
+
+      const [backgroundImage, logoImage] = await Promise.all([
+        loadCanvasImage('assets/ticket-bg.webp'),
+        loadCanvasImage('assets/Logo.webp')
+      ]);
+
+      if (backgroundImage) {
+        const imageRatio = backgroundImage.naturalWidth / backgroundImage.naturalHeight;
+        const canvasRatio = outputCanvas.width / outputCanvas.height;
+        let sourceWidth = backgroundImage.naturalWidth;
+        let sourceHeight = backgroundImage.naturalHeight;
+        let sourceX = 0;
+        let sourceY = 0;
+        if (imageRatio > canvasRatio) {
+          sourceWidth = sourceHeight * canvasRatio;
+          sourceX = (backgroundImage.naturalWidth - sourceWidth) / 2;
+        } else {
+          sourceHeight = sourceWidth / canvasRatio;
+          sourceY = (backgroundImage.naturalHeight - sourceHeight) / 2;
+        }
+        outputContext.drawImage(backgroundImage, sourceX, sourceY, sourceWidth, sourceHeight, 0, 0, 1080, 1920);
       }
 
+      const overlay = outputContext.createLinearGradient(0, 0, 0, 1920);
+      overlay.addColorStop(0, 'rgba(5,5,5,0.28)');
+      overlay.addColorStop(0.5, 'rgba(5,5,5,0.38)');
+      overlay.addColorStop(1, 'rgba(5,5,5,0.48)');
+      outputContext.fillStyle = overlay;
+      outputContext.fillRect(0, 0, 1080, 1920);
+
+      if (logoImage) {
+        const maxLogoWidth = 560;
+        const maxLogoHeight = 150;
+        const logoScale = Math.min(maxLogoWidth / logoImage.naturalWidth, maxLogoHeight / logoImage.naturalHeight);
+        const logoWidth = logoImage.naturalWidth * logoScale;
+        const logoHeight = logoImage.naturalHeight * logoScale;
+        outputContext.drawImage(logoImage, (1080 - logoWidth) / 2, 92, logoWidth, logoHeight);
+      } else {
+        outputContext.fillStyle = '#d29e2f';
+        outputContext.textAlign = 'center';
+        outputContext.font = '700 42px Federo, Georgia, serif';
+        outputContext.fillText('CINEMAGS AWARDS 2026', 540, 170);
+      }
+
+      outputContext.strokeStyle = 'rgba(255,255,255,0.18)';
+      outputContext.lineWidth = 2;
+      outputContext.beginPath();
+      outputContext.moveTo(90, 285);
+      outputContext.lineTo(990, 285);
+      outputContext.stroke();
+
+      const selectedRows = Array.from(document.querySelectorAll('#ticket-picks-grid > div')).map(row => ({
+        category: row.children[0]?.textContent?.trim() || '',
+        nominee: row.children[1]?.textContent?.trim() || ''
+      })).filter(row => row.category && row.nominee);
+
+      if (!selectedRows.length) throw new Error('No selected nominees found in the ticket');
+
+      const listTop = 330;
+      const listBottom = 1625;
+      const rowHeight = (listBottom - listTop) / selectedRows.length;
+      outputContext.textAlign = 'left';
+      outputContext.textBaseline = 'alphabetic';
+
+      selectedRows.forEach((row, index) => {
+        const rowY = listTop + (index * rowHeight);
+        outputContext.fillStyle = '#f4c95d';
+        outputContext.font = '700 23px Federo, Georgia, serif';
+        outputContext.fillText(row.category.toUpperCase(), 105, rowY + 34, 870);
+
+        outputContext.fillStyle = '#ffffff';
+        outputContext.font = '600 31px "DM Sans", Arial, sans-serif';
+        outputContext.fillText(row.nominee, 105, rowY + 76, 870);
+
+        outputContext.strokeStyle = 'rgba(255,255,255,0.12)';
+        outputContext.lineWidth = 1;
+        outputContext.beginPath();
+        outputContext.moveTo(105, rowY + rowHeight - 10);
+        outputContext.lineTo(975, rowY + rowHeight - 10);
+        outputContext.stroke();
+      });
+
+      outputContext.textAlign = 'center';
+      outputContext.fillStyle = '#f4c95d';
+      outputContext.font = '700 25px Federo, Georgia, serif';
+      outputContext.fillText('#RayakanFilmIndonesia   #CinemagsAwards2026', 540, 1765);
+      outputContext.fillStyle = '#ffffff';
+      outputContext.font = '500 22px "DM Sans", Arial, sans-serif';
+      outputContext.fillText('awards-2026.cinemags.org', 540, 1810);
+
+      const blob = await new Promise((resolve, reject) => {
+        outputCanvas.toBlob((value) => value ? resolve(value) : reject(new Error('JPEG export failed')), 'image/jpeg', 0.95);
+      });
+      const ticketId = document.getElementById('ticket-id');
+      const safeId = ticketId ? ticketId.textContent.trim().replace(/[^a-z0-9_-]+/gi, '-') : 'voter-pass';
+      return new File([blob], 'cinemags-awards-2026-' + safeId + '.jpg', { type: 'image/jpeg' });
+    }
+
+    function triggerPassImageDownload(file) {
+      const url = URL.createObjectURL(file);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = file.name;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    }
+
+    function setTicketShareStatus(message) {
+      const status = document.getElementById('ticket-share-status');
+      if (!status) return;
+      status.textContent = message;
+      status.classList.toggle('hidden', !message);
+    }
+
+    async function downloadPassImage() {
+      const button = document.getElementById('download-ticket-button');
+      const label = button ? button.querySelector('span:last-child') : null;
+      const originalLabel = label ? label.textContent : 'Download';
       if (button) button.disabled = true;
-      if (label) label.textContent = 'Menyiapkan tiket...';
+      if (label) label.textContent = 'Menyiapkan...';
+      setTicketShareStatus('');
 
       try {
-        if (document.fonts && document.fonts.ready) await document.fonts.ready;
-
-        const images = Array.from(ticket.querySelectorAll('img'));
-        await Promise.all(images.map((img) => {
-          if (img.complete) return Promise.resolve();
-          return new Promise((resolve) => {
-            const finish = () => { clearTimeout(timeout); resolve(); };
-            const timeout = setTimeout(finish, 15000);
-            img.addEventListener('load', finish, { once: true });
-            img.addEventListener('error', finish, { once: true });
-          });
-        }));
-
-        const capturedCanvas = await window.html2canvas(ticket, {
-          backgroundColor: '#080808',
-          scale: Math.min(3, Math.max(2, window.devicePixelRatio || 1)),
-          useCORS: true,
-          allowTaint: false,
-          logging: false,
-          imageTimeout: 15000,
-          scrollX: 0,
-          scrollY: -window.scrollY
-        });
-
-        const outputCanvas = document.createElement('canvas');
-        outputCanvas.width = 1080;
-        outputCanvas.height = 1920;
-        const outputContext = outputCanvas.getContext('2d');
-        if (!outputContext) throw new Error('Canvas is not supported');
-        outputContext.imageSmoothingEnabled = true;
-        outputContext.imageSmoothingQuality = 'high';
-        outputContext.drawImage(capturedCanvas, 0, 0, 1080, 1920);
-
-        const blob = await new Promise((resolve, reject) => {
-          outputCanvas.toBlob((value) => value ? resolve(value) : reject(new Error('PNG export failed')), 'image/png', 1);
-        });
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        const ticketId = document.getElementById('ticket-id');
-        const safeId = ticketId ? ticketId.textContent.trim().replace(/[^a-z0-9_-]+/gi, '-') : 'voter-pass';
-        link.href = url;
-        link.download = 'cinemags-awards-2026-' + safeId + '.png';
-        document.body.appendChild(link);
-        link.click();
-        link.remove();
-        setTimeout(() => URL.revokeObjectURL(url), 1000);
+        const file = cachedPassImageFile || await createPassImageFile();
+        triggerPassImageDownload(file);
         if (label) label.textContent = 'Tiket berhasil diunduh';
       } catch (error) {
         console.error('Ticket download failed:', error);
         if (label) label.textContent = 'Download gagal — coba lagi';
-        alert('Tiket belum berhasil diunduh. Pastikan semua gambar sudah termuat, lalu coba lagi.');
+        setTicketShareStatus('Download gagal. Muat ulang halaman atau buka melalui server web, lalu coba lagi.');
+        alert('Tiket belum berhasil diunduh. Muat ulang halaman lalu coba lagi. Jika file dibuka langsung dari komputer, jalankan melalui server web agar gambar dapat diproses.');
       } finally {
         if (button) button.disabled = false;
         setTimeout(() => { if (label) label.textContent = originalLabel; }, 2500);
       }
     }
-    function shareInstagram() {
-      alert('Membuka Instagram Story untuk membagikan Voter Pass kamu...');
+
+    async function sharePassImage(destination) {
+      const instagramButton = document.getElementById('instagram-ticket-button');
+      const shareButton = document.getElementById('share-ticket-button');
+      [instagramButton, shareButton].forEach(button => { if (button) button.disabled = true; });
+      setTicketShareStatus('Menyiapkan voter pass untuk dibagikan...');
+
+      try {
+        const file = cachedPassImageFile || await createPassImageFile();
+        const shareData = {
+          files: [file],
+          title: 'Cinemags Awards 2026',
+          text: 'Vote pilihanku di Cinemags Awards 2026! #RayakanFilmIndonesia #CinemagsAwards2026'
+        };
+
+        if (navigator.share && (!navigator.canShare || navigator.canShare({ files: [file] }))) {
+          await navigator.share(shareData);
+          setTicketShareStatus(destination === 'instagram' ? 'Pilih Instagram dari menu berbagi.' : 'Voter pass siap dibagikan.');
+        } else {
+          triggerPassImageDownload(file);
+          setTicketShareStatus(destination === 'instagram'
+            ? 'Gambar telah diunduh. Buka Instagram lalu unggah ke Story atau Feed.'
+            : 'Gambar telah diunduh dan siap dibagikan.');
+        }
+      } catch (error) {
+        if (error && error.name === 'AbortError') {
+          setTicketShareStatus('Berbagi dibatalkan.');
+        } else {
+          console.error('Ticket share failed:', error);
+          setTicketShareStatus('Belum berhasil membagikan. Silakan coba lagi.');
+        }
+      } finally {
+        [instagramButton, shareButton].forEach(button => { if (button) button.disabled = false; });
+      }
     }
     function shareWhatsApp() {
       const text = encodeURIComponent("Saya sudah memilih di Cinemags Awards 2026! Yuk ikutan #RayakanFilmIndonesia di cinemags.org");
