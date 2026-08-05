@@ -185,6 +185,12 @@
       border-radius: 16px;
     }
 
+    .ticket-preview-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
@@ -225,21 +231,22 @@
       color: #f1c766;
     }
 
+    .adaptive-category-nav-button.is-review {
+      border-color: #fbbf24;
+      background: linear-gradient(135deg, #fbbf24, #d29e2f);
+      color: #171717;
+      box-shadow: 0 6px 18px rgba(251, 191, 36, 0.22);
+    }
+
+    .adaptive-category-nav-button.is-review:hover:not(:disabled) {
+      border-color: #fcd34d;
+      background: linear-gradient(135deg, #fcd34d, #fbbf24);
+      color: #0a0a0a;
+    }
+
     .adaptive-category-nav-button:disabled {
       opacity: 0.34;
       cursor: not-allowed;
-    }
-
-    .adaptive-category-nav-button-next {
-      border-color: #d29e2f;
-      background: #d29e2f;
-      color: #101010;
-    }
-
-    .adaptive-category-nav-button-next:hover:not(:disabled) {
-      border-color: #e4b84e;
-      background: #e4b84e;
-      color: #08090c;
     }
 
     .category-nav-notification {
@@ -256,14 +263,6 @@
     }
 
     @media (max-width: 639px) {
-      #ticket-picks-grid {
-        width: calc(100% - 40px);
-        margin-left: 20px;
-        margin-right: 20px;
-        margin-top: -5px;
-        margin-bottom: -5px;
-      }
-
       .category-nav-notification {
         bottom: calc(4.75rem + env(safe-area-inset-bottom));
       }
@@ -373,8 +372,8 @@
       <!-- Desktop Nav Links -->
       <nav class="hidden md:flex items-center gap-8 font-federo text-base text-amber-400">
         <a href="#about" class="hover:text-amber-200 transition-colors">Tentang Event</a>
-        <a href="#how-to-vote" class="hover:text-amber-200 transition-colors">Cara Vote</a>
-        <a href="#categories" class="hover:text-amber-200 transition-colors">Kategori Vote</a>
+        <a href="#how-to-vote" class="hover:text-amber-200 transition-colors">Cara Voting</a>
+        <a href="#categories" class="hover:text-amber-200 transition-colors">Kategori &amp; Nominasi</a>
         <a href="#terms" class="hover:text-amber-200 transition-colors">Syarat & Ketentuan</a>
       </nav>
 
@@ -390,8 +389,8 @@
     <!-- Mobile Drawer Menu -->
     <div id="mobile-drawer" class="hidden md:hidden bg-neutral-950/95 border-b border-white/10 px-6 py-4 space-y-3 font-federo text-lg text-amber-400">
       <a href="#about" onclick="document.getElementById('mobile-drawer').classList.add('hidden')" class="block py-1">Tentang Event</a>
-      <a href="#how-to-vote" onclick="document.getElementById('mobile-drawer').classList.add('hidden')" class="block py-1">Cara Vote</a>
-      <a href="#categories" onclick="document.getElementById('mobile-drawer').classList.add('hidden')" class="block py-1">Kategori Vote</a>
+      <a href="#how-to-vote" onclick="document.getElementById('mobile-drawer').classList.add('hidden')" class="block py-1">Cara Voting</a>
+      <a href="#categories" onclick="document.getElementById('mobile-drawer').classList.add('hidden')" class="block py-1">Kategori &amp; Nominasi</a>
       <a href="#terms" onclick="document.getElementById('mobile-drawer').classList.add('hidden')" class="block py-1">Syarat & Ketentuan</a>
     </div>
   </header>
@@ -472,9 +471,6 @@
         </p>
         <p class="text-xs sm:text-sm text-gray-300 leading-relaxed">
           Melalui Cinemags Awards, kami percaya bahwa dukungan nyata terhadap industri film di Indonesia bisa dimulai dari apresiasi sederhana dengan cara memberikan suara pada karya yang menginspirasi.
-        </p>
-        <p class="text-xs text-gray-400 leading-relaxed">
-          Nominasi yang masuk dalam kategori Cinemags Awards tahun ini merupakan bagian dari film-film Indonesia yang resmi rilis dan sudah tayang pada periode <strong>Juli 2025 hingga Juni 2026</strong>. Hal ini dilakukan untuk mencerminkan keberagaman karya terbaru yang hadir di layar bioskop maupun platform resmi dalam kurun waktu tersebut.
         </p>
       </div>
 
@@ -595,21 +591,31 @@
     <div class="space-y-3 text-xs text-gray-300">
       <details name="terms-accordion" class="terms-accordion glass-card group">
         <summary class="flex min-h-14 items-center justify-between gap-4 px-5 py-3 font-bold text-white text-sm cursor-pointer select-none transition-colors hover:text-amber-300">
-          <span>Periode Voting</span>
-          <span class="terms-accordion-icon" aria-hidden="true"><span class="material-symbols-outlined icon-closed text-xl">keyboard_arrow_down</span><span class="material-symbols-outlined icon-open text-xl">keyboard_arrow_up</span></span>
-        </summary>
-        <div class="px-5 pb-5 pt-1 text-gray-400 leading-relaxed text-xs border-t border-white/5">
-          <p>Periode voting berlangsung pada <strong class="text-gray-300">31 Agustus - 31 Oktober 2026</strong> hingga pukul 23.59 WIB.</p>
-        </div>
-      </details>
-
-      <details name="terms-accordion" class="terms-accordion glass-card group">
-        <summary class="flex min-h-14 items-center justify-between gap-4 px-5 py-3 font-bold text-white text-sm cursor-pointer select-none transition-colors hover:text-amber-300">
           <span>Kerahasiaan Data</span>
           <span class="terms-accordion-icon" aria-hidden="true"><span class="material-symbols-outlined icon-closed text-xl">keyboard_arrow_down</span><span class="material-symbols-outlined icon-open text-xl">keyboard_arrow_up</span></span>
         </summary>
         <div class="px-5 pb-5 pt-1 text-gray-400 leading-relaxed text-xs border-t border-white/5">
           <p>Data email yang dikumpulkan hanya digunakan untuk keperluan voting dan tidak akan disalahgunakan. Kami menghargai privasi Anda dan tidak akan membagikan informasi pribadi kepada pihak ketiga tanpa izin.</p>
+        </div>
+      </details>
+
+      <details name="terms-accordion" class="terms-accordion glass-card group">
+        <summary class="flex min-h-14 items-center justify-between gap-4 px-5 py-3 font-bold text-white text-sm cursor-pointer select-none transition-colors hover:text-amber-300">
+          <span>Pemilihan Nominasi</span>
+          <span class="terms-accordion-icon" aria-hidden="true"><span class="material-symbols-outlined icon-closed text-xl">keyboard_arrow_down</span><span class="material-symbols-outlined icon-open text-xl">keyboard_arrow_up</span></span>
+        </summary>
+        <div class="px-5 pb-5 pt-1 text-gray-400 leading-relaxed text-xs border-t border-white/5">
+          <p>Nominasi yang masuk dalam kategori Cinemags Awards tahun ini merupakan bagian dari film-film Indonesia yang resmi rilis dan sudah tayang pada periode <strong class="text-gray-300">Juli 2025 hingga Juni 2026</strong>. Hal ini dilakukan untuk mencerminkan keberagaman karya terbaru yang hadir di layar bioskop maupun platform resmi dalam kurun waktu tersebut.</p>
+        </div>
+      </details>
+
+      <details name="terms-accordion" class="terms-accordion glass-card group">
+        <summary class="flex min-h-14 items-center justify-between gap-4 px-5 py-3 font-bold text-white text-sm cursor-pointer select-none transition-colors hover:text-amber-300">
+          <span>Periode Voting</span>
+          <span class="terms-accordion-icon" aria-hidden="true"><span class="material-symbols-outlined icon-closed text-xl">keyboard_arrow_down</span><span class="material-symbols-outlined icon-open text-xl">keyboard_arrow_up</span></span>
+        </summary>
+        <div class="px-5 pb-5 pt-1 text-gray-400 leading-relaxed text-xs border-t border-white/5">
+          <p>Periode voting berlangsung pada <strong class="text-gray-300">31 Agustus - 31 Oktober 2026</strong> hingga pukul 23.59 WIB.</p>
         </div>
       </details>
 
@@ -639,7 +645,7 @@
           <span class="terms-accordion-icon" aria-hidden="true"><span class="material-symbols-outlined icon-closed text-xl">keyboard_arrow_down</span><span class="material-symbols-outlined icon-open text-xl">keyboard_arrow_up</span></span>
         </summary>
         <div class="px-5 pb-5 pt-1 text-gray-400 leading-relaxed text-xs border-t border-white/5">
-          <p>Pengumuman pemenang pada tanggal 10 -17 November 2025 melalui kanal resmi Cinemags. Penghargaan akan didistribusikan di hari berikutnya setelah pengumuman semua pemenang telah selesai.</p>
+          <p>Pengumuman pemenang pada tanggal <strong class="text-gray-300">2 November - 20 November 2026</strong> melalui kanal resmi Cinemags. Piala penghargaan akan didistribusikan di hari berikutnya setelah pengumuman semua pemenang telah selesai.</p>
         </div>
       </details>
     </div>
@@ -660,8 +666,8 @@
         <h4 class="font-bold text-white text-sm font-federo text-amber-400">Navigasi</h4>
         <ul class="space-y-1.5">
           <li><a href="#about" class="hover:text-amber-300 transition-colors">Tentang Event</a></li>
-          <li><a href="#how-to-vote" class="hover:text-amber-300 transition-colors">Cara Vote</a></li>
-          <li><a href="#categories" class="hover:text-amber-300 transition-colors">Kategori & Nominee</a></li>
+          <li><a href="#how-to-vote" class="hover:text-amber-300 transition-colors">Cara Voting</a></li>
+          <li><a href="#categories" class="hover:text-amber-300 transition-colors">Kategori &amp; Nominasi</a></li>
           <li><a href="#terms" class="hover:text-amber-300 transition-colors">Syarat & Ketentuan</a></li>
         </ul>
       </div>
@@ -700,7 +706,7 @@
     </div>
     
     <div class="max-w-7xl mx-auto border-t border-white/5 mt-10 pt-6 text-center text-xs text-gray-500 font-sans tracking-wide">
-      <p>© 2025 Cinemags. All Rights Reserved.</p>
+      <p>© 2026 Cinemags. All Rights Reserved.</p>
     </div>
   </footer>
 
@@ -846,7 +852,7 @@
 
       <div class="space-y-1.5 z-10">
         <h3 id="anim-check-title" class="text-xl sm:text-2xl font-bold text-white tracking-wide opacity-0">Suara Berhasil Terkirim!</h3>
-        <p id="anim-check-subtitle" class="text-xs sm:text-sm text-gray-300 opacity-0">Menyiapkan tiket pilihanmu...</p>
+        <p id="anim-check-subtitle" class="text-xs sm:text-sm text-gray-300 opacity-0">Menyiapkan Voter Pass pilihanmu...</p>
       </div>
     </div>
   </dialog>
@@ -868,22 +874,27 @@
         </div>
 
         <!-- 9:16 Wrapped Style Pass Container -->
-        <div id="wrapped-ticket" class="wrapped-card-9-16 mx-auto px-4 py-3 sm:px-[32px] sm:py-[22px] flex flex-col justify-between text-center relative overflow-hidden shadow-2xl">
-          <div class="absolute -top-12 -right-12 w-32 h-32 bg-amber-500/20 rounded-full blur-2xl"></div>
+        <div id="wrapped-ticket" class="wrapped-card-9-16 mx-auto text-center relative overflow-hidden shadow-2xl" aria-busy="true">
+          <!-- Immediate fallback keeps the preview visible when Canvas export is delayed or unavailable. -->
+          <div id="ticket-preview-fallback" class="absolute inset-0 px-4 py-3 sm:px-[32px] sm:py-[22px] flex flex-col justify-between text-center">
+            <div class="py-2 sm:py-3 shrink-0 flex items-center justify-center border-b border-white/10">
+              <img src="assets/Logo.webp" onerror="if(!this.dataset.retried){this.dataset.retried=true;if(!this.src.includes('../assets/'))this.src='../'+this.getAttribute('src');}" alt="Cinemags Awards 2026" class="h-7 sm:h-10 w-auto mx-auto object-contain shrink-0">
+            </div>
 
-          <div class="py-2 sm:py-3 shrink-0 flex items-center justify-center text-center border-b border-white/10">
-            <img src="assets/Logo.webp" onerror="if(!this.dataset.retried){this.dataset.retried=true;if(!this.src.includes('../assets/'))this.src='../'+this.getAttribute('src');}" alt="Cinemags Awards 2026" class="h-7 sm:h-10 w-auto mx-auto object-contain shrink-0">
-          </div>
+            <div class="flex flex-col items-center gap-2 w-full shrink-0">
+              <div class="font-federo text-amber-400 text-[11px] sm:text-[13px] font-bold tracking-[0.1em] leading-tight">THIS IS MY CINEMAGS PICKS!</div>
+              <div id="ticket-picks-grid" class="flex flex-col gap-1 text-center py-1 w-full shrink-0">
+                <!-- Rendered dynamically -->
+              </div>
+            </div>
 
-          <!-- All 10 Chosen Films and Actors Full Grid (No Internal Scroll) -->
-          <div id="ticket-picks-grid" class="flex flex-col gap-1 text-center py-1 text-[10px] my-1 w-full shrink-0">
-            <!-- Rendered dynamically -->
+            <div class="shrink-0 flex flex-col items-center leading-tight w-full">
+              <div class="mb-2 text-[9px] sm:text-[10px] text-white font-medium italic tracking-wide">Share your picks!</div>
+              <div class="mb-1.5 text-[9px] text-amber-400 font-bold tracking-wide">#RayakanFilmIndonesia &nbsp;#CinemagsAwards2026</div>
+              <div class="mt-auto text-[8px] text-white font-medium tracking-[0.08em]">awards-2026.cinemags.org</div>
+            </div>
           </div>
-
-          <div class="shrink-0 flex flex-col items-center gap-0.5 leading-tight">
-            <div class="text-[9px] text-amber-400 font-bold tracking-wide">#RayakanFilmIndonesia &nbsp;#CinemagsAwards2026</div>
-            <div class="text-[8px] text-white font-medium tracking-wide">awards-2026.cinemags.org</div>
-          </div>
+          <img id="ticket-preview-image" class="ticket-preview-image absolute inset-0 z-10 hidden" alt="Voter Pass Cinemags Awards 2026 berisi daftar nominasi pilihanmu">
         </div>
       </div>
 
@@ -917,22 +928,22 @@
     // 10 CATEGORIES DATA
     const categoriesData = [
       { id: "cat-1", title: "Film Terfavorit" },
-      { id: "cat-2", title: "Film Horror Terfavorit" },
+      { id: "cat-2", title: "Sutradara Terfavorit" },
       { id: "cat-3", title: "Pemeran Utama Pria Terfavorit" },
       { id: "cat-4", title: "Pemeran Utama Wanita Terfavorit" },
       { id: "cat-5", title: "Pemeran Pendukung Pria Terfavorit" },
       { id: "cat-6", title: "Pemeran Pendukung Wanita Terfavorit" },
-      { id: "cat-7", title: "Pemeran Pendatang Baru Terfavorit" },
-      { id: "cat-8", title: "Serial Streaming Indonesia Terbaik" },
-      { id: "cat-9", title: "Sutradara Terfavorit" },
-      { id: "cat-10", title: "Pemeran Anak Terfavorit" }
+      { id: "cat-7", title: "Pemeran Pendatang Baru Pria Terfavorit" },
+      { id: "cat-8", title: "Pemeran Pendatang Baru Wanita Terfavorit" },
+      { id: "cat-9", title: "Film Horror Terfavorit" },
+      { id: "cat-10", title: "Serial Streaming Indonesia Terfavorit" }
     ];
 
     // 84 NOMINEES DATA (100% MATCHED TO WEBP/JPG ASSETS ON DISK)
     const nomineesData = [
       // Kategori 1: Film Terfavorit (12 Nominees)
-      { id: "nom-101", catId: "cat-1", name: "Sore: Istri Dari Masa Depan", film: "Sore: Istri Dari Masa Depan", poster: "assets/poster_sore.webp", studio: "Cerita Films", synopsis: "Mengisahkan Jonathan, seorang fotografer yang hidup mandiri namun tidak teratur di Kroasia, yang kehidupannya mendadak berubah saat didatangi Sore, wanita yang mengaku sebagai istrinya dari masa depan dan bertekad mengubah pola hidupnya sebelum terlambat.", genre: "Romance / Fantasy", director: "Yandy Laurens" },
-      { id: "nom-102", catId: "cat-1", name: "Agak Laen: Menyala Pantiku", film: "Agak Laen: Menyala Pantiku", poster: "assets/poster_agak_laen.webp", studio: "Imajinari", synopsis: "Melanjutkan petualangan empat sekawan yang kini mengelola panti asuhan, menghadapi serangkaian masalah tidak terduga dan kekacauan komedi situasi saat tempat tinggal mereka terancam ditutup.", genre: "Komedi", director: "Muhadkly Acho" },
+      { id: "nom-101", catId: "cat-1", name: "Sore: Istri dari Masa Depan", film: "Sore: Istri dari Masa Depan", poster: "assets/poster_sore.webp", studio: "Cerita Films", synopsis: "Mengisahkan Jonathan, seorang fotografer yang hidup mandiri namun tidak teratur di Kroasia, yang kehidupannya mendadak berubah saat didatangi Sore, wanita yang mengaku sebagai istrinya dari masa depan dan bertekad mengubah pola hidupnya sebelum terlambat.", genre: "Romance / Fantasy", director: "Yandy Laurens" },
+      { id: "nom-102", catId: "cat-1", name: "Agak Laen: Menyala Pantiku!", film: "Agak Laen: Menyala Pantiku!", poster: "assets/poster_agak_laen.webp", studio: "Imajinari", synopsis: "Melanjutkan petualangan empat sekawan yang kini mengelola panti asuhan, menghadapi serangkaian masalah tidak terduga dan kekacauan komedi situasi saat tempat tinggal mereka terancam ditutup.", genre: "Komedi", director: "Muhadkly Acho" },
       { id: "nom-103", catId: "cat-1", name: "Nobody Loves Kay", film: "Nobody Loves Kay", poster: "assets/poster_nobody_loves_kay.webp", studio: "Qun Films", synopsis: "Mengisahkan perjalanan emosional Kay dalam menghadapi kekecewaan asmara, mengarungi proses penerimaan diri, dan menemukan kembali pemaknaan atas rasa percaya diri serta cinta sejati.", genre: "Drama", director: "Dionne" },
       { id: "nom-104", catId: "cat-1", name: "Pangku", film: "Pangku", poster: "assets/poster_pangku.webp", studio: "Gambar Gerak", synopsis: "Mengisahkan Sartika, seorang perempuan muda yang berjuang sebagai ibu tunggal di jalur Pantura dan terikat dalam lingkungan warung kopi memangku demi menjamin kehidupan serta masa depan anaknya.", genre: "Drama", director: "Reza Rahadian" },
       { id: "nom-105", catId: "cat-1", name: "Tinggal Meninggal", film: "Tinggal Meninggal", poster: "assets/poster_tinggal_meninggal.webp", studio: "Imajinari", synopsis: "Mengisahkan Gema, seorang pemuda canggung yang terobsesi dengan perhatian masa duka hingga nekat merangkai kebohongan kematian anggota keluarganya, memicu masalah absurd dalam komedi hitam.", genre: "Black Comedy", director: "Kristo Immanuel" },
@@ -940,99 +951,99 @@
       { id: "nom-107", catId: "cat-1", name: "Tunggu Aku Sukses Nanti", film: "Tunggu Aku Sukses Nanti", poster: "assets/poster_tunggu_aku_sukses_nanti.webp", studio: "Rapi Films", synopsis: "Mengisahkan perjuangan tiga sahabat yang merantau ke Jakarta untuk mencari pekerjaan dan membuktikan keberhasilan karier kepada keluarga serta lingkungan asal mereka.", genre: "Drama Komedi", director: "Naya Anindita" },
       { id: "nom-108", catId: "cat-1", name: "Na Willa", film: "Na Willa", poster: "assets/poster_na_willa.webp", studio: "Visinema Studios", synopsis: "Mengisahkan kehidupan Na Willa, seorang anak perempuan berusia enam tahun di Surabaya tahun 1960-an, yang mengeksplorasi lingkungan sekitarnya dan memandang dinamika keluarga dengan kepolosan anak-anak.", genre: "Animasi / Keluarga", director: "Ryan Adriyandy" },
       { id: "nom-109", catId: "cat-1", name: "Para Perasuk", film: "Para Perasuk", poster: "assets/poster_para_perasuk.webp", studio: "Rekata Studio", synopsis: "Mengisahkan Bayu di Desa Latas yang berambisi menjadi perasuk utama dalam pesta adat kerasukan lokal demi mengumpulkan dana untuk menyelamatkan mata air keramat desanya dari penggusuran korporasi.", genre: "Misteri / Thriller", director: "Wregas" },
-      { id: "nom-110", catId: "cat-1", name: "Surat Untuk Masa Mudaku", film: "Surat Untuk Masa Mudaku", poster: "assets/poster_surat_untuk_masa_mudaku.webp", studio: "Buddy Buddy Pictures", synopsis: "Mengisahkan seorang pria yang terhubung kembali dengan masa lalunya melalui kepingan surat masa muda, memicu refleksi atas keputusan hidup dan perjalanan waktunya.", genre: "Drama", director: "Teddy" },
-      { id: "nom-111", catId: "cat-1", name: "Semua Akan Baik-Baik Saja", film: "Semua Akan Baik-Baik Saja", poster: "assets/poster_semua_akan_baik_baik_saja.webp", studio: "Tiger Wong Entertainment", synopsis: "Mengisahkan ketahanan sebuah keluarga yang saling memberikan dukungan moral dan emosional saat menghadapi krisis ekonomi serta ujian kehidupan sehari-hari.", genre: "Drama Keluarga", director: "Baim Wong" },
+      { id: "nom-110", catId: "cat-1", name: "Surat untuk Masa Mudaku", film: "Surat untuk Masa Mudaku", poster: "assets/poster_surat_untuk_masa_mudaku.webp", studio: "Buddy-Buddy Pictures", synopsis: "Mengisahkan seorang pria yang terhubung kembali dengan masa lalunya melalui kepingan surat masa muda, memicu refleksi atas keputusan hidup dan perjalanan waktunya.", genre: "Drama", director: "Teddy" },
+      { id: "nom-111", catId: "cat-1", name: "Semua Akan Baik-Baik Saja", film: "Semua Akan Baik-Baik Saja", poster: "assets/poster_semua_akan_baik_baik_saja.webp", studio: "Tiger Wong Pictures", synopsis: "Mengisahkan ketahanan sebuah keluarga yang saling memberikan dukungan moral dan emosional saat menghadapi krisis ekonomi serta ujian kehidupan sehari-hari.", genre: "Drama Keluarga", director: "Baim Wong" },
       { id: "nom-112", catId: "cat-1", name: "Children of Heaven", film: "Children of Heaven", poster: "assets/poster_children_of_heaven.webp", studio: "MD Pictures", synopsis: "Mengisahkan dua bersaudara dari keluarga kurang mampu yang terpaksa saling bergantian memakai satu pasang sepatu demi dapat terus menghadiri kegiatan sekolah.", genre: "Drama / Keluarga", director: "Hanung" },
 
-      // Kategori 2: Film Horror Terfavorit (8 Nominees)
-      { id: "nom-201", catId: "cat-2", name: "Ghost in The Cell", film: "Ghost in The Cell", poster: "assets/poster_ghost_in_the_cell.webp", studio: "Come and See Pictures", synopsis: "Mengisahkan penjara Labuhan Angsana yang dilanda rentetan kematian misterius akibat teror entitas gaib, memaksa para tahanan menyisihkan perselisihan untuk bertahan hidup.", genre: "Horor", director: "Joko Anwar" },
-      { id: "nom-202", catId: "cat-2", name: "Danur: The Last Chapter", film: "Danur: The Last Chapter", poster: "assets/poster_danur_4.webp", studio: "MD Pictures", synopsis: "Mengisahkan perjuangan akhir Risa Saraswati bersama sahabat-sahabat gaibnya dalam berhadapan dengan ancaman roh jahat terkuat yang menguji ikatan dua dunia.", genre: "Horor", director: "Awi Suryadi" },
-      { id: "nom-203", catId: "cat-2", name: "Kang Solah from Kang Mak x Nenek Gayung", film: "Kang Solah", poster: "assets/poster_kang_solah.webp", studio: "Falcon Pictures", synopsis: "Mengisahkan peristiwa mistis yang dialami Kang Solah ketika urusan pribadinya bersinggungan dengan mitos lokal dan kemunculan sosok gaib Nenek Gayung.", genre: "Komedi Horor", director: "Herwin" },
-      { id: "nom-204", catId: "cat-2", name: "Suzzanna: Santet Dosa di Atas Dosa", film: "Suzzanna: Santet Dosa", poster: "assets/poster_suzzanna_santet.webp", studio: "Soraya Intercine Films", synopsis: "Mengisahkan pembalasan atas perlakuan tidak adil masa lalu melalui praktik ilmu santet dan pertarungan kekuatan gaib yang membahayakan jiwa.", genre: "Horor", director: "Rocky Soraya" },
-      { id: "nom-205", catId: "cat-2", name: "Monster Pabrik Rambut", film: "Monster Pabrik Rambut", poster: "assets/poster_monster_pabrik_rambut.webp", studio: "Palari Films", synopsis: "Mengisahkan rentetan fenomena tidak biasa dan gangguan makhluk gaib yang dialami para pekerja perempuan di dalam pabrik pengolahan bahan rambut.", genre: "Horor Supranatural", director: "Edwin" },
-      { id: "nom-206", catId: "cat-2", name: "Badut Gendong", film: "Badut Gendong", poster: "assets/poster_badut_gendong.webp", studio: "Magma Entertainment", synopsis: "Mengisahkan akibat mistis dari penggunaan ritual badut gendong tradisional yang menuntut konsekuensi dan tebusan nyawa bagi para pemohonnya.", genre: "Horor", director: "Rizal" },
-      { id: "nom-207", catId: "cat-2", name: "Kafir: Gerbang Sukma", film: "Kafir: Gerbang Sukma", poster: "assets/poster_kafir_gerbang_sukma.webp", studio: "Starvision", synopsis: "Mengisahkan terbukanya kembali pintu ilmu gaib purba yang mengancam keselamatan satu keluarga dan mengungkap rahasia persekutuan masa lalu.", genre: "Horor", director: "Azhar" },
-      { id: "nom-208", catId: "cat-2", name: "Legenda Kelam Malin Kundang", film: "Legenda Kelam Malin Kundang", poster: "assets/poster_malin_kundang.webp", studio: "Come and See Pictures", synopsis: "Mengisahkan penafsiran horor atas cerita Malin Kundang, di mana pertikaian anak dan ibu berlanjut menjadi teror gaib di wilayah pesisir.", genre: "Horor Folklor", director: "Joko Anwar" },
+      // Kategori 9: Film Horror Terfavorit (8 Nominees)
+      { id: "nom-201", catId: "cat-9", name: "Ghost in the Cell", film: "Ghost in the Cell", poster: "assets/poster_ghost_in_the_cell.webp", studio: "Come and See Pictures", synopsis: "Mengisahkan penjara Labuhan Angsana yang dilanda rentetan kematian misterius akibat teror entitas gaib, memaksa para tahanan menyisihkan perselisihan untuk bertahan hidup.", genre: "Horor", director: "Joko Anwar" },
+      { id: "nom-202", catId: "cat-9", name: "Danur: The Last Chapter", film: "Danur: The Last Chapter", poster: "assets/poster_danur_4.webp", studio: "MD Pictures", synopsis: "Mengisahkan perjuangan akhir Risa Saraswati bersama sahabat-sahabat gaibnya dalam berhadapan dengan ancaman roh jahat terkuat yang menguji ikatan dua dunia.", genre: "Horor", director: "Awi Suryadi" },
+      { id: "nom-203", catId: "cat-9", name: "Kang Solah from Kang Mak x Nenek Gayung", film: "Kang Solah from Kang Mak x Nenek Gayung", poster: "assets/poster_kang_solah.webp", studio: "Falcon Pictures", synopsis: "Mengisahkan peristiwa mistis yang dialami Kang Solah ketika urusan pribadinya bersinggungan dengan mitos lokal dan kemunculan sosok gaib Nenek Gayung.", genre: "Komedi Horor", director: "Herwin" },
+      { id: "nom-204", catId: "cat-9", name: "Suzzanna: Santet Dosa di Atas Dosa", film: "Suzzanna: Santet Dosa di Atas Dosa", poster: "assets/poster_suzzanna_santet.webp", studio: "Soraya Intercine Films", synopsis: "Mengisahkan pembalasan atas perlakuan tidak adil masa lalu melalui praktik ilmu santet dan pertarungan kekuatan gaib yang membahayakan jiwa.", genre: "Horor", director: "Rocky Soraya" },
+      { id: "nom-205", catId: "cat-9", name: "Monster Pabrik Rambut", film: "Monster Pabrik Rambut", poster: "assets/poster_monster_pabrik_rambut.webp", studio: "Palari Films", synopsis: "Mengisahkan rentetan fenomena tidak biasa dan gangguan makhluk gaib yang dialami para pekerja perempuan di dalam pabrik pengolahan bahan rambut.", genre: "Horor Supranatural", director: "Edwin" },
+      { id: "nom-206", catId: "cat-9", name: "Badut Gendong", film: "Badut Gendong", poster: "assets/poster_badut_gendong.webp", studio: "Magma Entertainment", synopsis: "Mengisahkan akibat mistis dari penggunaan ritual badut gendong tradisional yang menuntut konsekuensi dan tebusan nyawa bagi para pemohonnya.", genre: "Horor", director: "Rizal" },
+      { id: "nom-207", catId: "cat-9", name: "Kafir: Gerbang Sukma", film: "Kafir: Gerbang Sukma", poster: "assets/poster_kafir_gerbang_sukma.webp", studio: "Starvision", synopsis: "Mengisahkan terbukanya kembali pintu ilmu gaib purba yang mengancam keselamatan satu keluarga dan mengungkap rahasia persekutuan masa lalu.", genre: "Horor", director: "Azhar" },
+      { id: "nom-208", catId: "cat-9", name: "Legenda Kelam Malin Kundang", film: "Legenda Kelam Malin Kundang", poster: "assets/poster_malin_kundang.webp", studio: "Come and See Pictures", synopsis: "Mengisahkan penafsiran horor atas cerita Malin Kundang, di mana pertikaian anak dan ibu berlanjut menjadi teror gaib di wilayah pesisir.", genre: "Horor Folklor", director: "Joko Anwar" },
 
       // Kategori 3: Pemeran Utama Pria Terfavorit (8 Nominees)
       { id: "nom-301", catId: "cat-3", name: "Nicholas Saputra", film: "Tukar Takdir", poster: "assets/actor_nicholas_saputra.webp", studio: "Starvision", synopsis: "Memerankan karakter Rawa, seorang penyintas kecelakaan penerbangan yang harus mengarungi beban trauma psikologis dan perselisihan emosional dengan keluarga korban.", genre: "Drama", director: "Mouly" },
       { id: "nom-302", catId: "cat-3", name: "Ariel NOAH", film: "Dilan ITB 1997", poster: "assets/actor_ariel_noah.webp", studio: "Falcon Pictures", synopsis: "Memerankan karakter Dilan, mahasiswa teknik ITB angkatan 1997 yang mengarungi dinamika organisasi pergerakan mahasiswa dan perjalanan asmaranya.", genre: "Romance", director: "Fajar" },
       { id: "nom-303", catId: "cat-3", name: "Fedi Nuril", film: "Pangku", poster: "assets/actor_fedi_nuril.webp", studio: "Gambar Gerak", synopsis: "Memerankan karakter Hadi, seorang pria yang menjalin hubungan dengan Sartika untuk memberikan dukungan dan stabilitas kehidupan keluarga.", genre: "Drama", director: "Reza Rahadian" },
       { id: "nom-304", catId: "cat-3", name: "Omara Esteghlal", film: "Tinggal Meninggal", poster: "assets/actor_omara_esteghlal.webp", studio: "Imajinari", synopsis: "Memerankan karakter Gema, seorang pemuda yang terjebak dalam pusaran kebohongan kematian anggota keluarga demi mendapatkan perhatian dari lingkungan sekitarnya.", genre: "Black Comedy", director: "Kristo Immanuel" },
-      { id: "nom-305", catId: "cat-3", name: "Ardit Erwanda", film: "Tunggu Aku Sukses Nanti", poster: "assets/actor_ardit_erwanda.webp", studio: "Rapi Films", synopsis: "Memerankan karakter Aris, seorang perantau yang bekerja keras mencari peluang kerja di Jakarta demi membuktikan kemampuan dirinya.", genre: "Komedi", director: "Naya Anindita" },
-      { id: "nom-306", catId: "cat-3", name: "Dion Wiyoko", film: "Sore: Istri Dari Masa Depan", poster: "assets/actor_dion_wiyoko.webp", studio: "Cerita Films", synopsis: "Memerankan karakter Jonathan, fotografer di Kroasia yang hidup menyendiri dan berangsur mengubah pola hidupnya setelah kehadiran Sore.", genre: "Romance", director: "Yandy Laurens" },
-      { id: "nom-307", catId: "cat-3", name: "Rigen", film: "Kang Solah", poster: "assets/actor_rigen.webp", studio: "Falcon Pictures", synopsis: "Memerankan karakter Kang Solah, seorang pria yang terseret dalam serangkaian kejadian mistis dan rumor kemunculan Nenek Gayung di desanya.", genre: "Komedi Horor", director: "Herwin" },
+      { id: "nom-305", catId: "cat-3", name: "Ardit Erwandha", film: "Tunggu Aku Sukses Nanti", poster: "assets/actor_ardit_erwanda.webp", studio: "Rapi Films", synopsis: "Memerankan karakter Aris, seorang perantau yang bekerja keras mencari peluang kerja di Jakarta demi membuktikan kemampuan dirinya.", genre: "Komedi", director: "Naya Anindita" },
+      { id: "nom-306", catId: "cat-3", name: "Dion Wiyoko", film: "Sore: Istri dari Masa Depan", poster: "assets/actor_dion_wiyoko.webp", studio: "Cerita Films", synopsis: "Memerankan karakter Jonathan, fotografer di Kroasia yang hidup menyendiri dan berangsur mengubah pola hidupnya setelah kehadiran Sore.", genre: "Romance", director: "Yandy Laurens" },
+      { id: "nom-307", catId: "cat-3", name: "Rigen Rakelna", film: "Kang Solah from Kang Mak x Nenek Gayung", poster: "assets/actor_rigen.webp", studio: "Falcon Pictures", synopsis: "Memerankan karakter Kang Solah, seorang pria yang terseret dalam serangkaian kejadian mistis dan rumor kemunculan Nenek Gayung di desanya.", genre: "Komedi Horor", director: "Herwin" },
       { id: "nom-308", catId: "cat-3", name: "Rio Dewanto", film: "Legenda Kelam Malin Kundang", poster: "assets/actor_rio_dewanto.webp", studio: "Come and See Pictures", synopsis: "Memerankan karakter Malin, seorang pria modern yang berhadapan dengan konsekuensi keputusan masa lalu dan ancaman kutukan keluarga.", genre: "Horor", director: "Joko Anwar" },
 
       // Kategori 4: Pemeran Utama Wanita Terfavorit (8 Nominees)
-      { id: "nom-401", catId: "cat-4", name: "Sheila Dara", film: "Sore: Istri Dari Masa Depan", poster: "assets/actor_sheila_dara.webp", studio: "Cerita Films", synopsis: "Memerankan karakter Sore, wanita yang melakukan perjalanan waktu dari masa depan untuk mendampingi dan mengubah kebiasaan hidup Jonathan.", genre: "Romance", director: "Yandy Laurens" },
+      { id: "nom-401", catId: "cat-4", name: "Sheila Dara Aisha", film: "Sore: Istri dari Masa Depan", poster: "assets/actor_sheila_dara.webp", studio: "Cerita Films", synopsis: "Memerankan karakter Sore, wanita yang melakukan perjalanan waktu dari masa depan untuk mendampingi dan mengubah kebiasaan hidup Jonathan.", genre: "Romance", director: "Yandy Laurens" },
       { id: "nom-402", catId: "cat-4", name: "Prilly Latuconsina", film: "Danur: The Last Chapter", poster: "assets/actor_prilly_latuconsina.webp", studio: "MD Pictures", synopsis: "Memerankan karakter Risa Saraswati, wanita indigo yang berjuang menyelesaikan teror spiritual akhir dan menjaga keselamatan sahabat-sahabat gaibnya.", genre: "Horor", director: "Awi" },
       { id: "nom-403", catId: "cat-4", name: "Claresta Taufan", film: "Pangku", poster: "assets/actor_claresta_taufan.webp", studio: "Gambar Gerak", synopsis: "Memerankan karakter Sartika, seorang ibu tunggal di jalur Pantura yang berjuang memenuhi kebutuhan hidup dan masa depan anaknya, Bayu.", genre: "Drama", director: "Reza Rahadian" },
       { id: "nom-404", catId: "cat-4", name: "Rachel Amanda", film: "Suka Duka Tawa", poster: "assets/actor_rachel_amanda.webp", studio: "BION Studios", synopsis: "Memerankan karakter Amanda, seorang komika muda yang mengolah pengalaman dan dinamika kehidupan pribadinya menjadi materi penulisan komedi.", genre: "Drama", director: "Adrian" },
-      { id: "nom-405", catId: "cat-4", name: "Luna Maya", film: "Suzzanna: Santet Dosa", poster: "assets/actor_luna_maya.webp", studio: "Soraya Intercine Films", synopsis: "Memerankan karakter Suzzanna, seorang wanita yang menuntut pembalasan atas perlakuan masa lalu menggunakan perantara ilmu hitam.", genre: "Horor", director: "Rocky" },
-      { id: "nom-406", catId: "cat-4", name: "Shenina Cinnamon", film: "Dopamin", poster: "assets/actor_shenina_cinnamon.webp", studio: "Palari Films", synopsis: "Memerankan karakter Alya, wanita muda yang menghadapi kompleksitas hubungan emosional dan pencarian kebahagiaan di lingkungan perkotaan.", genre: "Drama", director: "Kamila" },
+      { id: "nom-405", catId: "cat-4", name: "Luna Maya", film: "Suzzanna: Santet Dosa di Atas Dosa", poster: "assets/actor_luna_maya.webp", studio: "Soraya Intercine Films", synopsis: "Memerankan karakter Suzzanna, seorang wanita yang menuntut pembalasan atas perlakuan masa lalu menggunakan perantara ilmu hitam.", genre: "Horor", director: "Rocky" },
+      { id: "nom-406", catId: "cat-4", name: "Shenina Cinnamon", film: "Dopamin", poster: "assets/actor_shenina_cinnamon.webp", studio: "Karuna Pictures", synopsis: "Memerankan karakter Alya, wanita muda yang menghadapi kompleksitas hubungan emosional dan pencarian kebahagiaan di lingkungan perkotaan.", genre: "Drama", director: "Kamila" },
       { id: "nom-407", catId: "cat-4", name: "Marsha Timothy", film: "Tukar Takdir", poster: "assets/actor_marsha_timothy.webp", studio: "Starvision", synopsis: "Memerankan karakter Dita (Anindita Suwarso), seorang ibu yang berupaya memproses duka dan menerima takdir keluarga pasca-musibah penerbangan.", genre: "Drama", director: "Mouly" },
       { id: "nom-408", catId: "cat-4", name: "Niken Anjani", film: "Dilan ITB 1997", poster: "assets/actor_niken_anjani.webp", studio: "Falcon Pictures", synopsis: "Memerankan karakter Ancika, wanita yang menjadi bagian penting dalam perjalanan kehidupan dan hubungan asmara Dilan di era kuliah.", genre: "Romance", director: "Fajar" },
 
       // Kategori 5: Pemeran Pendukung Pria Terfavorit (8 Nominees)
       { id: "nom-501", catId: "cat-5", name: "Mario Caesar", film: "Tinggal Meninggal", poster: "assets/actor_mario_caesar.webp", studio: "Imajinari", synopsis: "Memerankan karakter Bayu, sepupu yang hadir mendampingi prosesi keluarga dan berinteraksi di tengah situasi duka.", genre: "Comedy", director: "Kristo" },
       { id: "nom-502", catId: "cat-5", name: "Oki Rengga", film: "Children of Heaven", poster: "assets/actor_oki_rengga.webp", studio: "MD Pictures", synopsis: "Memerankan karakter Paman Badri, tetangga yang kerap memberikan bantuan praktis dan dukungan moral kepada keluarga anak-anak.", genre: "Drama", director: "Hanung" },
-      { id: "nom-503", catId: "cat-5", name: "Benidictus Siregar", film: "La Tahzan", poster: "assets/actor_benidictus_siregar.webp", studio: "Rapi Films", synopsis: "Memerankan karakter Anton, sahabat yang memberikan saran dan pandangan pribadi mengenai permasalahan rumah tangga.", genre: "Drama", director: "Hadrah" },
-      { id: "nom-504", catId: "cat-5", name: "Aming", film: "Ghost in The Cell", poster: "assets/actor_aming.webp", studio: "Come and See Pictures", synopsis: "Memerankan karakter Mbah Sukro, salah satu narapidana senior yang mengetahui riwayat kejadian supranatural di dalam sel.", genre: "Horor", director: "Joko Anwar" },
+      { id: "nom-503", catId: "cat-5", name: "Benidictus Siregar", film: "La Tahzan: Cinta, Dosa, Luka...", poster: "assets/actor_benidictus_siregar.webp", studio: "MD Pictures", synopsis: "Memerankan karakter Anton, sahabat yang memberikan saran dan pandangan pribadi mengenai permasalahan rumah tangga.", genre: "Drama", director: "Hadrah" },
+      { id: "nom-504", catId: "cat-5", name: "Aming", film: "Ghost in the Cell", poster: "assets/actor_aming.webp", studio: "Come and See Pictures", synopsis: "Memerankan karakter Mbah Sukro, salah satu narapidana senior yang mengetahui riwayat kejadian supranatural di dalam sel.", genre: "Horor", director: "Joko Anwar" },
       { id: "nom-505", catId: "cat-5", name: "Reza Chandika", film: "Tunggu Aku Sukses Nanti", poster: "assets/actor_reza_chandika.webp", studio: "Rapi Films", synopsis: "Memerankan karakter Bobby, rekan seperjuangan yang bersama-sama mencari pekerjaan di perantauan Jakarta.", genre: "Komedi", director: "Naya" },
       { id: "nom-506", catId: "cat-5", name: "Didik Nini Thowok", film: "Monster Pabrik Rambut", poster: "assets/actor_didik_nini_thowok.webp", studio: "Palari Films", synopsis: "Memerankan karakter Mbah Jiwo, tokoh sesepuh yang memahami kepercayaan adat dan tradisi mistis di wilayah pabrik.", genre: "Horor", director: "Edwin" },
-      { id: "nom-507", catId: "cat-5", name: "Jeremie Moeremans", film: "Keluarga Suami", poster: "assets/actor_jeremie_moeremans.jpg", studio: "MD Pictures", synopsis: "Memerankan karakter Rendy, anggota keluarga ipar yang memicu dinamika pendapat dalam hubungan persaudaraan.", genre: "Drama", director: "Rizal" },
+      { id: "nom-507", catId: "cat-5", name: "Jeremie Moeremans", film: "Keluarga Suami Adalah Hama", poster: "assets/actor_jeremie_moeremans.jpg", studio: "Umbara Brothers, VMS Studios", synopsis: "Memerankan karakter Rendy, anggota keluarga ipar yang memicu dinamika pendapat dalam hubungan persaudaraan.", genre: "Drama", director: "Rizal" },
       { id: "nom-508", catId: "cat-5", name: "Junior Liem", film: "Na Willa", poster: "assets/actor_junior_liem.webp", studio: "Visinema Studios", synopsis: "Memerankan karakter Pakcik, paman yang mengasuh dan memberikan perhatian kepada Na Willa dalam keseharian.", genre: "Animasi", director: "Ryan" },
 
       // Kategori 6: Pemeran Pendukung Wanita Terfavorit (8 Nominees)
-      { id: "nom-601", catId: "cat-6", name: "Ashel", film: "Tunggu Aku Sukses Nanti", poster: "assets/actor_ashel.webp", studio: "Rapi Films", synopsis: "Memerankan karakter Maya, kawan perantauan yang menemani dan memberikan dorongan semangat saat pencarian kerja.", genre: "Komedi", director: "Naya" },
+      { id: "nom-601", catId: "cat-6", name: "Adzana Ashel", film: "Tunggu Aku Sukses Nanti", poster: "assets/actor_ashel.webp", studio: "Rapi Films", synopsis: "Memerankan karakter Maya, kawan perantauan yang menemani dan memberikan dorongan semangat saat pencarian kerja.", genre: "Komedi", director: "Naya" },
       { id: "nom-602", catId: "cat-6", name: "Zee Asadel", film: "Danur: The Last Chapter", poster: "assets/actor_zee_asadel.webp", studio: "MD Pictures", synopsis: "Memerankan karakter Ely, wanita dengan kepekaan supranatural yang terlibat dalam penanganan gangguan gaib bersama Risa.", genre: "Horor", director: "Awi" },
-      { id: "nom-603", catId: "cat-6", name: "Mawar de Jongh", film: "Tinggal Meninggal", poster: "assets/actor_mawar_eva.webp", studio: "Imajinari", synopsis: "Memerankan karakter Maya, kerabat dekat yang berupaya menjaga keharmonisan keluarga di tengah perdebatan masa duka.", genre: "Black Comedy", director: "Kristo" },
-      { id: "nom-604", catId: "cat-6", name: "Irma Rihi", film: "Na Willa", poster: "assets/actor_irma_rihi.webp", studio: "Visinema Studios", synopsis: "Memerankan karakter Mak (Ibu Na Willa), wanita asal Nusa Tenggara Timur yang mengasuh dan mendidik Na Willa dengan penuh kasih sayang.", genre: "Animasi", director: "Ryan" },
+      { id: "nom-603", catId: "cat-6", name: "Mawar Eva de Jongh", film: "Tinggal Meninggal", poster: "assets/actor_mawar_eva.webp", studio: "Imajinari", synopsis: "Memerankan karakter Maya, kerabat dekat yang berupaya menjaga keharmonisan keluarga di tengah perdebatan masa duka.", genre: "Black Comedy", director: "Kristo" },
+      { id: "nom-604", catId: "cat-6", name: "Irma Novita Rihi", film: "Na Willa", poster: "assets/actor_irma_rihi.webp", studio: "Visinema Studios", synopsis: "Memerankan karakter Mak (Ibu Na Willa), wanita asal Nusa Tenggara Timur yang mengasuh dan mendidik Na Willa dengan penuh kasih sayang.", genre: "Animasi", director: "Ryan" },
       { id: "nom-605", catId: "cat-6", name: "Raline Shah", film: "Dilan ITB 1997", poster: "assets/actor_raline_shah.webp", studio: "Falcon Pictures", synopsis: "Memerankan karakter Milea, sosok dari masa lalu Dilan yang kembali berinteraksi pada masa perkuliahan di Bandung.", genre: "Romance", director: "Fajar" },
       { id: "nom-606", catId: "cat-6", name: "Shindy Huang", film: "Tinggal Meninggal", poster: "assets/actor_shindy_huang.webp", studio: "Imajinari", synopsis: "Memerankan karakter Nina, adik yang memberikan pertimbangan logis mengenai kelangsungan prosesi adat keluarga.", genre: "Comedy", director: "Kristo" },
       { id: "nom-607", catId: "cat-6", name: "Christine Hakim", film: "Pangku", poster: "assets/actor_christine_hakim.webp", studio: "Gambar Gerak", synopsis: "Memerankan karakter Bu Maya, pemilik kedai kopi di jalur Pantura yang memberikan tempat tinggal dan merawat Sartika.", genre: "Drama", director: "Reza" },
-      { id: "nom-608", catId: "cat-6", name: "Zara Adhisty", film: "Tukar Takdir", poster: "assets/actor_zara.webp", studio: "Starvision", synopsis: "Memerankan karakter Zahra, anak remaja yang beradaptasi dengan kondisi keluarga pasca-musibah penerbangan.", genre: "Drama", director: "Mouly" },
+      { id: "nom-608", catId: "cat-6", name: "Adhisty Zara", film: "Tukar Takdir", poster: "assets/actor_zara.webp", studio: "Starvision", synopsis: "Memerankan karakter Zahra, anak remaja yang beradaptasi dengan kondisi keluarga pasca-musibah penerbangan.", genre: "Drama", director: "Mouly" },
 
-      // Kategori 7: Pemeran Pendatang Baru Terfavorit (8 Nominees)
-      { id: "nom-701", catId: "cat-7", name: "El Putra", film: "Rangga & Cinta", poster: "assets/actor_el_putra.webp", studio: "Miles Films", synopsis: "Memerankan karakter Rangga muda, siswa SMA dengan kepribadian tenang dan gemar menulis puisi yang menjalin kedekatan dengan Cinta.", genre: "Romance", director: "Riri" },
-      { id: "nom-702", catId: "cat-7", name: "King Aloy", film: "Comic 8 Revolutions", poster: "assets/actor_king_aloy.jpg", studio: "Falcon Pictures", synopsis: "Memerankan karakter Aloy, anggota kelompok yang terlibat dalam misi penanganan gangguan mistis bernuansa komedi.", genre: "Komedi", director: "Anggy" },
-      { id: "nom-703", catId: "cat-7", name: "Leya Princy", film: "Rangga & Cinta", poster: "assets/actor_leya_princy.webp", studio: "Miles Films", synopsis: "Memerankan karakter Cinta muda, siswi SMA yang aktif dalam pertemanan sekolah dan menjalin hubungan dengan Rangga.", genre: "Romance", director: "Riri" },
-      { id: "nom-704", catId: "cat-7", name: "Anggun C. Sasmi", film: "Para Perasuk", poster: "assets/actor_anggun.webp", studio: "Rekata Studio", synopsis: "Memerankan karakter Nyai Sukma, tokoh pemuka adat yang memimpin jalannya ritual pesta kerasukan di Desa Latas.", genre: "Thriller", director: "Wregas" },
-      { id: "nom-705", catId: "cat-7", name: "Elsa Japassal", film: "Sekawan Limo 2", poster: "assets/actor_elsa_japassal.webp", studio: "Starvision", synopsis: "Memerankan karakter Elsa, pendaki pemula yang mengikuti perjalanan kelompok di jalur gunung Klawih.", genre: "Komedi", director: "Bayu" },
-      { id: "nom-706", catId: "cat-7", name: "Magistus Miftah", film: "Ghost in The Cell", poster: "assets/actor_magistus.webp", studio: "Come and See Pictures", synopsis: "Memerankan karakter Miftah, narapidana muda yang berhadapan dengan kehidupan penjara dan peristiwa gaib di dalamnya.", genre: "Horor", director: "Joko" },
+      // Kategori 7: Pemeran Pendatang Baru Pria Terfavorit (8 Nominees)
+      { id: "nom-701", catId: "cat-7", name: "El Putra Sarira", film: "Rangga dan Cinta", poster: "assets/actor_el_putra.webp", studio: "Miles Films", synopsis: "Memerankan karakter Rangga muda, siswa SMA dengan kepribadian tenang dan gemar menulis puisi yang menjalin kedekatan dengan Cinta.", genre: "Romance", director: "Riri" },
+      { id: "nom-702", catId: "cat-7", name: "Mister Aloy", film: "Comic 8 Revolution: Santet K4bin3t", poster: "assets/actor_king_aloy.jpg", studio: "Falcon Pictures", synopsis: "Memerankan karakter Aloy, anggota kelompok yang terlibat dalam misi penanganan gangguan mistis bernuansa komedi.", genre: "Komedi", director: "Anggy" },
+      { id: "nom-703", catId: "cat-7", name: "Justinus Lhaksana (Coach Justin)", film: "Jangan Seperti Bapak", poster: "assets/actor_justin.webp", studio: "JHN Production", synopsis: "Masuk nominasi Pemeran Pendatang Baru Pria Terfavorit melalui penampilannya dalam film Jangan Seperti Bapak.", genre: "Pemeran", director: "-" },
+      { id: "nom-704", catId: "cat-7", name: "Magistus Miftah", film: "Ghost in the Cell", poster: "assets/actor_magistus.webp", studio: "Come and See Pictures", synopsis: "Memerankan karakter Miftah, narapidana muda yang berhadapan dengan kehidupan penjara dan peristiwa gaib di dalamnya.", genre: "Horor", director: "Joko" },
+      { id: "nom-705", catId: "cat-7", name: "Rahmatullah Nan Alim", film: "Semua Akan Baik-Baik Saja", poster: "assets/actor_alim.webp", studio: "Tiger Wong Pictures", synopsis: "Masuk nominasi Pemeran Pendatang Baru Pria Terfavorit melalui penampilannya dalam film Semua Akan Baik-Baik Saja.", genre: "Pemeran", director: "Baim Wong" },
+      { id: "nom-706", catId: "cat-7", name: "Ade Rai", film: "Semua Akan Baik-Baik Saja", poster: "assets/actor_ade_ray.webp", studio: "Tiger Wong Pictures", synopsis: "Masuk nominasi Pemeran Pendatang Baru Pria Terfavorit melalui penampilannya dalam film Semua Akan Baik-Baik Saja.", genre: "Pemeran", director: "Baim Wong" },
       { id: "nom-707", catId: "cat-7", name: "Kev Luqman", film: "Monster Pabrik Rambut", poster: "assets/actor_kev.webp", studio: "Palari Films", synopsis: "Memerankan karakter Lukman, teknisi pabrik yang memeriksa kejanggalan bahan baku rambut dan fasilitas kerja.", genre: "Horor", director: "Edwin" },
-      { id: "nom-708", catId: "cat-7", name: "Messi Gusti (PDM)", film: "Pelangi di Mars", poster: "assets/actor_messi_gusti.webp", studio: "Visinema", synopsis: "Memerankan karakter Pelangi, anak perempuan yang berminat tinggi pada ilmu pengetahuan dan eksplorasi planet Mars.", genre: "Sci-Fi", director: "Angga" },
+      { id: "nom-708", catId: "cat-7", name: "Kenzy Taulany", film: "Kang Solah from Kang Mak x Nenek Gayung", poster: "assets/actor_kenzi.webp", studio: "Falcon Pictures", synopsis: "Masuk nominasi Pemeran Pendatang Baru Pria Terfavorit melalui penampilannya dalam film Kang Solah from Kang Mak x Nenek Gayung.", genre: "Pemeran", director: "-" },
 
-      // Kategori 8: Serial Streaming Indonesia Terbaik (8 Nominees)
-      { id: "nom-801", catId: "cat-8", name: "Ratu - Ratu Queen The Series", film: "Ratu - Ratu Queen The Series", poster: "assets/poster_ratu_ratu_queens.webp", studio: "Netflix", synopsis: "Mengisahkan empat wanita Indonesia di New York dengan dinamika persahabatan, rahasia pribadi, dan komedi drama kehidupan imigran.", genre: "Drama Komedi Serial", director: "Lucky Kuswandi" },
-      { id: "nom-802", catId: "cat-8", name: "Luka Makan Cinta", film: "Luka Makan Cinta", poster: "assets/poster_luka_makan_cinta.webp", studio: "Netflix", synopsis: "Mengisahkan konflik asmara emosional dan trauma masa lalu yang menguji kedewasaan cinta di tengah tekanan karir dan keluarga.", genre: "Romance Serial", director: "Teddy Soeriaatmadja" },
-      { id: "nom-803", catId: "cat-8", name: "Algojo", film: "Algojo", poster: "assets/poster_algojo.webp", studio: "Vidio", synopsis: "Mengisahkan sosok pembalas dendam misterius yang menegakkan keadilan sendiri di balik bayang-bayang kejahatan kota.", genre: "Aksi Thriller Serial", director: "Rako Prijanto" },
-      { id: "nom-804", catId: "cat-8", name: "Pertaruhan The Series 3", film: "Pertaruhan The Series 3", poster: "assets/poster_pertaruhan_the_series_3.webp", studio: "Vidio", synopsis: "Melanjutkan pertaruhan nyawa dan persaudaraan keras dalam menghadapi ancaman mafia serta pengkhianatan di dunia bawah tanah.", genre: "Aksi Kriminal Serial", director: "Sidharta Tata" },
-      { id: "nom-805", catId: "cat-8", name: "Secret High School", film: "Secret High School", poster: "assets/poster_secret_high_school.webp", studio: "Viu", synopsis: "Mengisahkan konspirasi dan misteri kelam di balik reputasi sekolah elite tempat para siswa membongkar rahasia terlarang.", genre: "Misteri Remaja Serial", director: "Ginanti Rona" },
-      { id: "nom-806", catId: "cat-8", name: "Rintik Terakhir", film: "Rintik Terakhir", poster: "assets/poster_rintik_terakhir.webp", studio: "Viu", synopsis: "Mengisahkan romansa puitis di bawah rintik hujan yang menyisakan kenangan tak terlupakan serta perpisahan emosional.", genre: "Romance Serial", director: "Hadrah Daeng Ratu" },
-      { id: "nom-807", catId: "cat-8", name: "Operation Wedding", film: "Operation Wedding", poster: "assets/poster_operation_wedding.webp", studio: "Netflix", synopsis: "Mengisahkan strategi komedi empat saudara perempuan bersama pasangan mereka untuk meluluhkan hati sang ayah yang protektif.", genre: "Komedi Romantis Serial", director: "Monty Tiwa" },
-      { id: "nom-808", catId: "cat-8", name: "Bercinta dengan Maut", film: "Bercinta dengan Maut", poster: "assets/poster_bercinta_dengan_maut.webp", studio: "iQIYI", synopsis: "Mengisahkan permainan thriller psikologis yang menjerat para tokohnya dalam teka-teki cinta berbahaya di ambang kematian.", genre: "Thriller Serial", director: "Rizal Mantovani" },
+      // Kategori 10: Serial Streaming Indonesia Terfavorit (8 Nominees)
+      { id: "nom-801", catId: "cat-10", name: "Ratu Ratu Queens: The Series", film: "Ratu Ratu Queens: The Series", poster: "assets/poster_ratu_ratu_queens.webp", studio: "Palari Films", synopsis: "Mengisahkan empat wanita Indonesia di New York dengan dinamika persahabatan, rahasia pribadi, dan komedi drama kehidupan imigran.", genre: "Drama Komedi Serial", director: "Lucky Kuswandi" },
+      { id: "nom-802", catId: "cat-10", name: "Luka, Makan, Cinta", film: "Luka, Makan, Cinta", poster: "assets/poster_luka_makan_cinta.webp", studio: "Karuna Pictures", synopsis: "Mengisahkan konflik asmara emosional dan trauma masa lalu yang menguji kedewasaan cinta di tengah tekanan karir dan keluarga.", genre: "Romance Serial", director: "Teddy Soeriaatmadja" },
+      { id: "nom-803", catId: "cat-10", name: "Algojo", film: "Algojo", poster: "assets/poster_algojo.webp", studio: "Screenplay Films", synopsis: "Mengisahkan sosok pembalas dendam misterius yang menegakkan keadilan sendiri di balik bayang-bayang kejahatan kota.", genre: "Aksi Thriller Serial", director: "Rako Prijanto" },
+      { id: "nom-804", catId: "cat-10", name: "Pertaruhan The Series 3", film: "Pertaruhan The Series 3", poster: "assets/poster_pertaruhan_the_series_3.webp", studio: "Screenplay Films", synopsis: "Melanjutkan pertaruhan nyawa dan persaudaraan keras dalam menghadapi ancaman mafia serta pengkhianatan di dunia bawah tanah.", genre: "Aksi Kriminal Serial", director: "Sidharta Tata" },
+      { id: "nom-805", catId: "cat-10", name: "Secret High School", film: "Secret High School", poster: "assets/poster_secret_high_school.webp", studio: "Skytree Pictures", synopsis: "Mengisahkan konspirasi dan misteri kelam di balik reputasi sekolah elite tempat para siswa membongkar rahasia terlarang.", genre: "Misteri Remaja Serial", director: "Ginanti Rona" },
+      { id: "nom-806", catId: "cat-10", name: "Rintik Terakhir", film: "Rintik Terakhir", poster: "assets/poster_rintik_terakhir.webp", studio: "Unlimited Production", synopsis: "Mengisahkan romansa puitis di bawah rintik hujan yang menyisakan kenangan tak terlupakan serta perpisahan emosional.", genre: "Romance Serial", director: "Hadrah Daeng Ratu" },
+      { id: "nom-807", catId: "cat-10", name: "Operation Wedding", film: "Operation Wedding", poster: "assets/poster_operation_wedding.webp", studio: "Starvision Plus", synopsis: "Mengisahkan strategi komedi empat saudara perempuan bersama pasangan mereka untuk meluluhkan hati sang ayah yang protektif.", genre: "Komedi Romantis Serial", director: "Monty Tiwa" },
+      { id: "nom-808", catId: "cat-10", name: "Bercinta dengan Maut", film: "Bercinta dengan Maut", poster: "assets/poster_bercinta_dengan_maut.webp", studio: "Hitmaker Studios", synopsis: "Mengisahkan permainan thriller psikologis yang menjerat para tokohnya dalam teka-teki cinta berbahaya di ambang kematian.", genre: "Thriller Serial", director: "Rizal Mantovani" },
 
-      // Kategori 9: Sutradara Terfavorit (8 Nominees)
-      { id: "nom-901", catId: "cat-9", name: "Yandy Laurens", film: "Sore: Istri Dari Masa Depan", poster: "assets/actor_yandy_laurens.webp", studio: "Cerita Films", synopsis: "Sutradara dan penulis skenario yang mengarahkan alur drama romansa fantastis dengan fokus pada interaksi antarkarakter dan ritme penceritaan.", genre: "Director", director: "Yandy Laurens" },
-      { id: "nom-902", catId: "cat-9", name: "Joko Anwar", film: "Ghost in The Cell", poster: "assets/actor_joko_anwar.webp", studio: "Come and See Pictures", synopsis: "Sutradara dan penulis skenario yang merancang penataan latar artistik, unsur horor, dan komedi gelap dalam lingkungan penjara.", genre: "Director", director: "Joko Anwar" },
-      { id: "nom-903", catId: "cat-9", name: "Muhadkly Acho", film: "Agak Laen: Menyala Pantiku", poster: "assets/actor_muhadly_acho.webp", studio: "Imajinari", synopsis: "Sutradara dan penulis skenario yang mengarahkan adegan komedi situasi dan dinamika dialog dalam kelompok empat sahabat.", genre: "Director", director: "Muhadkly Acho" },
-      { id: "nom-904", catId: "cat-9", name: "Naya Anindita", film: "Tunggu Aku Sukses Nanti", poster: "assets/actor_naya_anindita.webp", studio: "Rapi Films", synopsis: "Sutradara yang mengarahkan alur drama perjuangan anak muda di kota besar dengan tempo penceritaan yang lugas.", genre: "Director", director: "Naya Anindita" },
-      { id: "nom-905", catId: "cat-9", name: "Ryan Adriyandy", film: "Na Willa", poster: "assets/actor_ryan_adriandhy.webp", studio: "Visinema Studios", synopsis: "Sutradara yang mengarahkan adaptasi cerita keluarga era 1960-an dari sudut pandang anak-anak dalam debut penyutradaraan live-action.", genre: "Director", director: "Ryan Adriyandy" },
-      { id: "nom-906", catId: "cat-9", name: "Baim Wong", film: "Semua Akan Baik-Baik Saja", poster: "assets/actor_baim_wong.webp", studio: "Tiger Wong Entertainment", synopsis: "Sutradara yang mengarahkan drama keluarga tentang ketahanan moral dan kondisi sosial-ekonomi masyarakat.", genre: "Director", director: "Baim Wong" },
-      { id: "nom-907", catId: "cat-9", name: "Kristo Immanuel", film: "Tinggal Meninggal", poster: "assets/actor_kristo_immanuel.webp", studio: "Imajinari", synopsis: "Sutradara yang mengarahkan komedi hitam bertema duka keluarga dengan pendekatan teknik breaking the fourth wall.", genre: "Director", director: "Kristo Immanuel" },
-      { id: "nom-908", catId: "cat-9", name: "Reza Rahadian", film: "Pangku", poster: "assets/actor_reza_rahadian.webp", studio: "Gambar Gerak", synopsis: "Sutradara dan penulis skenario yang mengarahkan isu sosial dan kehidupan masyarakat Pantura dalam debut penyutradaraan layar lebar.", genre: "Director", director: "Reza Rahadian" },
+      // Kategori 2: Sutradara Terfavorit (8 Nominees)
+      { id: "nom-901", catId: "cat-2", name: "Yandy Laurens", film: "Sore: Istri dari Masa Depan", poster: "assets/actor_yandy_laurens.webp", studio: "Cerita Films", synopsis: "Sutradara dan penulis skenario yang mengarahkan alur drama romansa fantastis dengan fokus pada interaksi antarkarakter dan ritme penceritaan.", genre: "Director", director: "Yandy Laurens" },
+      { id: "nom-902", catId: "cat-2", name: "Joko Anwar", film: "Ghost in the Cell", poster: "assets/actor_joko_anwar.webp", studio: "Come and See Pictures", synopsis: "Sutradara dan penulis skenario yang merancang penataan latar artistik, unsur horor, dan komedi gelap dalam lingkungan penjara.", genre: "Director", director: "Joko Anwar" },
+      { id: "nom-903", catId: "cat-2", name: "Muhadkly Acho", film: "Agak Laen: Menyala Pantiku!", poster: "assets/actor_muhadly_acho.webp", studio: "Imajinari", synopsis: "Sutradara dan penulis skenario yang mengarahkan adegan komedi situasi dan dinamika dialog dalam kelompok empat sahabat.", genre: "Director", director: "Muhadkly Acho" },
+      { id: "nom-904", catId: "cat-2", name: "Naya Anindita", film: "Tunggu Aku Sukses Nanti", poster: "assets/actor_naya_anindita.webp", studio: "Rapi Films", synopsis: "Sutradara yang mengarahkan alur drama perjuangan anak muda di kota besar dengan tempo penceritaan yang lugas.", genre: "Director", director: "Naya Anindita" },
+      { id: "nom-905", catId: "cat-2", name: "Ryan Adriandhy", film: "Na Willa", poster: "assets/actor_ryan_adriandhy.webp", studio: "Visinema Studios", synopsis: "Sutradara yang mengarahkan adaptasi cerita keluarga era 1960-an dari sudut pandang anak-anak dalam debut penyutradaraan live-action.", genre: "Director", director: "Ryan Adriyandy" },
+      { id: "nom-906", catId: "cat-2", name: "Baim Wong", film: "Semua Akan Baik-Baik Saja", poster: "assets/actor_baim_wong.webp", studio: "Tiger Wong Pictures", synopsis: "Sutradara yang mengarahkan drama keluarga tentang ketahanan moral dan kondisi sosial-ekonomi masyarakat.", genre: "Director", director: "Baim Wong" },
+      { id: "nom-907", catId: "cat-2", name: "Kristo Immanuel", film: "Tinggal Meninggal", poster: "assets/actor_kristo_immanuel.webp", studio: "Imajinari", synopsis: "Sutradara yang mengarahkan komedi hitam bertema duka keluarga dengan pendekatan teknik breaking the fourth wall.", genre: "Director", director: "Kristo Immanuel" },
+      { id: "nom-908", catId: "cat-2", name: "Reza Rahadian", film: "Pangku", poster: "assets/actor_reza_rahadian.webp", studio: "Gambar Gerak", synopsis: "Sutradara dan penulis skenario yang mengarahkan isu sosial dan kehidupan masyarakat Pantura dalam debut penyutradaraan layar lebar.", genre: "Director", director: "Reza Rahadian" },
 
-      // Kategori 10: Pemeran Anak Terfavorit (8 Nominees)
-      { id: "nom-1001", catId: "cat-10", name: "Jared Ali", film: "Children of Heaven", poster: "assets/actor_jared_ali.webp", studio: "MD Pictures", synopsis: "Memerankan karakter Ali, anak laki-laki yang berupaya membantu adiknya dengan bersikap kooperatif dalam penggunaan sepatu sekolah.", genre: "Drama", director: "Hanung" },
-      { id: "nom-1002", catId: "cat-10", name: "Luisa Adreena", film: "Na Willa", poster: "assets/actor_luisa_adreena.webp", studio: "Visinema Studios", synopsis: "Na Willa adalah anak perempuan yang polos, ceria, dan penuh imajinasi. Ia melihat dunia dengan rasa ingin tahu yang besar, lalu belajar menghadapi perubahan dan tumbuh menjadi lebih dewasa melalui pengalaman sehari-harinya.", genre: "Animasi", director: "Ryan" },
-      { id: "nom-1003", catId: "cat-10", name: "King Radja Nasution", film: "Ghost in The Cell", poster: "assets/actor_king_radja_nasution.webp", studio: "Come and See Pictures", synopsis: "Memerankan karakter Radja, anak yang berada di lingkungan penjara dan menyampaikan hal-hal yang diamatinya.", genre: "Horor", director: "Joko" },
-      { id: "nom-1004", catId: "cat-10", name: "Myesha Lin", film: "Panggil Aku Ayah", poster: "assets/actor_myesha_lin.webp", studio: "Rapi Films", synopsis: "Memerankan karakter Lin, anak perempuan yang menjadi fokus pengasuhan dan perhatian utama ayahnya.", genre: "Drama", director: "Hadrah" },
-      { id: "nom-1005", catId: "cat-10", name: "Azamy Syauqi", film: "Na Willa", poster: "assets/actor_azamy_syauqi.webp", studio: "Visinema Studios", synopsis: "Memerankan karakter Dul, teman seumur Na Willa yang sering bermain bersama di lingkungan perumahan.", genre: "Animasi", director: "Ryan" },
-      { id: "nom-1006", catId: "cat-10", name: "Jordan Omar", film: "Yang Lain Boleh Hilang", poster: "assets/actor_jordan_omar.webp", studio: "Miles Films", synopsis: "Memerankan karakter Jordan, anak yang berinteraksi dengan kedua orang tuanya di tengah dinamika keluarga.", genre: "Drama", director: "Riri" },
-      { id: "nom-1007", catId: "cat-10", name: "Halim Latuconsina", film: "Surat Untuk Masa Mudaku", poster: "assets/actor_halim_latuconsina.webp", studio: "Buddy Buddy", synopsis: "Memerankan karakter Halim muda, karakter utama pada masa kecil yang menjadi titik awal kenangan cerita.", genre: "Drama", director: "Teddy" },
-      { id: "nom-1008", catId: "cat-10", name: "Humaira Jahra", film: "Children of Heaven", poster: "assets/actor_humaira_jahra.webp", studio: "MD Pictures", synopsis: "Memerankan karakter Zahra, anak perempuan yang bergantian memakai sepatu dengan kakaknya untuk berangkat sekolah.", genre: "Drama", director: "Hanung" }
+      // Kategori 8: Pemeran Pendatang Baru Wanita Terfavorit (8 Nominees)
+      { id: "nom-1101", catId: "cat-8", name: "Melati Putri Rahel Sesilia", film: "Nobody Loves Kay", poster: "assets/actor_melati_sesilia.webp", studio: "Qun Films", synopsis: "Masuk nominasi Pemeran Pendatang Baru Wanita Terfavorit melalui penampilannya dalam film Nobody Loves Kay.", genre: "Pemeran", director: "-" },
+      { id: "nom-1102", catId: "cat-8", name: "Elsa Japasal", film: "Sekawan Limo 2: Gunung Klawih", poster: "assets/actor_elsa_japassal.webp", studio: "Starvision", synopsis: "Memerankan karakter Elsa, pendaki pemula yang mengikuti perjalanan kelompok di jalur Gunung Klawih.", genre: "Komedi", director: "Bayu" },
+      { id: "nom-1103", catId: "cat-8", name: "Anggun C. Sasmi", film: "Para Perasuk", poster: "assets/actor_anggun.webp", studio: "Rekata Studio", synopsis: "Memerankan karakter Nyai Sukma, tokoh pemuka adat yang memimpin jalannya ritual pesta kerasukan di Desa Latas.", genre: "Thriller", director: "Wregas" },
+      { id: "nom-1104", catId: "cat-8", name: "Leya Princy", film: "Rangga dan Cinta", poster: "assets/actor_leya_princy.webp", studio: "Miles Films", synopsis: "Memerankan karakter Cinta muda, siswi SMA yang aktif dalam pertemanan sekolah dan menjalin hubungan dengan Rangga.", genre: "Romance", director: "Riri" },
+      { id: "nom-1105", catId: "cat-8", name: "Alika Jantinia", film: "Pencarian Terakhir", poster: "assets/actor_alika_jantinia.webp", studio: "Starvision", synopsis: "Masuk nominasi Pemeran Pendatang Baru Wanita Terfavorit melalui penampilannya dalam film Pencarian Terakhir.", genre: "Pemeran", director: "-" },
+      { id: "nom-1106", catId: "cat-8", name: "Dilan Janiyar", film: "Sosok Ketiga: Lintrik", poster: "assets/actor_dilan_janiyar.webp", studio: "Leo Pictures", synopsis: "Masuk nominasi Pemeran Pendatang Baru Wanita Terfavorit melalui penampilannya dalam film Sosok Ketiga: Lintrik.", genre: "Pemeran", director: "-" },
+      { id: "nom-1107", catId: "cat-8", name: "Livi Ciananta", film: "Ikatan Darah", poster: "assets/actor_livi_ciananta.webp", studio: "Uwais Pictures", synopsis: "Masuk nominasi Pemeran Pendatang Baru Wanita Terfavorit melalui penampilannya dalam film Ikatan Darah.", genre: "Pemeran", director: "-" },
+      { id: "nom-1108", catId: "cat-8", name: "Keinaya Messi Gusti", film: "Pelangi di Mars", poster: "assets/actor_messi_gusti.webp", studio: "Mahakarya Pictures", synopsis: "Memerankan karakter Pelangi, anak perempuan yang berminat tinggi pada ilmu pengetahuan dan eksplorasi planet Mars.", genre: "Sci-Fi", director: "Angga" }
     ];
 
     // STATE
@@ -1044,6 +1055,20 @@
     let categoryNavNotificationTimer = null;
     let cachedPassImageFile = null;
     let passImageFilePromise = null;
+    let ticketPreviewObjectUrl = null;
+
+    const TICKET_STYLE = Object.freeze({
+      width: 1080,
+      height: 1920,
+      gold: '#fbbf24',
+      white: '#ffffff',
+      categoryFont: '700 35px Federo, Georgia, serif',
+      nomineeFont: '500 39px "DM Sans", Arial, sans-serif',
+      headerFont: '700 32px Federo, Georgia, serif',
+      ctaFont: 'italic 400 32px "DM Sans", Arial, sans-serif',
+      hashtagFont: '700 30px "DM Sans", Arial, sans-serif',
+      websiteFont: '500 27px "DM Sans", Arial, sans-serif'
+    });
 
     // ASSET PATH RESOLUTION FUNCTION
     function getAssetPath(path) {
@@ -1086,11 +1111,11 @@
       });
     }
 
-    // BOUNDED CATEGORY NAVIGATION
+    // CIRCULAR CATEGORY NAVIGATION
     function navigateCategory(direction) {
       const currentIndex = categoriesData.findIndex(c => c.id === currentCategory);
-      const newIndex = Math.min(categoriesData.length - 1, Math.max(0, currentIndex + direction));
-      if (newIndex === currentIndex) return;
+      if (currentIndex < 0 || categoriesData.length === 0) return;
+      const newIndex = (currentIndex + direction + categoriesData.length) % categoriesData.length;
       switchCategory(categoriesData[newIndex].id);
     }
 
@@ -1102,26 +1127,13 @@
     }
 
     function handleAdaptiveNext() {
-      const currentIndex = categoriesData.findIndex(c => c.id === currentCategory);
       const validation = getVoteValidation();
       if (validation.isComplete) {
         openReviewModal();
         return;
       }
 
-      if (currentIndex < categoriesData.length - 1) {
-        navigateAdaptiveCategory(1);
-        return;
-      }
-
-      const currentSelection = userVotes[currentCategory];
-      const hasCurrentSelection = nomineesData.some(nominee => nominee.id === currentSelection && nominee.catId === currentCategory);
-      if (!hasCurrentSelection) {
-        showCategoryNavNotification('Pilih satu nominasi di kategori ini terlebih dahulu.');
-        return;
-      }
-
-      openReviewModal();
+      navigateAdaptiveCategory(1);
     }
 
     function showCategoryNavNotification(message) {
@@ -1158,7 +1170,7 @@
       grid.innerHTML = categoryNominees.map(nom => {
         const isSelected = userVotes[currentCategory] === nom.id;
         const cardStyle = isSelected ? 'glass-card-selected' : 'glass-card';
-        const isFilmCategory = nom.catId === 'cat-1' || nom.catId === 'cat-2' || nom.catId === 'cat-8';
+        const isFilmCategory = nom.catId === 'cat-1' || nom.catId === 'cat-9' || nom.catId === 'cat-10';
         const showSubfilm = !isFilmCategory && nom.film && (nom.film.trim().toLowerCase() !== nom.name.trim().toLowerCase());
         const posterSrc = getAssetPath(nom.poster);
 
@@ -1245,7 +1257,7 @@
       document.getElementById('detail-category-badge').innerText = cat.title;
       document.getElementById('detail-name').innerText = nom.name;
       
-      const isFilmCategory = nom.catId === 'cat-1' || nom.catId === 'cat-2' || nom.catId === 'cat-8';
+      const isFilmCategory = nom.catId === 'cat-1' || nom.catId === 'cat-9' || nom.catId === 'cat-10';
       const detailFilmEl = document.getElementById('detail-film');
       if (isFilmCategory) {
         detailFilmEl.innerText = '';
@@ -1302,10 +1314,7 @@
       const currentIndex = categoriesData.findIndex(cat => cat.id === currentCategory);
       const current = categoriesData[currentIndex];
       const count = Object.keys(userVotes).length;
-      const isLastCategory = currentIndex === categoriesData.length - 1;
       const isVotingComplete = getVoteValidation().isComplete;
-      const currentSelection = userVotes[currentCategory];
-      const hasCurrentSelection = nomineesData.some(nominee => nominee.id === currentSelection && nominee.catId === currentCategory);
 
       const position = document.getElementById('category-nav-position');
       const progress = document.getElementById('category-nav-progress');
@@ -1318,16 +1327,13 @@
 
       if (position && current) position.textContent = `${currentIndex + 1} · ${current.title}`;
       if (progress) progress.textContent = `${count} dari ${categoriesData.length} dipilih`;
-      if (backButton) backButton.disabled = currentIndex <= 0;
-      if (desktopBack) desktopBack.disabled = currentIndex <= 0;
-      if (desktopNext) desktopNext.disabled = currentIndex >= categoriesData.length - 1;
-      if (nextButton) {
-        nextButton.classList.toggle('adaptive-category-nav-button-next', hasCurrentSelection);
-        nextButton.setAttribute('data-selection-state', hasCurrentSelection ? 'selected' : 'pending');
-      }
+      if (backButton) backButton.disabled = categoriesData.length < 2;
+      if (desktopBack) desktopBack.disabled = categoriesData.length < 2;
+      if (desktopNext) desktopNext.disabled = categoriesData.length < 2;
 
       if (nextButton && nextLabel && nextIcon) {
-        if (!isLastCategory && !isVotingComplete) {
+        nextButton.classList.toggle('is-review', isVotingComplete);
+        if (!isVotingComplete) {
           nextButton.classList.remove('hidden');
           nextLabel.textContent = 'Next';
           nextIcon.textContent = 'chevron_right';
@@ -1337,7 +1343,7 @@
           nextButton.classList.remove('hidden');
           nextLabel.textContent = 'Review';
           nextIcon.classList.add('hidden');
-          nextButton.setAttribute('aria-label', isVotingComplete || hasCurrentSelection ? 'Tinjau semua pilihan' : 'Pilih nominasi sebelum meninjau pilihan');
+          nextButton.setAttribute('aria-label', 'Tinjau semua pilihan');
         }
       }
     }
@@ -1465,6 +1471,7 @@
       const email = document.getElementById('voter-email').value.trim();
       cachedPassImageFile = null;
       passImageFilePromise = null;
+      resetTicketPreview();
 
       const ticketIdEl = document.getElementById('ticket-id');
       if (ticketIdEl) {
@@ -1491,11 +1498,18 @@
           return `
             <div class="text-center w-full py-0.5 border-b border-white/5 last:border-0">
               <div class="text-amber-400 font-bold font-federo text-[9.5px] sm:text-[10.5px] tracking-wide leading-none">${cat.title}</div>
-              <div class="text-white font-medium text-[10.5px] sm:text-[11.5px] leading-snug mt-0.5">${nom.name}</div>
+              <div class="text-white font-medium text-[10.5px] sm:text-[11.5px] mt-0.5" style="line-height: calc(1.375em - 2px)">${nom.name}</div>
             </div>
           `;
         }).filter(Boolean).join('');
       }
+
+      // Start producing the single image used by both the modal preview and download.
+      createPassImageFile().catch(error => {
+        const ticket = document.getElementById('wrapped-ticket');
+        if (ticket) ticket.setAttribute('aria-busy', 'false');
+        console.error('Ticket preview generation failed; keeping the HTML fallback visible:', error);
+      });
 
       const reviewModal = document.getElementById('modal-review');
       if (reviewModal) reviewModal.close();
@@ -1568,13 +1582,46 @@
     }
 
     // SOCIAL SHARE & DOWNLOAD FUNCTIONS
+    function resetTicketPreview() {
+      if (ticketPreviewObjectUrl) {
+        URL.revokeObjectURL(ticketPreviewObjectUrl);
+        ticketPreviewObjectUrl = null;
+      }
+
+      const ticket = document.getElementById('wrapped-ticket');
+      const preview = document.getElementById('ticket-preview-image');
+      if (preview) {
+        preview.removeAttribute('src');
+        preview.classList.add('hidden');
+      }
+      if (ticket) ticket.setAttribute('aria-busy', 'true');
+    }
+
+    function updateTicketPreview(file) {
+      const ticket = document.getElementById('wrapped-ticket');
+      const preview = document.getElementById('ticket-preview-image');
+      if (!preview) return;
+
+      if (ticketPreviewObjectUrl) URL.revokeObjectURL(ticketPreviewObjectUrl);
+      ticketPreviewObjectUrl = URL.createObjectURL(file);
+      preview.onload = () => {
+        preview.classList.remove('hidden');
+        if (ticket) ticket.setAttribute('aria-busy', 'false');
+      };
+      preview.src = ticketPreviewObjectUrl;
+    }
+
     async function createPassImageFile() {
-      if (cachedPassImageFile) return cachedPassImageFile;
+      if (cachedPassImageFile) {
+        updateTicketPreview(cachedPassImageFile);
+        return cachedPassImageFile;
+      }
       if (passImageFilePromise) return passImageFilePromise;
 
       passImageFilePromise = renderPassImageFile();
       try {
         cachedPassImageFile = await passImageFilePromise;
+        updateTicketPreview(cachedPassImageFile);
         return cachedPassImageFile;
       } finally {
         passImageFilePromise = null;
@@ -1585,17 +1632,27 @@
       const ticket = document.getElementById('wrapped-ticket');
       if (!ticket) throw new Error('Ticket content is not ready');
 
-      if (document.fonts && document.fonts.ready) await document.fonts.ready;
+      if (document.fonts) {
+        await Promise.all([
+          document.fonts.load(TICKET_STYLE.categoryFont),
+          document.fonts.load(TICKET_STYLE.nomineeFont),
+          document.fonts.load(TICKET_STYLE.headerFont),
+          document.fonts.load(TICKET_STYLE.ctaFont),
+          document.fonts.load(TICKET_STYLE.hashtagFont),
+          document.fonts.load(TICKET_STYLE.websiteFont),
+          document.fonts.ready
+        ]);
+      }
 
       const outputCanvas = document.createElement('canvas');
-      outputCanvas.width = 1080;
-      outputCanvas.height = 1920;
+      outputCanvas.width = TICKET_STYLE.width;
+      outputCanvas.height = TICKET_STYLE.height;
       const outputContext = outputCanvas.getContext('2d');
       if (!outputContext) throw new Error('Canvas is not supported');
       outputContext.imageSmoothingEnabled = true;
       outputContext.imageSmoothingQuality = 'high';
       outputContext.fillStyle = '#080808';
-      outputContext.fillRect(0, 0, outputCanvas.width, outputCanvas.height);
+      outputContext.fillRect(0, 0, TICKET_STYLE.width, TICKET_STYLE.height);
 
       const loadCanvasImage = (path) => new Promise((resolve) => {
         const image = new Image();
@@ -1611,7 +1668,7 @@
 
       if (backgroundImage) {
         const imageRatio = backgroundImage.naturalWidth / backgroundImage.naturalHeight;
-        const canvasRatio = outputCanvas.width / outputCanvas.height;
+        const canvasRatio = TICKET_STYLE.width / TICKET_STYLE.height;
         let sourceWidth = backgroundImage.naturalWidth;
         let sourceHeight = backgroundImage.naturalHeight;
         let sourceX = 0;
@@ -1623,15 +1680,14 @@
           sourceHeight = sourceWidth / canvasRatio;
           sourceY = (backgroundImage.naturalHeight - sourceHeight) / 2;
         }
-        outputContext.drawImage(backgroundImage, sourceX, sourceY, sourceWidth, sourceHeight, 0, 0, 1080, 1920);
+        outputContext.drawImage(backgroundImage, sourceX, sourceY, sourceWidth, sourceHeight, 0, 0, TICKET_STYLE.width, TICKET_STYLE.height);
       }
 
-      const overlay = outputContext.createLinearGradient(0, 0, 0, 1920);
-      overlay.addColorStop(0, 'rgba(5,5,5,0.28)');
-      overlay.addColorStop(0.5, 'rgba(5,5,5,0.38)');
-      overlay.addColorStop(1, 'rgba(5,5,5,0.48)');
+      const overlay = outputContext.createLinearGradient(0, 0, 0, TICKET_STYLE.height);
+      overlay.addColorStop(0, 'rgba(5,5,5,0.18)');
+      overlay.addColorStop(1, 'rgba(5,5,5,0.28)');
       outputContext.fillStyle = overlay;
-      outputContext.fillRect(0, 0, 1080, 1920);
+      outputContext.fillRect(0, 0, TICKET_STYLE.width, TICKET_STYLE.height);
 
       if (logoImage) {
         const maxLogoWidth = 560;
@@ -1639,7 +1695,7 @@
         const logoScale = Math.min(maxLogoWidth / logoImage.naturalWidth, maxLogoHeight / logoImage.naturalHeight);
         const logoWidth = logoImage.naturalWidth * logoScale;
         const logoHeight = logoImage.naturalHeight * logoScale;
-        outputContext.drawImage(logoImage, (1080 - logoWidth) / 2, 92, logoWidth, logoHeight);
+        outputContext.drawImage(logoImage, (TICKET_STYLE.width - logoWidth) / 2, 92, logoWidth, logoHeight);
       } else {
         outputContext.fillStyle = '#d29e2f';
         outputContext.textAlign = 'center';
@@ -1647,11 +1703,17 @@
         outputContext.fillText('CINEMAGS AWARDS 2026', 540, 170);
       }
 
+      outputContext.fillStyle = TICKET_STYLE.gold;
+      outputContext.textAlign = 'center';
+      outputContext.font = TICKET_STYLE.headerFont;
+      if ('letterSpacing' in outputContext) outputContext.letterSpacing = '2px';
+      outputContext.fillText('THIS IS MY CINEMAGS PICKS!', 540, 333);
+
       outputContext.strokeStyle = 'rgba(255,255,255,0.18)';
       outputContext.lineWidth = 2;
       outputContext.beginPath();
-      outputContext.moveTo(90, 285);
-      outputContext.lineTo(990, 285);
+      outputContext.moveTo(90, 270);
+      outputContext.lineTo(990, 270);
       outputContext.stroke();
 
       const selectedRows = Array.from(document.querySelectorAll('#ticket-picks-grid > div')).map(row => ({
@@ -1661,21 +1723,23 @@
 
       if (!selectedRows.length) throw new Error('No selected nominees found in the ticket');
 
-      const listTop = 330;
-      const listBottom = 1625;
+      const listTop = 377;
+      const listBottom = 1577;
       const rowHeight = (listBottom - listTop) / selectedRows.length;
       outputContext.textAlign = 'center';
       outputContext.textBaseline = 'alphabetic';
 
       selectedRows.forEach((row, index) => {
         const rowY = listTop + (index * rowHeight);
-        outputContext.fillStyle = '#f4c95d';
-        outputContext.font = '700 23px Federo, Georgia, serif';
-        outputContext.fillText(row.category.toUpperCase(), 540, rowY + 34, 870);
+        outputContext.fillStyle = TICKET_STYLE.gold;
+        outputContext.font = TICKET_STYLE.categoryFont;
+        if ('letterSpacing' in outputContext) outputContext.letterSpacing = '1.5px';
+        outputContext.fillText(row.category, 540, rowY + 34, 870);
 
-        outputContext.fillStyle = '#ffffff';
-        outputContext.font = '600 31px "DM Sans", Arial, sans-serif';
-        outputContext.fillText(row.nominee, 540, rowY + 76, 870);
+        outputContext.fillStyle = TICKET_STYLE.white;
+        outputContext.font = TICKET_STYLE.nomineeFont;
+        if ('letterSpacing' in outputContext) outputContext.letterSpacing = '0px';
+        outputContext.fillText(row.nominee, 540, rowY + 80, 870);
 
         outputContext.strokeStyle = 'rgba(255,255,255,0.12)';
         outputContext.lineWidth = 1;
@@ -1686,12 +1750,20 @@
       });
 
       outputContext.textAlign = 'center';
-      outputContext.fillStyle = '#f4c95d';
-      outputContext.font = '700 25px Federo, Georgia, serif';
-      outputContext.fillText('#RayakanFilmIndonesia   #CinemagsAwards2026', 540, 1765);
-      outputContext.fillStyle = '#ffffff';
-      outputContext.font = '500 22px "DM Sans", Arial, sans-serif';
-      outputContext.fillText('awards-2026.cinemags.org', 540, 1810);
+      outputContext.fillStyle = TICKET_STYLE.white;
+      outputContext.font = TICKET_STYLE.ctaFont;
+      if ('letterSpacing' in outputContext) outputContext.letterSpacing = '1px';
+      outputContext.fillText('Share your picks!', 540, 1650);
+
+      outputContext.fillStyle = TICKET_STYLE.gold;
+      outputContext.font = TICKET_STYLE.hashtagFont;
+      if ('letterSpacing' in outputContext) outputContext.letterSpacing = '1.4px';
+      outputContext.fillText('#RayakanFilmIndonesia   #CinemagsAwards2026', 540, 1725);
+
+      outputContext.fillStyle = TICKET_STYLE.white;
+      outputContext.font = TICKET_STYLE.websiteFont;
+      if ('letterSpacing' in outputContext) outputContext.letterSpacing = '1.2px';
+      outputContext.fillText('awards-2026.cinemags.org', 540, 1850);
 
       const blob = await new Promise((resolve, reject) => {
         outputCanvas.toBlob((value) => value ? resolve(value) : reject(new Error('JPEG export failed')), 'image/jpeg', 0.95);
@@ -1730,12 +1802,12 @@
       try {
         const file = cachedPassImageFile || await createPassImageFile();
         triggerPassImageDownload(file);
-        if (label) label.textContent = 'Tiket berhasil diunduh';
+        if (label) label.textContent = 'Voter Pass berhasil diunduh';
       } catch (error) {
         console.error('Ticket download failed:', error);
         if (label) label.textContent = 'Download gagal — coba lagi';
         setTicketShareStatus('Download gagal. Muat ulang halaman atau buka melalui server web, lalu coba lagi.');
-        alert('Tiket belum berhasil diunduh. Muat ulang halaman lalu coba lagi. Jika file dibuka langsung dari komputer, jalankan melalui server web agar gambar dapat diproses.');
+        alert('Voter Pass belum berhasil diunduh. Muat ulang halaman lalu coba lagi. Jika file dibuka langsung dari komputer, jalankan melalui server web agar gambar dapat diproses.');
       } finally {
         if (button) button.disabled = false;
         setTimeout(() => { if (label) label.textContent = originalLabel; }, 2500);
