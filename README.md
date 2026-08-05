@@ -50,6 +50,7 @@ An internet connection is required for the CDN-hosted styles, animation librarie
 ```text
 .
 |-- index.html
+|-- changelog.md
 |-- assets/
 |   |-- Logo.webp
 |   |-- Trophy.webp
