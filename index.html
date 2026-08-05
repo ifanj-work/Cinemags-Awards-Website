@@ -1802,7 +1802,8 @@
       try {
         const file = cachedPassImageFile || await createPassImageFile();
         triggerPassImageDownload(file);
-        if (icon) icon.classList.add('hidden');
+        if (button) button.className = 'btn h-11 min-h-11 px-3';
+        if (icon) icon.remove();
         if (label) label.textContent = 'Voter Pass telah di-download';
         setTicketShareStatus('Voter Pass berhasil didownload');
       } catch (error) {
