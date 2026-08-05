@@ -908,8 +908,8 @@
             <span class="material-symbols-outlined text-xl" aria-hidden="true">share</span>
           </button>
           <button id="download-ticket-button" type="button" onclick="downloadPassImage()" class="btn h-11 min-h-11 bg-amber-500 hover:bg-amber-400 text-[#08090c] font-bold border-none flex items-center justify-center gap-2 shadow-lg transition-transform active:scale-95 px-3">
-          <span class="material-symbols-outlined text-lg font-bold">download</span>
-          <span>Download</span>
+          <span class="material-symbols-outlined text-lg font-bold" aria-hidden="true">download</span>
+          <span>Download Voter Pass</span>
           </button>
         </div>
         <p id="ticket-share-status" class="hidden text-[10px] leading-snug text-amber-300" role="status" aria-live="polite"></p>
@@ -1793,8 +1793,8 @@
 
     async function downloadPassImage() {
       const button = document.getElementById('download-ticket-button');
+      const icon = button ? button.querySelector('.material-symbols-outlined') : null;
       const label = button ? button.querySelector('span:last-child') : null;
-      const originalLabel = label ? label.textContent : 'Download';
       if (button) button.disabled = true;
       if (label) label.textContent = 'Menyiapkan...';
       setTicketShareStatus('');
@@ -1802,15 +1802,22 @@
       try {
         const file = cachedPassImageFile || await createPassImageFile();
         triggerPassImageDownload(file);
-        if (label) label.textContent = 'Voter Pass berhasil diunduh';
+        if (icon) icon.classList.add('hidden');
+        if (label) label.textContent = 'Voter Pass telah di-download';
+        setTicketShareStatus('Voter Pass berhasil didownload');
       } catch (error) {
         console.error('Ticket download failed:', error);
+        if (icon) icon.classList.remove('hidden');
         if (label) label.textContent = 'Download gagal — coba lagi';
         setTicketShareStatus('Download gagal. Muat ulang halaman atau buka melalui server web, lalu coba lagi.');
         alert('Voter Pass belum berhasil diunduh. Muat ulang halaman lalu coba lagi. Jika file dibuka langsung dari komputer, jalankan melalui server web agar gambar dapat diproses.');
+        setTimeout(() => {
+          if (label && label.textContent === 'Download gagal — coba lagi') {
+            label.textContent = 'Download Voter Pass';
+          }
+        }, 2500);
       } finally {
         if (button) button.disabled = false;
-        setTimeout(() => { if (label) label.textContent = originalLabel; }, 2500);
       }
     }
 
