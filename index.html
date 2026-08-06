@@ -1293,15 +1293,17 @@
       const isFilmCategory = nom.catId === 'cat-1' || nom.catId === 'cat-9';
       const isStreamingCategory = nom.catId === 'cat-10';
       const detailFilmEl = document.getElementById('detail-film');
+      const detailStudioEl = document.getElementById('detail-studio');
       if (isFilmCategory) {
         detailFilmEl.innerText = '';
         detailFilmEl.classList.add('hidden');
       } else {
-        detailFilmEl.innerText = nom.film;
+        detailFilmEl.innerText = isStreamingCategory ? nom.platform : nom.film;
         detailFilmEl.classList.remove('hidden');
       }
 
-      document.getElementById('detail-studio').innerText = isStreamingCategory ? nom.platform : nom.studio;
+      detailStudioEl.innerText = nom.studio;
+      detailStudioEl.classList.toggle('hidden', isStreamingCategory);
       document.getElementById('detail-synopsis').innerText = nom.synopsis;
       document.getElementById('detail-genre').innerText = nom.genre;
 
