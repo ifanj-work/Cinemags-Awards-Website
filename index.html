@@ -1169,6 +1169,14 @@
       }, 2800);
     }
 
+    function getNomineeRole(nom) {
+      const roleMatch = nom.synopsis?.match(/(?:memerankan karakter(?: bernama)?|tampil sebagai)\s+([^,.(]+)/i);
+      if (roleMatch?.[1]) return roleMatch[1].trim();
+      if (nom.catId === 'cat-2') return 'Sutradara';
+      if (nom.catId === 'cat-1' || nom.catId === 'cat-9' || nom.catId === 'cat-10') return 'Film';
+      return 'Pemeran';
+    }
+
     // RENDER NOMINEES GRID (FIXED TITLE DUPLICATION & IMAGE PATH FALLBACKS)
     function renderNomineesGrid() {
       const cat = categoriesData.find(c => c.id === currentCategory);
@@ -1186,6 +1194,7 @@
       grid.innerHTML = categoryNominees.map(nom => {
         const isSelected = userVotes[currentCategory] === nom.id;
         const cardStyle = isSelected ? 'glass-card-selected' : 'glass-card';
+        const nomineeRole = getNomineeRole(nom);
         const isFilmCategory = nom.catId === 'cat-1' || nom.catId === 'cat-9' || nom.catId === 'cat-10';
         const showSubfilm = !isFilmCategory && nom.film && (nom.film.trim().toLowerCase() !== nom.name.trim().toLowerCase());
         const posterSrc = getAssetPath(nom.poster);
@@ -1199,8 +1208,9 @@
               </div>
               <div class="p-3.5 space-y-1 text-left">
                 <h4 class="font-bold text-sm text-white line-clamp-1 group-hover:text-amber-400 transition-colors">${nom.name}</h4>
+                <p class="text-[11px] text-gray-400 line-clamp-1">${nomineeRole}</p>
                 ${showSubfilm ? `<p class="text-xs text-amber-400 font-medium line-clamp-1">${nom.film}</p>` : ''}
-                <p class="text-[11px] text-gray-400 line-clamp-1">${nom.studio}</p>
+
               </div>
             </div>
 
