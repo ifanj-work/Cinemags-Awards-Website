@@ -1002,7 +1002,7 @@
       { id: "nom-408", catId: "cat-4", name: "Niken Anjani", film: "Dilan ITB 1997", poster: "assets/actor_niken_anjani.webp", studio: "Falcon Pictures", synopsis: "Memerankan karakter Ancika, wanita yang menjadi bagian penting dalam perjalanan kehidupan dan hubungan asmara Dilan di era kuliah.", genre: "Romance", director: "Fajar" },
 
       // Kategori 5: Pemeran Pendukung Pria Terfavorit (8 Nominees)
-      { id: "nom-501", catId: "cat-5", name: "Mario Caesar", film: "Tinggal Meninggal", poster: "assets/actor_mario_caesar.webp", studio: "Imajinari", synopsis: "Memerankan karakter Danu yang sama-sama memiliki sifat suka mencari perhatian seperti Gema. Ia menaruh rasa curiga bahwa Gema hanya memanfaatkan perhatian dari rekan-rekan kantornya.", genre: "Comedy", director: "Kristo" },
+      { id: "nom-501", catId: "cat-5", name: "Mario Caesar", role: "Danu", film: "Tinggal Meninggal", poster: "assets/actor_mario_caesar.webp", studio: "Imajinari", synopsis: "Memerankan karakter Danu yang sama-sama memiliki sifat suka mencari perhatian seperti Gema. Ia menaruh rasa curiga bahwa Gema hanya memanfaatkan perhatian dari rekan-rekan kantornya.", genre: "Comedy", director: "Kristo" },
       { id: "nom-502", catId: "cat-5", name: "Oki Rengga", film: "Children of Heaven", poster: "assets/actor_oki_rengga.webp", studio: "MD Pictures", synopsis: "Memerankan karakter Bowo, guru yang memberikan sentuhan komedi segar di tengah kisah drama keluarga Ali yang penuh haru dan air mata.", genre: "Drama", director: "Hanung" },
       { id: "nom-503", catId: "cat-5", name: "Benidictus Siregar", film: "La Tahzan: Cinta, Dosa, Luka...", poster: "assets/actor_benidictus_siregar.webp", studio: "MD Pictures", synopsis: "Memerankan karakter Kang Karyo, seorang asisten rumah tangga kepercayaan yang berakhir menjadi korban fitnah dari temannya sendiri di tengah drama keluarga majikan.", genre: "Drama", director: "Hadrah" },
       { id: "nom-504", catId: "cat-5", name: "Aming", film: "Ghost in the Cell", poster: "assets/actor_aming.webp", studio: "Come and See Pictures", synopsis: "Memerankan karakter Tokek, salah satu narapidana senior yang terkenal sadis dan memiliki masa lalu yang kelam. Tokek kerap kali menjadi ikon penjara ikon penjara Labuhan Angsana yang menyeramkan dan tiada ampun.", genre: "Horor", director: "Joko Anwar" },
@@ -1170,6 +1170,7 @@
     }
 
     function getNomineeRole(nom) {
+      if (nom.role) return nom.role;
       const roleMatch = nom.synopsis?.match(/(?:memerankan karakter(?: bernama)?|tampil sebagai)\s+([^,.(]+)/i);
       if (roleMatch?.[1]) return roleMatch[1].trim();
       if (nom.catId === 'cat-2') return 'Sutradara';
@@ -1289,7 +1290,8 @@
       document.getElementById('detail-category-badge').innerText = cat.title;
       document.getElementById('detail-name').innerText = nom.name;
       
-      const isFilmCategory = nom.catId === 'cat-1' || nom.catId === 'cat-9' || nom.catId === 'cat-10';
+      const isFilmCategory = nom.catId === 'cat-1' || nom.catId === 'cat-9';
+      const isStreamingCategory = nom.catId === 'cat-10';
       const detailFilmEl = document.getElementById('detail-film');
       if (isFilmCategory) {
         detailFilmEl.innerText = '';
@@ -1299,7 +1301,7 @@
         detailFilmEl.classList.remove('hidden');
       }
 
-      document.getElementById('detail-studio').innerText = nom.studio;
+      document.getElementById('detail-studio').innerText = isStreamingCategory ? nom.platform : nom.studio;
       document.getElementById('detail-synopsis').innerText = nom.synopsis;
       document.getElementById('detail-genre').innerText = nom.genre;
 
