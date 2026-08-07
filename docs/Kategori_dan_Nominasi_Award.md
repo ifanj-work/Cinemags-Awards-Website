@@ -38,91 +38,91 @@
 
 ## 3. Pemeran Utama Pria Terfavorit
 
-| Nama Pemeran Pria | Nama Film | Production House |
-| :--- | :--- | :--- |
-| Nicholas Saputra | Tukar Takdir | Starvision |
-| Ariel NOAH | Dilan ITB 1997 | Falcon Pictures |
-| Fedi Nuril | Pangku | Gambar Gerak |
-| Omara Esteghlal | Tinggal Meninggal | Imajinari |
-| Ardit Erwandha | Tunggu Aku Sukses Nanti | Rapi Films |
-| Dion Wiyoko | Sore: Istri dari Masa Depan | Cerita Films |
-| Rigen Rakelna | Kang Solah from Kang Mak x Nenek Gayung | Falcon Pictures |
-| Rio Dewanto | Legenda Kelam Malin Kundang | Come and See Pictures |
+| Nama Pemeran Pria | Nama Peran | Nama Film | Production House |
+| :--- | :--- | :--- | :--- |
+| Nicholas Saputra | Rawa | Tukar Takdir | Starvision |
+| Ariel NOAH | Dilan | Dilan ITB 1997 | Falcon Pictures |
+| Fedi Nuril | Hadi | Pangku | Gambar Gerak |
+| Omara Esteghlal | Gema | Tinggal Meninggal | Imajinari |
+| Ardit Erwandha | Arga | Tunggu Aku Sukses Nanti | Rapi Films |
+| Dion Wiyoko | Jonathan | Sore: Istri dari Masa Depan | Cerita Films |
+| Rigen Rakelna | Kang Solah | Kang Solah from Kang Mak x Nenek Gayung | Falcon Pictures |
+| Rio Dewanto | Malin | Legenda Kelam Malin Kundang | Come and See Pictures |
 
 ---
 
 ## 4. Pemeran Utama Wanita Terfavorit
 
-| Nama Pemeran Wanita | Nama Film | Production House |
-| :--- | :--- | :--- |
-| Sheila Dara Aisha | Sore: Istri dari Masa Depan | Cerita Films |
-| Prilly Latuconsina | Danur: The Last Chapter | MD Pictures |
-| Claresta Taufan | Pangku | Gambar Gerak |
-| Rachel Amanda | Suka Duka Tawa | BION Studios |
-| Luna Maya | Suzzanna: Santet Dosa di Atas Dosa | Soraya Intercine Films |
-| Shenina Cinnamon | Dopamin | Karuna Pictures |
-| Marsha Timothy | Tukar Takdir | Starvision |
-| Niken Anjani | Dilan ITB 1997 | Falcon Pictures |
+| Nama Pemeran Wanita | Nama Peran | Nama Film | Production House |
+| :--- | :--- | :--- | :--- |
+| Sheila Dara Aisha | Sore | Sore: Istri dari Masa Depan | Cerita Films |
+| Prilly Latuconsina | Risa Saraswati | Danur: The Last Chapter | MD Pictures |
+| Claresta Taufan | Sartika | Pangku | Gambar Gerak |
+| Rachel Amanda | Tawa | Suka Duka Tawa | BION Studios |
+| Luna Maya | Suzzanna | Suzzanna: Santet Dosa di Atas Dosa | Soraya Intercine Films |
+| Shenina Cinnamon | Alya | Dopamin | Karuna Pictures |
+| Marsha Timothy | Dita (Anindita Suwarso) | Tukar Takdir | Starvision |
+| Niken Anjani | Ancika | Dilan ITB 1997 | Falcon Pictures |
 
 ---
 
 ## 5. Pemeran Pendukung Pria Terfavorit
 
-| Nama Pemeran Pria | Nama Film | Production House |
-| :--- | :--- | :--- |
-| Mario Caesar | Tinggal Meninggal | Imajinari |
-| Oki Rengga | Children of Heaven | MD Pictures |
-| Benidictus Siregar | La Tahzan: Cinta, Dosa, Luka... | MD Pictures |
-| Aming | Ghost in the Cell | Come and See Pictures |
-| Reza Chandika | Tunggu Aku Sukses Nanti | Rapi Films |
-| Didik Nini Thowok | Monster Pabrik Rambut | Palari Films |
-| Jeremie Moeremans | Keluarga Suami Adalah Hama | Umbara Brothers, VMS Studios |
-| Junior Liem | Na Willa | Visinema Studios |
+| Nama Pemeran Pria | Nama Peran | Nama Film | Production House |
+| :--- | :--- | :--- | :--- |
+| Mario Caesar | Danu | Tinggal Meninggal | Imajinari |
+| Oki Rengga | Bowo | Children of Heaven | MD Pictures |
+| Benidictus Siregar | Kang Karyo | La Tahzan: Cinta, Dosa, Luka... | MD Pictures |
+| Aming | Tokek | Ghost in the Cell | Come and See Pictures |
+| Reza Chandika | Wicak | Tunggu Aku Sukses Nanti | Rapi Films |
+| Didik Nini Thowok | Maryati | Monster Pabrik Rambut | Palari Films |
+| Jeremie Moeremans | Danan | Keluarga Suami Adalah Hama | Umbara Brothers, VMS Studios |
+| Junior Liem | Pak (Ayah Na Willa) | Na Willa | Visinema Studios |
 
 ---
 
 ## 6. Pemeran Pendukung Wanita Terfavorit
 
-| Nama Pemeran Wanita | Nama Film | Production House |
-| :--- | :--- | :--- |
-| Adzana Ashel | Tunggu Aku Sukses Nanti | Rapi Films |
-| Zee Asadel | Danur: The Last Chapter | MD Pictures |
-| Mawar Eva de Jongh | Tinggal Meninggal | Imajinari |
-| Irma Novita Rihi | Na Willa | Visinema Studios |
-| Raline Shah | Dilan ITB 1997 | Falcon Pictures |
-| Shindy Huang | Tinggal Meninggal | Imajinari |
-| Christine Hakim | Pangku | Gambar Gerak |
-| Adhisty Zara | Tukar Takdir | Starvision |
+| Nama Pemeran Wanita | Nama Peran | Nama Film | Production House |
+| :--- | :--- | :--- | :--- |
+| Adzana Ashel | Alma | Tunggu Aku Sukses Nanti | Rapi Films |
+| Zee Asadel | Riri | Danur: The Last Chapter | MD Pictures |
+| Mawar Eva de Jongh | Kerin | Tinggal Meninggal | Imajinari |
+| Irma Novita Rihi | Mak (Ibu Na Willa) | Na Willa | Visinema Studios |
+| Raline Shah | Milea | Dilan ITB 1997 | Falcon Pictures |
+| Shindy Huang | Adriana | Tinggal Meninggal | Imajinari |
+| Christine Hakim | Bu Maya | Pangku | Gambar Gerak |
+| Adhisty Zara | Zahra | Tukar Takdir | Starvision |
 
 ---
 
 ## 7. Pendatang Baru Pria Terfavorit
 
-| Nama Pemeran Pria | Nama Film | Production House |
-| :--- | :--- | :--- |
-| El Putra Sarira | Rangga dan Cinta | Miles Films |
-| Mister Aloy | Comic 8 Revolution: Santet K4bin3t | Falcon Pictures |
-| Justinus Lhaksana (Coach Justin) | Jangan Seperti Bapak | JHN Production |
-| Magistus Miftah | Ghost in the Cell | Come and See Pictures |
-| Rahmatullah Nan Alim | Semua Akan Baik-Baik Saja | Tiger Wong Pictures |
-| Ade Rai | Semua Akan Baik-Baik Saja | Tiger Wong Pictures |
-| Kev Luqman | Monster Pabrik Rambut | Palari Films |
-| Kenzy Taulany | Kang Solah from Kang Mak x Nenek Gayung | Falcon Pictures |
+| Nama Pemeran Pria | Nama Peran | Nama Film | Production House |
+| :--- | :--- | :--- | :--- |
+| El Putra Sarira | Rangga | Rangga dan Cinta | Miles Films |
+| Mister Aloy | Ki Atmo | Comic 8 Revolution: Santet K4bin3t | Falcon Pictures |
+| Justinus Lhaksana (Coach Justin) | Uncle | Jangan Seperti Bapak | JHN Production |
+| Magistus Miftah | Novilham | Ghost in the Cell | Come and See Pictures |
+| Rahmatullah Nan Alim | Alim | Semua Akan Baik-Baik Saja | Tiger Wong Pictures |
+| Ade Rai | Kaka Rai | Semua Akan Baik-Baik Saja | Tiger Wong Pictures |
+| Kev Luqman | Tohar | Monster Pabrik Rambut | Palari Films |
+| Kenzy Taulany | Iqbal | Kang Solah from Kang Mak x Nenek Gayung | Falcon Pictures |
 
 ---
 
 ## 8. Pendatang Baru Wanita Terfavorit
 
-| Nama Pemeran Wanita | Nama Film | Production House |
-| :--- | :--- | :--- |
-| Melati Putri Rahel Sesilia | Nobody Loves Kay | Qun Films |
-| Elsa Japasal | Sekawan Limo 2: Gunung Klawih | Starvision |
-| Anggun C. Sasmi | Para Perasuk | Rekata Studio |
-| Leya Princy | Rangga dan Cinta | Miles Films |
-| Alika Jantinia | Pencarian Terakhir | Starvision |
-| Dilan Janiyar | Sosok Ketiga: Lintrik | Leo Pictures |
-| Livi Ciananta | Ikatan Darah | Uwais Pictures |
-| Keinaya Messi Gusti | Pelangi di Mars | Mahakarya Pictures |
+| Nama Pemeran Wanita | Nama Peran | Nama Film | Production House |
+| :--- | :--- | :--- | :--- |
+| Melati Putri Rahel Sesilia | Sinta | Nobody Loves Kay | Qun Films |
+| Elsa Japasal | Kina | Sekawan Limo 2: Gunung Klawih | Starvision |
+| Anggun C. Sasmi | Guru Asri | Para Perasuk | Rekata Studio |
+| Leya Princy | Cinta | Rangga dan Cinta | Miles Films |
+| Alika Jantinia | Nurul | Pencarian Terakhir | Starvision |
+| Dilan Janiyar | Ningsih | Sosok Ketiga: Lintrik | Leo Pictures |
+| Livi Ciananta | Mega | Ikatan Darah | Uwais Pictures |
+| Keinaya Messi Gusti | Pelangi | Pelangi di Mars | Mahakarya Pictures |
 
 ---
 
@@ -143,22 +143,22 @@
 
 ## 10. Serial Streaming Indonesia Terfavorit
 
-| Nama Serial | Production House |
+| Nama Serial | Platform Streaming |
 | :--- | :--- |
-| Algojo | Screenplay Films |
-| Pertaruhan The Series 3 | Screenplay Films |
-| Secret High School | Skytree Pictures |
-| Rintik Terakhir | Unlimited Production |
-| Ratu Ratu Queens: The Series | Palari Films |
-| Luka, Makan, Cinta | Karuna Pictures |
-| Operation Wedding | Starvision Plus |
-| Bercinta dengan Maut | Hitmaker Studios |
+| Algojo | Vidio |
+| Pertaruhan The Series 3 | Vidio |
+| Secret High School | Viu |
+| Rintik Terakhir | Viu |
+| Ratu Ratu Queens: The Series | Netflix |
+| Luka, Makan, Cinta | Netflix |
+| Operation Wedding | Netflix |
+| Bercinta dengan Maut | iQIYI |
 
 ---
 
 ## Catatan Validasi
 
-- Kolom **Production House** menampilkan rumah produksi utama; mitra ko-produksi hanya dicantumkan bila ditetapkan sebagai bagian dari kredit utama. Distributor, investor, dan platform streaming tidak ditampilkan.
+- Kolom **Production House** menampilkan rumah produksi utama; mitra ko-produksi hanya dicantumkan bila ditetapkan sebagai bagian dari kredit utama. Untuk kategori serial streaming, kolom yang ditampilkan adalah **Platform Streaming**.
 - Nama panjang digunakan saat kredit resmi tersedia. Nama panggung atau nama populer tetap dicantumkan dalam tanda kurung bila membantu identifikasi nominee.
 - Ejaan dan kapitalisasi judul mengikuti judul resmi pada sumber produksi, platform penayangan, atau Lembaga Sensor Film Republik Indonesia.
 - Daftar ini memvalidasi identitas nominee, keterkaitan dengan film/serial, dan perusahaan produksi; daftar ini tidak menentukan atau mengubah keputusan nominasi penyelenggara.
