@@ -512,7 +512,7 @@
             <span class="material-symbols-outlined">share</span>
           </div>
           <h3 class="text-lg font-bold text-white">Bagikan Vote Pilihanmu</h3>
-          <p class="text-xs text-gray-400 leading-relaxed">Dapatkan Voter Pass digital dan bagikan nominasi pilihamu ke Social Media!</p>
+          <p class="text-xs text-gray-400 leading-relaxed">Dapatkan Voter Pass digital dan bagikan nominasi pilihanmu ke Social Media!</p>
         </div>
       </div>
     </div>
@@ -566,7 +566,7 @@
     <div class="max-w-7xl mx-auto space-y-8">
       <div class="text-center space-y-2">
         <h2 class="text-3xl sm:text-4xl font-extrabold text-white font-federo text-gold-gradient">Kategori & Nominasi</h2>
-        <p class="text-xs sm:text-sm text-gray-400">Pilih 1 nominee dari setiap kategori. Total 10 kategori penghargaan.</p>
+        <p class="text-xs sm:text-sm text-gray-400">Pilih 1 nominasi dari setiap kategori. Total 10 kategori penghargaan.</p>
       </div>
 
       <!-- Category Pill Scrollable Tabs -->
@@ -885,7 +885,7 @@
             <span class="mt-0.5 block text-white font-extrabold text-xl sm:text-2xl tracking-wide">Bagikan Vote Pilihanmu</span>
           </h3>
           <p class="text-xs sm:text-sm text-gray-300">
-            <span class="block font-medium">Dapatkan Voter Pass digital dan bagikan nominasi pilihamu ke Social Media!</span>
+            <span class="block font-medium">Dapatkan Voter Pass digital dan bagikan nominasi pilihanmu ke Social Media!</span>
           </p>
         </div>
 
@@ -905,9 +905,10 @@
             </div>
 
             <div class="shrink-0 flex flex-col items-center leading-tight w-full">
-              <div class="mb-2 text-[9px] sm:text-[10px] text-white font-medium italic tracking-wide">Share your picks!</div>
-              <div class="mb-1.5 text-[9px] text-amber-400 font-bold tracking-wide">#RayakanFilmIndonesia &nbsp;#CinemagsAwards2026</div>
-              <div class="mt-auto text-[8px] text-white font-medium tracking-[0.08em]">awards-2026.cinemags.org</div>
+              <div class="mb-0.5 text-[9px] sm:text-[10px] text-white font-medium tracking-wide">Share Your Voter Pass &amp;</div>
+              <div class="mb-2 text-[11px] sm:text-[12px] text-amber-400 font-bold tracking-wide">WIN SPECIAL PRIZES!</div>
+              <div class="mb-1.5 text-[9px] text-amber-400 font-normal tracking-wide">#RayakanFilmIndonesia &nbsp;#CinemagsAwards2026</div>
+              <div class="mt-auto text-[8px] text-white font-normal tracking-[0.08em]">awards-2026.cinemags.org</div>
             </div>
           </div>
           <img id="ticket-preview-image" class="ticket-preview-image absolute inset-0 z-10 hidden" alt="Voter Pass Cinemags Awards 2026 berisi daftar nominasi pilihanmu">
@@ -1081,9 +1082,10 @@
       categoryFont: '700 35px Federo, Georgia, serif',
       nomineeFont: '500 39px "DM Sans", Arial, sans-serif',
       headerFont: '700 32px Federo, Georgia, serif',
-      ctaFont: 'italic 400 32px "DM Sans", Arial, sans-serif',
-      hashtagFont: '700 30px "DM Sans", Arial, sans-serif',
-      websiteFont: '500 27px "DM Sans", Arial, sans-serif'
+      ctaFont: '500 32px "DM Sans", Arial, sans-serif',
+      ctaPrizeFont: '700 34px "DM Sans", Arial, sans-serif',
+      hashtagFont: '400 30px "DM Sans", Arial, sans-serif',
+      websiteFont: '400 27px "DM Sans", Arial, sans-serif'
     });
 
     // ASSET PATH RESOLUTION FUNCTION
@@ -1676,6 +1678,7 @@
           document.fonts.load(TICKET_STYLE.nomineeFont),
           document.fonts.load(TICKET_STYLE.headerFont),
           document.fonts.load(TICKET_STYLE.ctaFont),
+          document.fonts.load(TICKET_STYLE.ctaPrizeFont),
           document.fonts.load(TICKET_STYLE.hashtagFont),
           document.fonts.load(TICKET_STYLE.websiteFont),
           document.fonts.ready
@@ -1791,12 +1794,16 @@
       outputContext.fillStyle = TICKET_STYLE.white;
       outputContext.font = TICKET_STYLE.ctaFont;
       if ('letterSpacing' in outputContext) outputContext.letterSpacing = '1px';
-      outputContext.fillText('Share your picks!', 540, 1650);
+      outputContext.fillText('Share Your Voter Pass &', 540, 1640);
+
+      outputContext.fillStyle = TICKET_STYLE.gold;
+      outputContext.font = TICKET_STYLE.ctaPrizeFont;
+      outputContext.fillText('WIN SPECIAL PRIZES!', 540, 1682);
 
       outputContext.fillStyle = TICKET_STYLE.gold;
       outputContext.font = TICKET_STYLE.hashtagFont;
       if ('letterSpacing' in outputContext) outputContext.letterSpacing = '1.4px';
-      outputContext.fillText('#RayakanFilmIndonesia   #CinemagsAwards2026', 540, 1725);
+      outputContext.fillText('#RayakanFilmIndonesia   #CinemagsAwards2026', 540, 1740);
 
       outputContext.fillStyle = TICKET_STYLE.white;
       outputContext.font = TICKET_STYLE.websiteFont;
